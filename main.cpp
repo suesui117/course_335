@@ -59,5 +59,12 @@ int main()
     std::cout << parameterC.getAge() << "\n";
 
     return 0;
+
+    // (3,4), (2,1)
+    // (1,2)
+
+    // (4,6), (2,1) result
+
+    // friend function: have access to private members of the current class
 }
 

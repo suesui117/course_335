@@ -1,0 +1,58 @@
+########################################
+##
+## Makefile
+## LINUX compilation
+##
+##############################################
+
+# Flags
+# -g is debugger
+# -std=c++14, this is the compiler, force the use of this compiler
+# -Wall, means all warnings
+# -I. period "." means cwd, add every file in the current working directory to "include directories"
+# -c means -compiler, use g++ but only up to the compiler part, to create executables.
+# is a flag take a list of cpp files, convert to executables
+
+# first line compilation
+
+# this line is second line, linking: g++ -g -std=c++14 -Wall -o ./blah blah.o -I. -L/usr/lib -L/usr/local/lib -lm, means take the blah.o and link it to the standard libraries
+# -lm means link the math library
+
+# C++FLAG is a variable = a list of flags
+C++FLAG = -g -std=c++14 -Wall
+
+# Math library
+MATH_LIBS = -lm
+EXEC_DIR=. #execution directory
+
+# Rule for .cpp files
+# .SUFFIXES : .cc.o
+
+# instructions for compilations,
+# .cc.o is a tag, means if it ends with .cc, execute it below
+# $< and $@ are placeholders for .cc and .o
+.cc.o:
+	g++ $(C++FLAG) $(INCLUDES)  -c $< -o $@ 
+
+# Includes.
+INCLUDES=  -I. # -I. period "." means cwd, add every file in the current working directory to "include directories"
+LIBS_ALL = -L/usr/lib -L/usr/local/lib $(MATH_LIBS)
+
+
+# rules for linking:
+# ZEROTH PROGRAM
+ALL_OBJ0=test_points2d.o
+PROGRAM_0=test_points2d
+$(PROGRAM_0): $(ALL_OBJ0)
+	g++ $(C++FLAG) -o $(EXEC_DIR)/$@ $(ALL_OBJ0) $(INCLUDES) $(LIBS_ALL)
+
+# Compiling all
+
+all:
+		make $(PROGRAM_0)
+
+# Clean obj files
+clean:
+	(rm -f *.o; rm -f test_points2d)
+
+(:

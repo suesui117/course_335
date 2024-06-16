@@ -15,7 +15,6 @@ class Points2D is a template class that implements the use of Weiss's Big-Five:
 We're also overloading "<<", ">>", "[]", "+" operators.
 We'll unittest this class with input file
 */
-
 #ifndef CSCI335_HOMEWORK1_POINTS2D_H_
 #define CSCI335_HOMEWORK1_POINTS2D_H_
 
@@ -24,7 +23,7 @@ We'll unittest this class with input file
 #include <cstddef>
 #include <string>
 #include <sstream>
-
+// ADDING A NEW COMMENT
 namespace teaching_project
 {
 
@@ -44,12 +43,10 @@ namespace teaching_project
         {
             size_ = 0;
             sequence_ = nullptr;
-        }
+        };
 
         // Copy-constructor.
-        Points2D(const Points2D &rhs)
-        {
-        }
+        Points2D(const Points2D &rhs) = default;
 
         // Copy-assignment. If you have already written
         // the copy-constructor and the move-constructor
@@ -68,21 +65,20 @@ namespace teaching_project
         // Just use std::swap() for all variables.
         Points2D &operator=(Points2D &&rhs) = default;
 
-        ~Points2D()
-        {
-            size_ = 0;
-            sequence_ = nullptr;
-        }
+        ~Points2D() = default;
 
         // End of big-five.
 
         // One parameter constructor.
         Points2D(const std::array<Object, 2> &item)
         {
-            sequence_ = &item;
+            // updating size to 1, since adding just one element
+            size_ = 1;
+            // Dynamically Allocate memory sequence_ for one element (each element itself is an array size 2)
+            sequence_ = new std::array<Object, 2>[size_];
+            sequence_[0] = item; // item itself is a tuple item = (1,2)
         }
 
-        // getter
         size_t size() const
         {
             return size_;
@@ -109,7 +105,10 @@ namespace teaching_project
         // Overloading the << operator.
         friend std::ostream &operator<<(std::ostream &out, const Points2D &some_points)
         {
-            out << "(" << (*some_points.sequence_)[0] << ", " << (*some_points.sequence_)[1] << ")";
+            for (int i = 0; i < some_points.size(); i++)
+            {
+                out << "(" << some_points.sequence_[i][0] << ", " << some_points.sequence_[i][1] << ") ";
+            }
             return out;
         }
 
@@ -117,13 +116,27 @@ namespace teaching_project
         // Read a chain from an input stream (e.g., standard input).
         friend std::istream &operator>>(std::istream &in, Points2D &some_points)
         {
-            // Code missing.
+            // first number from input is always the size of the sequence array
+            // read that in first
+            int input_size;
+            in >> input_size;
+
+            some_points.size_ = input_size;
+            some_points.sequence_ = new std::array<Object, 2>[some_points.size_];
+
+            // Read each point and add to sequence_
+            for (size_t i = 0; i < some_points.size(); ++i)
+            {
+                in >> some_points.sequence_[i][0] >> some_points.sequence_[i][1];
+            }
+
+            return in;
         }
 
     private:
-        // *sequence_ is a pointer that points to an array of size 2
-        const std::array<Object, 2> *sequence_;
-
+        // Sequence of points.
+        std::array<Object, 2> *sequence_; // sequence_ is an array pointer that holds array elements of 2, each element is one array 
+        // sequence_ = [[], [], []]
         // Size of sequence.
         size_t size_;
     };

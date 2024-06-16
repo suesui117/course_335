@@ -1,11 +1,18 @@
-// Author: Xin (Sue) Sui
-/* class Points2D is a template class that implements the use of Weiss's Big-Five:
+/* CSCI335 Summer 2024
+Project_1
+Author: Xin (Sue) Sui
+
+points2d.h contains both declaration and implementation
+
+class Points2D is a template class that implements the use of Weiss's Big-Five:
 - Constructor
 - Destructor
 - Copy constructor
 - Copy assignment
 - Move constructor
 - Move assignment
+
+We're also overloading "<<", ">>", "[]", "+" operators.
 We'll unittest this class with input file
 */
 
@@ -17,7 +24,7 @@ We'll unittest this class with input file
 #include <cstddef>
 #include <string>
 #include <sstream>
-// ADDING A NEW COMMENT
+
 namespace teaching_project
 {
 

@@ -32,9 +32,13 @@ void test_vector()
         
     cout<<"printed with iterators"<<endl;
 
-    // int max_val = std::numeric_limits<int>::min();
+    int max_val = std::numeric_limits<int>::min(); // popular library, gives us the smallest int data type value possible
 
-    // cout<<"minimum int value: "<< max_val <<endl;
+    int min_val = std::numeric_limits<int>::max(); // popular library, gives us the largest int data type value possible
+
+    cout<<"minimum int value: "<< max_val <<endl;
+
+    cout<<"maximum int value: "<< min_val <<endl;
 
     // for(int x : vec) max_val = (x>max_val)?x:max_val; //ternary operator ?
 

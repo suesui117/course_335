@@ -1,16 +1,17 @@
-/*For more details on what was covered on 06.14.2023, you can visit: 
+/*For more details on what was covered on 06.17.2024, you can visit: 
 https://cplusplus.com/reference/stl/ and review information on vectors, list,
 and unordered_maps. In particular, review iterators for each template class,
 insert and erase for each template class, and the find function for unordered 
 maps. We also discussed using the limits library for finding largest and 
 smallest value, and using the "?" ternary operator.*/
 
-#include <iostream>
-#include<vector>
-#include<list>
-#include<unordered_map>
-#include<limits>
-#include<algorithm>
+#include <iostream> 
+#include <vector> // learning today, dynamically sized
+#include <list> // learning today (infamous linkedlist, cpp stl provides us one)
+#include <unordered_map> // learning today
+#include <limits>
+#include <algorithm>
+#include <time.h>
 
 using namespace std;
 
@@ -19,40 +20,49 @@ using namespace std;
 void test_vector()
 {
     //iterators are pointers used in stl for traversing through data structures
-    vector<int> vec({2,4,6,8,10,47,1,5});
-    vector<int>::iterator itr;
+    vector<int> vec( {2,4,6,8,10,47,1,5} );
+
+    vector<int>::iterator itr; // declartion of iterator inside vector template class, we have a iterator class
+
+    // auto itr = vec.begin(); // auto is popular for iterators, auto determines the type of itr based on the rhs
+
     for (itr = vec.begin(); itr != vec.end(); itr++)
-        cout<<*itr<<" ";
+    
+        std::cout << *itr << " "; // dereference the itr to get the value
+        
     cout<<"printed with iterators"<<endl;
 
-    int max_val = std::numeric_limits<int>::min();
-    cout<<"minimum int value: "<<max_val<<endl;
-    for(int x : vec) max_val = (x>max_val)?x:max_val; //ternary operator ?
-    cout<<"max value in vec "<<max_val<<endl;
+    // int max_val = std::numeric_limits<int>::min();
 
-    //use cases for iterators insert 
-    vec.insert(vec.begin()+3,399);
-    for (auto x: vec) cout<<x<<" ";
-    cout<<"Inserted element 399"<<endl;
+    // cout<<"minimum int value: "<< max_val <<endl;
 
-    vector<int> sub_vec = {3,2,1};
-    vec.insert(vec.begin()+4,sub_vec.begin(),sub_vec.end());
-    for (auto x: vec) cout<<x<<" ";
-    cout<<"Inserted sub vector {3,2,1}"<<endl;
+    // for(int x : vec) max_val = (x>max_val)?x:max_val; //ternary operator ?
+
+    // cout<<"max value in vec "<< max_val <<endl;
+
+    // //use cases for iterators insert 
+    // vec.insert(vec.begin()+3,399);
+    // for (auto x: vec) cout<<x<<" ";
+    // cout<<"Inserted element 399"<<endl;
+
+    // vector<int> sub_vec = {3,2,1};
+    // vec.insert(vec.begin()+4,sub_vec.begin(),sub_vec.end());
+    // for (auto x: vec) cout<<x<<" ";
+    // cout<<"Inserted sub vector {3,2,1}"<<endl;
     
-    //sort vector
-    sort(vec.begin(), vec.end());
-    for (auto x: vec) cout<<x<<" ";
-    cout<<"Sorted Vec"<<endl;
+    // //sort vector
+    // sort(vec.begin(), vec.end());
+    // for (auto x: vec) cout<<x<<" ";
+    // cout<<"Sorted Vec"<<endl;
 
-    //use cases for iterators erase 
-    vec.erase(vec.begin()+5);
-    for (auto x: vec) cout<<x<<" ";
-    cout<<"erase 5th element"<<endl;
+    // //use cases for iterators erase 
+    // vec.erase(vec.begin()+5);
+    // for (auto x: vec) cout<<x<<" ";
+    // cout<<"erase 5th element"<<endl;
     
-    vec.erase(vec.begin()+1,vec.begin()+3);
-    for (auto x: vec) cout<<x<<" ";
-    cout<<"erase 1st to 3rd elements"<<endl;
+    // vec.erase(vec.begin()+1,vec.begin()+3);
+    // for (auto x: vec) cout<<x<<" ";
+    // cout<<"erase 1st to 3rd elements"<<endl;
 }
 
 
@@ -150,6 +160,10 @@ void test_unordered_maps()
 
 int main()
 {
-   test_list();
+
+    test_vector();
+    // test_list();
+    // test_unordered_maps();
+
    return 0;
 }

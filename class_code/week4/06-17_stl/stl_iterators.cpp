@@ -61,8 +61,8 @@ void test_vector()
     for (auto x: vec) cout<<x<<" ";
     cout<<"Inserted sub vector {3,2,1}"<<endl;
     
-    //sort vector from the <algorithms> library
-    sort(vec.begin(), vec.end()); // 3rd parameter can be a function itself
+    //sort vector (quick sort) from the <algorithms> library
+    sort(vec.begin(), vec.end()); // 3rd parameter can be a function itself, like how to sort, largest to smallest
     for (auto x: vec) cout<<x<<" ";
     cout<<"Sorted Vec"<<endl;
 

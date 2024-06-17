@@ -66,10 +66,10 @@ void test_vector()
     for (auto x: vec) cout<<x<<" ";
     cout<<"Sorted Vec"<<endl;
 
-    // //use cases for iterators erase 
-    // vec.erase(vec.begin()+5);
-    // for (auto x: vec) cout<<x<<" ";
-    // cout<<"erase 5th element"<<endl;
+    //use cases for iterators erase 
+    vec.erase(vec.begin()+5); // erase is also O(n), have to move everything after it to the left
+    for (auto x: vec) cout<<x<<" ";
+    cout<<"erase 5th element"<<endl;
     
     // vec.erase(vec.begin()+1,vec.begin()+3);
     // for (auto x: vec) cout<<x<<" ";

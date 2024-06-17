@@ -32,32 +32,39 @@ void test_vector()
         
     cout<<"printed with iterators"<<endl;
 
-    int max_val = std::numeric_limits<int>::min(); // popular library, gives us the smallest int data type value possible
+    int max_val = std::numeric_limits<int>::min(); // from <limits> library, popular library, gives us the smallest int data type value possible
 
-    int min_val = std::numeric_limits<int>::max(); // popular library, gives us the largest int data type value possible
+    int min_val = std::numeric_limits<int>::max(); // from <limits> library, popular library, gives us the largest int data type value possible
 
     cout<<"minimum int value: "<< max_val <<endl;
 
     cout<<"maximum int value: "<< min_val <<endl;
 
-    // for(int x : vec) max_val = (x>max_val)?x:max_val; //ternary operator ?
+    for(int x : vec) max_val = ( x > max_val ) ? x:max_val; //ternary operator ?, it takes 3 inouts: conditional input, return x if true, else max_val if false
 
-    // cout<<"max value in vec "<< max_val <<endl;
+    cout<<"max value in vec "<< max_val <<endl;
 
     // //use cases for iterators insert 
-    // vec.insert(vec.begin()+3,399);
-    // for (auto x: vec) cout<<x<<" ";
-    // cout<<"Inserted element 399"<<endl;
+    // O(n) for vector insert
+    // O(1) constant time for list insert
+    vec.insert(vec.begin()+3, 399); // insert at position 3, vec.end() moves first one position to the right, then 
+    // vec.insert(vec.end()-5, 399);
 
-    // vector<int> sub_vec = {3,2,1};
-    // vec.insert(vec.begin()+4,sub_vec.begin(),sub_vec.end());
-    // for (auto x: vec) cout<<x<<" ";
-    // cout<<"Inserted sub vector {3,2,1}"<<endl;
+    for (auto x: vec) cout<<x<<" ";
+    cout<<"Inserted element 399"<<endl;
+
+    vector<int> sub_vec = {3,2,1}; // sub_vec to be insereted
+    vec.insert(vec.begin()+4, sub_vec.begin(), sub_vec.end()); // insert into 5th position, from sub_vec.begin() till sub_vec.end(), 
+    // sub_vec.end() is actually an emoty space: 
+    // [start, stop)
+
+    for (auto x: vec) cout<<x<<" ";
+    cout<<"Inserted sub vector {3,2,1}"<<endl;
     
-    // //sort vector
-    // sort(vec.begin(), vec.end());
-    // for (auto x: vec) cout<<x<<" ";
-    // cout<<"Sorted Vec"<<endl;
+    //sort vector from the <algorithms> library
+    sort(vec.begin(), vec.end()); // 3rd parameter can be a function itself
+    for (auto x: vec) cout<<x<<" ";
+    cout<<"Sorted Vec"<<endl;
 
     // //use cases for iterators erase 
     // vec.erase(vec.begin()+5);

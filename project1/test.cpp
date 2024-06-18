@@ -26,13 +26,13 @@ namespace
 
         cout << d; // Should just print (7, 10).
         cout << "Enter a sequence of points (integer)" << endl;
-        cin >> a; // User enters a set of points in the form:
+        cin >> d; // User enters a set of points in the form:
         // // //           // 3 7 4 3 2 1 10
         // // //           // The first 3 specifies number of points. Points are the triples
         // // //           // (7, 4), (3, 2), and (1, 10).
         cout << "Output1: " << endl;
-        cout << a; // Output should be what user entered.
-        std::cout << a.size() << std::endl;
+        cout << d; // Output should be what user entered.
+        std::cout << "Size of the points2d object is: " << d.size() << std::endl;
         // cout << "Enter a sequence of points (integer)" << endl;
         // cin >> b; // Enter another sequence.
         // cout << "Output2: " << endl;

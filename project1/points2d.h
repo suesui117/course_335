@@ -32,13 +32,17 @@ namespace teaching_project
     template <typename Object>
     class Points2D
     {
+
     public:
         // Default "big five" -- you have to alter them for your assignment.
         // That means that you will remove the "= default" statement.
         //  and you will provide an implementation.
 
-        // Zero-parameter constructor.
-        // Set size to 0.
+        /**
+        Default constructor of class Points2D
+        @post     : Initialize the size_ of the sequence array to 0,
+                    and sequence_ array pointer to nullptr.
+        */
         Points2D()
         {
             size_ = 0;
@@ -69,16 +73,28 @@ namespace teaching_project
 
         // End of big-five.
 
-        // One parameter constructor.
+        /**
+        Parameterized constructor of class Points2D
+        @param item: A tuple in the form of an array size of 2 as element.
+        item itself is a tuple item = (1,2)
+
+        @post      : Adds the item to the sequence_ array, 
+        Dynamically Allocate memory sequence_ for one element
+        (each element itself is an array size 2)
+        updated size_ to 1, since adding just one element
+        */
         Points2D(const std::array<Object, 2> &item)
         {
-            // updating size to 1, since adding just one element
             size_ = 1;
-            // Dynamically Allocate memory sequence_ for one element (each element itself is an array size 2)
             sequence_ = new std::array<Object, 2>[size_];
-            sequence_[0] = item; // item itself is a tuple item = (1,2)
+            sequence_[0] = item;
         }
 
+        /**
+        @post      : Getter function, returns the size_ of the sequence_ array.
+        @return    : return the size of the sequence array.
+        @post      : size of the sequence_ array is updated.
+        */
         size_t size() const
         {
             return size_;
@@ -102,7 +118,14 @@ namespace teaching_project
             // Code missing.
         }
 
-        // Overloading the << operator.
+        /**
+        Overloading the << operator.
+        @param out          : an ostream object, passed by reference
+        @param some_points  : a Points2D object, passed by reference
+        @return             : the ostream object after feeding the Points2D elements into it
+        @post               : overload the << operator to print the elements in the
+        sequence array of the Points2D object that's passed in. Making Points2D objects printable.
+        */
         friend std::ostream &operator<<(std::ostream &out, const Points2D &some_points)
         {
             for (int i = 0; i < some_points.size(); i++)
@@ -112,10 +135,24 @@ namespace teaching_project
             return out;
         }
 
-        // Overloading the >> operator.
-        // Read a chain from an input stream (e.g., standard input).
+
+        /**
+        Overloading the >> operator.
+        @param in           : an istream object, passed by reference
+        @param some_points  : a Points2D object, passed by reference
+        @return             : the istream object after feeding the Points2D elements into it
+        @post               : overload the >> operator to read in a chain from an input stream (e.g., standard input). 
+                            Now input stream could directly read data into Points2D object.
+        */
         friend std::istream &operator>>(std::istream &in, Points2D &some_points)
         {
+            // first check if some_points sequence array is empty
+            if (some_points.sequence_ != nullptr) 
+            {
+                delete[] some_points.sequence_;
+                some_points.sequence_ = nullptr;
+            }
+
             // first number from input is always the size of the sequence array
             // read that in first
             int input_size;
@@ -134,11 +171,10 @@ namespace teaching_project
         }
 
     private:
-        // Sequence of points.
-        std::array<Object, 2> *sequence_; // sequence_ is an array pointer that holds array elements of 2, each element is one array
+        // sequence_ is an array pointer that holds array elements of 2, each element is one array
         // sequence_ = [[], [], []] array of arrays
-        // Size of sequence.
-        size_t size_;
+        std::array<Object, 2> *sequence_;
+        size_t size_; // Size of sequence_ array
     };
 
 } // namespace teaching_project

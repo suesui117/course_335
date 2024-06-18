@@ -171,10 +171,18 @@ namespace teaching_project
         }
 
     private:
+<<<<<<< HEAD
         // sequence_ is an array pointer that holds array elements of 2, each element is one array
         // sequence_ = [[], [], []] array of arrays
         std::array<Object, 2> *sequence_;
         size_t size_; // Size of sequence_ array
+=======
+        // Sequence of points.
+        std::array<Object, 2> *sequence_; // sequence_ is an array pointer that holds array elements of 2, each element is one array
+        // sequence_ = [[], [], []] array of arrays
+        // Size of sequence.
+        size_t size_;
+>>>>>>> 6b0b18dcdb7181222304c7e081e33cd990bcf772
     };
 
 } // namespace teaching_project

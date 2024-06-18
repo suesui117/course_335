@@ -135,8 +135,8 @@ namespace teaching_project
 
     private:
         // Sequence of points.
-        std::array<Object, 2> *sequence_; // sequence_ is an array pointer that holds array elements of 2, each element is one array 
-        // sequence_ = [[], [], []]
+        std::array<Object, 2> *sequence_; // sequence_ is an array pointer that holds array elements of 2, each element is one array
+        // sequence_ = [[], [], []] array of arrays
         // Size of sequence.
         size_t size_;
     };

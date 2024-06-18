@@ -110,11 +110,15 @@ namespace teaching_project
 
 
 
-        // Move-constructor.
+        /**
+        Move constructor of class Points2D
+        @param rhs  : Another Points2D object, passed in as rvalue reference
+        @post       : Transfer the ownwership of rhs to "this", reset rhs to empty
+        **/
         Points2D(Points2D &&rhs)
         {
             size_ = rhs.size_;
-            sequence_ = move(rhs.sequence_);
+            sequence_ = std::move(rhs.sequence_);
 
             rhs.size_ = 0;
             // delete[] rhs.sequence_; //should NOT delete it because it is now owned by 'this'
@@ -122,10 +126,27 @@ namespace teaching_project
         }
 
 
-
-        // Move-assignment.
         // Just use std::swap() for all variables.
-        Points2D &operator=(Points2D &&rhs) = default;
+        /**
+        Move-assignment of class Points2D
+        @param rhs  : Another Points2D object, passed in as rvalue reference
+        @post       : Swap the ownwership of rhs with "this".
+        @return     : return a reference to *this, dereferenced this.
+        */
+        Points2D &operator=(Points2D &&rhs)
+        {
+            if (this != &rhs)
+            {
+                size_ = rhs.size_;
+                sequence_ = std::move(rhs.sequence_);
+
+                rhs.size_ = 0;
+                // delete[] rhs.sequence_; //should NOT delete it because it is now owned by 'this'
+                rhs.sequence_ = nullptr;
+            }
+
+            return *this;
+        }
 
 
         /**

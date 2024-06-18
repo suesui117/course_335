@@ -27,16 +27,13 @@ namespace
         cin >> b; // Enter another sequence.
         cout << "Output2: " << endl;
         cout << b;
-        Points2D<int> c{ a };  // Calls copy constructor for c.
+        Points2D<int> c{a};  // Calls copy constructor for c.
         cout << "After copy constructor1 c{a}: " << endl;
-        cout << "This is c: " << c << "\n";
-        cout << "This is a: " << a << "\n";
-        cin >> a;
-        cout << "This is c: " << c << "\n";
-        cout << "This is a: " << a << "\n";
-        // a = b; // Should call the copy assignment operator for a.
-        // cout << "After assignment a = b" << endl;
-        // cout << a;
+        cout << c << endl;
+        cout << a << endl;
+        a = b;  // Should call the copy assignment operator for a.
+        cout << "After assignment a = b" << endl;
+        cout << a << endl;
         // Points2D<int> e = move(c); // Move constructor for e.
         // cout << "After e = move(c) " << endl;
         // cout << e;

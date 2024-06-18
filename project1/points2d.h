@@ -74,8 +74,8 @@ namespace teaching_project
 
         /**
         Copy constructor of class Points2D
-        @param item: Another Points2D object, passed in by reference
-        @post      : set the current size_ to rhs's size and
+        @param rhs  : Another Points2D object, passed in by reference
+        @post       : set the current size_ to rhs's size and
                     dynamically allocate memory for sequence_ array
                     and copy from rhs's sequence array, deep copy.
         */
@@ -91,20 +91,35 @@ namespace teaching_project
 
 
 
-        // Copy-assignment. If you have already written
-        // the copy-constructor and the move-constructor
-        // you can just use:
-        // {
-        // Points2D copy = rhs;
-        // std::swap(*this, copy);
-        // return *this;
-        // }
-        Points2D &operator=(const Points2D &rhs) = default;
+        /**
+        Copy assignment of class Points2D - always a shallow copy
+        @param rhs  : Another Points2D object, passed in by reference
+        @post       : Create a copy of rhs, and swap copy with *this
+                    Now *this contains the the data of rhs. 
+        @return     : return a reference to *this, dereferenced this.
+        */
+        Points2D &operator=(const Points2D &rhs)
+        {
+            if (this != &rhs)
+            {
+                Points2D copy = rhs;
+                std::swap(*this, copy);
+            }
+            return *this; // if the same, just return it directly, without swapping
+        }
 
 
 
         // Move-constructor.
-        Points2D(Points2D &&rhs) = default;
+        Points2D(Points2D &&rhs)
+        {
+            size_ = rhs.size_;
+            sequence_ = move(rhs.sequence_);
+
+            rhs.size_ = 0;
+            // delete[] rhs.sequence_; //should NOT delete it because it is now owned by 'this'
+            rhs.sequence_ = nullptr;
+        }
 
 
 
@@ -122,7 +137,7 @@ namespace teaching_project
         ~Points2D()
         {
             size_ = 0;
-            delete[] sequence_;
+            // delete[] sequence_;
             sequence_ = nullptr;
         };
 

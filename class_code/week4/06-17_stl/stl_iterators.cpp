@@ -71,9 +71,9 @@ void test_vector()
     for (auto x: vec) cout<<x<<" ";
     cout<<"erase 5th element"<<endl;
     
-    // vec.erase(vec.begin()+1,vec.begin()+3);
-    // for (auto x: vec) cout<<x<<" ";
-    // cout<<"erase 1st to 3rd elements"<<endl;
+    vec.erase(vec.begin()+1, vec.begin()+3); // not including that element itself, offset by one. 
+    for (auto x: vec) cout<<x<<" ";
+    cout<<"erase 1st to 3rd elements"<<endl;
 }
 
 
@@ -172,8 +172,8 @@ void test_unordered_maps()
 int main()
 {
 
-    test_vector();
-    // test_list();
+    // test_vector();
+    test_list();
     // test_unordered_maps();
 
    return 0;

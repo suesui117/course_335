@@ -78,9 +78,13 @@ void test_vector()
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// downside of docker is that you sees all gits as new modifications.
+// unless put gits credentials in docker, but its not generalized anymore.
 void test_list()
-{
+{   
+    // this is the linkedlist, fun fact: list is a unary tree on mathematical level
     list<double> my_list1({1,2,30,4.2});
+    // 1->2->30->4.2
 
     //print list1
     cout<<"List 1: ";

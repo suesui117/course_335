@@ -33,10 +33,13 @@ namespace teaching_project
     class Points2D
     {
 
+    private:
+        // sequence_ is an array pointer that holds array elements of 2, each element is one array
+        // sequence_ = [[], [], []] array of arrays
+        std::array<Object, 2> *sequence_;
+        size_t size_; // Size of sequence_ array
+
     public:
-        // Default "big five" -- you have to alter them for your assignment.
-        // That means that you will remove the "= default" statement.
-        //  and you will provide an implementation.
 
         /**
         Default constructor of class Points2D
@@ -49,29 +52,6 @@ namespace teaching_project
             sequence_ = nullptr;
         };
 
-        // Copy-constructor.
-        Points2D(const Points2D &rhs) = default;
-
-        // Copy-assignment. If you have already written
-        // the copy-constructor and the move-constructor
-        // you can just use:
-        // {
-        // Points2D copy = rhs;
-        // std::swap(*this, copy);
-        // return *this;
-        // }
-        Points2D &operator=(const Points2D &rhs) = default;
-
-        // Move-constructor.
-        Points2D(Points2D &&rhs) = default;
-
-        // Move-assignment.
-        // Just use std::swap() for all variables.
-        Points2D &operator=(Points2D &&rhs) = default;
-
-        ~Points2D() = default;
-
-        // End of big-five.
 
         /**
         Parameterized constructor of class Points2D
@@ -90,6 +70,52 @@ namespace teaching_project
             sequence_[0] = item;
         }
 
+        /******* Beginning of Weiss's Big-Five *******/
+
+        // Copy-constructor.
+        Points2D(const Points2D &rhs) = default;
+
+
+
+        // Copy-assignment. If you have already written
+        // the copy-constructor and the move-constructor
+        // you can just use:
+        // {
+        // Points2D copy = rhs;
+        // std::swap(*this, copy);
+        // return *this;
+        // }
+        Points2D &operator=(const Points2D &rhs) = default;
+
+
+
+        // Move-constructor.
+        Points2D(Points2D &&rhs) = default;
+
+
+
+        // Move-assignment.
+        // Just use std::swap() for all variables.
+        Points2D &operator=(Points2D &&rhs) = default;
+
+
+        /**
+        Destructor of class Points2D
+        @post     : Reset the size_ of the sequence array to 0,
+                    delete the dynamically allocated sequence_ array,
+                    and set sequence_ pointer to nullptr.
+        */
+        ~Points2D()
+        {
+            size_ = 0;
+            delete sequence_;
+            sequence_ = nullptr;
+        };
+
+        /******* End of Weiss's Big-Five *******/
+        
+
+        /******** Beginning of member functions ********/
         /**
         @post      : Getter function, returns the size_ of the sequence_ array.
         @return    : return the size of the sequence array.
@@ -100,6 +126,8 @@ namespace teaching_project
             return size_;
         }
 
+
+
         // @location: an index to a location in the sequence.
         // @returns the point at @location.
         // const version.
@@ -109,6 +137,7 @@ namespace teaching_project
             // Code missing.
         }
 
+
         //  @c1: A sequence.
         //  @c2: A second sequence.
         //  @return their sum. If the sequences are not of the same size, append the
@@ -117,6 +146,7 @@ namespace teaching_project
         {
             // Code missing.
         }
+
 
         /**
         Overloading the << operator.
@@ -170,12 +200,10 @@ namespace teaching_project
             return in;
         }
 
-    private:
-        // sequence_ is an array pointer that holds array elements of 2, each element is one array
-        // sequence_ = [[], [], []] array of arrays
-        std::array<Object, 2> *sequence_;
-        size_t size_; // Size of sequence_ array
+
+        /******** End of member functions ********/
     };
 
 } // namespace teaching_project
+
 #endif // CSCI_335_HOMEWORK1_Points2D_H_

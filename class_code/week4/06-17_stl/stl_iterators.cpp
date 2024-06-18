@@ -5,12 +5,21 @@ insert and erase for each template class, and the find function for unordered
 maps. We also discussed using the limits library for finding largest and 
 smallest value, and using the "?" ternary operator.*/
 
+<<<<<<< HEAD
 #include <iostream> 
 #include <vector> // learning today, dynamically sized
 #include <list> // learning today (infamous linkedlist, cpp stl provides us one)
 #include <unordered_map> // learning today
 #include <limits>
 #include <algorithm>
+=======
+#include <iostream>
+#include<vector>
+#include<list>
+#include<unordered_map>
+#include<limits>
+#include<algorithm>
+>>>>>>> d00718d9488e88d580f98f01807555009743c945
 #include <time.h>
 
 using namespace std;
@@ -20,12 +29,18 @@ using namespace std;
 void test_vector()
 {
     //iterators are pointers used in stl for traversing through data structures
+<<<<<<< HEAD
     vector<int> vec( {2,4,6,8,10,47,1,5} );
 
     vector<int>::iterator itr; // declartion of iterator inside vector template class, we have a iterator class
 
     // auto itr = vec.begin(); // auto is popular for iterators, auto determines the type of itr based on the rhs
 
+=======
+    vector<int> vec({2,4,6,8,10,47,1,5});
+    vector<int>::iterator itr;
+    //auto itr = vec.begin();
+>>>>>>> d00718d9488e88d580f98f01807555009743c945
     for (itr = vec.begin(); itr != vec.end(); itr++)
     
         std::cout << *itr << " "; // dereference the itr to get the value
@@ -139,8 +154,16 @@ void test_list()
     cout<<endl;
 
     //splice
+    srand(time(0));
+    for(int i = 0; i < 5; i++) my_list2.insert(my_list2.end(),rand() % 200 - 100);
+    for(auto x : my_list2) cout<<x<<" "; 
+    cout<<endl;
     
-
+    my_list1.splice ( my_list1.begin(), my_list2);
+    for(auto x : my_list1) cout<<x<<" ";
+    cout<<endl;
+    for(auto x : my_list2) cout<<x<<" "; //empty now
+    cout<<endl;
 }
 
 

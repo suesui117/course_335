@@ -72,8 +72,22 @@ namespace teaching_project
 
         /******* Beginning of Weiss's Big-Five *******/
 
-        // Copy-constructor.
-        Points2D(const Points2D &rhs) = default;
+        /**
+        Copy constructor of class Points2D
+        @param item: Another Points2D object, passed in by reference
+        @post      : set the current size_ to rhs's size and
+                    dynamically allocate memory for sequence_ array
+                    and copy from rhs's sequence array, deep copy.
+        */
+        Points2D(const Points2D &rhs)
+        {
+            size_ = rhs.size_;
+
+            sequence_ = new std::array<Object, 2>[size_];
+            for (size_t i = 0; i < size_; ++i) {
+                sequence_[i] = rhs.sequence_[i];
+            }
+        };
 
 
 
@@ -102,13 +116,13 @@ namespace teaching_project
         /**
         Destructor of class Points2D
         @post     : Reset the size_ of the sequence array to 0,
-                    delete the dynamically allocated sequence_ array,
-                    and set sequence_ pointer to nullptr.
+                    and deallocate sequence_ memory
+                    set sequence_ pointer to nullptr.
         */
         ~Points2D()
         {
             size_ = 0;
-            delete sequence_;
+            delete[] sequence_;
             sequence_ = nullptr;
         };
 

@@ -158,7 +158,7 @@ namespace teaching_project
         ~Points2D()
         {
             size_ = 0;
-            // delete[] sequence_;
+            delete[] sequence_;
             sequence_ = nullptr;
         };
 

@@ -18,6 +18,13 @@
 
 
 ### Part2 - Overloading operators: <<, >>, [], +
+1. operator<<(): overloading the ostream operator. It's a friend function, that is not a member function of Points2D, therefore it doesn't have direct access to size_ and sequence_. It's user defined, so we're just printing out the format desired, i.e: "(1,2)", we can cout << a; directly.
+
+2. operator>>(): overloading the istream operator. It's a friend function, that is not a member function of Points2D, therefore it doesn't have direct access to size_ and sequence_. It's user defined, read in a chain from an input stream (e.g., standard input). Now input stream could directly read data into Points2D object.
+
+3. operator+(): overloading the + operator. It's a friend function, that is not a member function of Points2D, therefore it doesn't have direct access to size_ and sequence_. We need to create an instance of Poitns2d to hold the pair-wise sum of 2 Points2d sequences, and return it.
+
+4. operator[](): overloading the array index operator. User defined. If index location is not found, abort it and throws an error to user.
 
 
 

@@ -29,5 +29,4 @@
 
 
 
-[References: ](https://en.cppreference.com/w/cpp/language/rule_of_three)
-(https://www.geeksforgeeks.org/rule-of-five-in-cpp/)
+[References: ] https://en.cppreference.com/w/cpp/language/rule_of_three, https://www.geeksforgeeks.org/rule-of-five-in-cpp/

@@ -80,16 +80,16 @@ namespace
         cout << "Enter a sequence of points for a (double)" << endl;
         cin >> a; // User provides input for Points2D a.
         cout << a;
-        cout << "Enter a sequence of points for b (double)" << endl;
-        cin >> b; // User provides input for Points2D b.
-        cout << b << endl;
-        cout << "Result of a + b" << endl;
-        cout << a + b << endl;
+        // cout << "Enter a sequence of points for b (double)" << endl;
+        // cin >> b; // User provides input for Points2D b.
+        // cout << b << endl;
+        // cout << "Result of a + b" << endl;
+        // cout << a + b << endl;
         // Points2D<double> d = a + b;
         // cout << "Result of d = a + b" << endl;
         // cout << d;
-        // cout << "Second element in a: " << endl;
-        // cout << a[1][0] << ", " << a[1][1] << endl; // Should print the 2nd element.
+        cout << "Second element in a: " << endl;
+        cout << a[100][0] << ", " << a[100][1] << endl; // Should print the 2nd element.
     }
 
 } // namespace

@@ -2,7 +2,7 @@
 // if needed.
 // You can also comment parts of the functions, and uncomment
 // as you add more functionality.
-#include <points2d.h>
+#include "points2d.h"
 
 #include <array>
 #include <iostream>
@@ -62,11 +62,11 @@ namespace
         cout << b << endl;
         cout << "Result of a + b" << endl;
         cout << a + b << endl;
-        // Points2D<double> d = a + b;
-        // cout << "Result of d = a + b" << endl;
-        // cout << d;
-        // cout << "Second element in a: " << endl;
-        // cout << a[1][0] << ", " << a[1][1] << endl; // Should print the 2nd element.
+        Points2D<double> d = a + b;
+        cout << "Result of d = a + b" << endl;
+        cout << d;
+        cout << "Second element in a: " << endl;
+        cout << a[1][0] << ", " << a[1][1] << endl; // Should print the 2nd element.
     }
 
 } // namespace

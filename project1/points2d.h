@@ -1,11 +1,10 @@
 /* CSCI335 Summer 2024
-Project_1
+Project1
 Author: Xin (Sue) Sui
 
 points2d.h contains both declaration and implementation
 
-class Points2D is a template class that implements the use of Weiss's Big-Five:
-- Constructor
+class Points2D is a template class that implements the use of constructors and Weiss's Big-Five:
 - Destructor
 - Copy constructor
 - Copy assignment
@@ -16,6 +15,7 @@ We're also overloading "<<", ">>", "[]", "+" operators.
 We'll unittest this class with input file
 
 Reference: https://learn.microsoft.com/en-us/cpp/cpp/move-constructors-and-move-assignment-operators-cpp?view=msvc-170
+https://stackoverflow.com/questions/13554320/overloaded-operator-must-be-a-unary-or-binary-operator-error
 */
 #ifndef CSCI335_HOMEWORK1_POINTS2D_H_
 #define CSCI335_HOMEWORK1_POINTS2D_H_
@@ -167,7 +167,7 @@ namespace teaching_project
         /******* End of Weiss's Big-Five *******/
         
 
-        /******** Beginning of member functions ********/
+        /******** Beginning of member/friend non-member functions ********/
         /**
         @post      : Getter function, returns the size_ of the sequence_ array.
         @return    : return the size of the sequence array.
@@ -179,21 +179,36 @@ namespace teaching_project
         }
 
 
-
-        // @location: an index to a location in the sequence.
-        // @returns the point at @location.
-        // const version.
-        // abort() if out-of-range.
+        /**
+        @param location : an index to a location in the sequence.
+        @return         : the points tuple at sequence_[location], const version, 
+                        we cannot make changes to the points.
+        @post           : the points tuple at location, or aborted if out-of-range.
+        **/
         const std::array<Object, 2> &operator[](size_t location) const
         {
+
+            if (location >= size_)
+            {
+                std::cout<< "Location index out of range\n";
+                abort();
+            }
             return sequence_[location];
+            
         }
 
 
-        //  @c1: A sequence.
-        //  @c2: A second sequence.
-        //  @return their sum. If the sequences are not of the same size, append the
-        //    result with the remaining part of the larger sequence.
+        /**
+         * Overloading the + operator.
+         * operator+() here is not a member function of Points2D,
+         * therefore it doesn't have direct access to size_ and sequence_
+         * we need to create an instance of Points2D
+        @param c2   : A second Points2D object.
+        @return     : An array of pair-wise sum of c1 and c2. (corresponding pairs from c1 and c2).
+        If the sequences are not of the same size, append the
+        result with the remaining part of the larger sequence.
+        @post       : A dynamically allocated array with updated results.
+        **/
         friend Points2D operator+(const Points2D &c1, const Points2D &c2)
         {
             Points2D result;
@@ -209,13 +224,13 @@ namespace teaching_project
                     result.sequence_[i][1] = c1.sequence_[i][1] + c2.sequence_[i][1];
                 }
 
-                else if(i < c1.size() && i >= c2.size()) // means if c2 is out of bound, append c1 remaining
+                else if(i < c1.size() && i >= c2.size()) // if c2 is out of bound, append c1 remaining
                 {
                     result.sequence_[i][0] = c1.sequence_[i][0];
                     result.sequence_[i][1] = c1.sequence_[i][1];
                 }
 
-                else if(i < c2.size() && i >= c1.size()) // means if c1 is out of bound, append c2 remaining
+                else if(i < c2.size() && i >= c1.size()) // if c1 is out of bound, append c2 remaining
                 {
                     result.sequence_[i][0] = c2.sequence_[i][0];
                     result.sequence_[i][1] = c2.sequence_[i][1];
@@ -223,10 +238,12 @@ namespace teaching_project
             }
             return result;
         }
-
+        
 
         /**
         Overloading the << operator.
+        * operator<<() here is not a member function of Points2D,
+        * therefore it doesn't have direct access to size_ and sequence_
         @param out          : an ostream object, passed by reference
         @param some_points  : a Points2D object, passed by reference
         @return             : the ostream object after feeding the Points2D elements into it
@@ -245,6 +262,8 @@ namespace teaching_project
 
         /**
         Overloading the >> operator.
+        * operator>>() here is not a member function of Points2D,
+        * therefore it doesn't have direct access to size_ and sequence_
         @param in           : an istream object, passed by reference
         @param some_points  : a Points2D object, passed by reference
         @return             : the istream object after feeding the Points2D elements into it
@@ -278,7 +297,7 @@ namespace teaching_project
         }
 
 
-        /******** End of member functions ********/
+        /******** End of member/friend non-member functions ********/
     };
 
 } // namespace teaching_project

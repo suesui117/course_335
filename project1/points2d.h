@@ -204,6 +204,7 @@ namespace teaching_project
          * operator+() here is not a member function of Points2D,
          * therefore it doesn't have direct access to size_ and sequence_
          * we need to create an instance of Points2D
+        @param c1   : A Points2D object.
         @param c2   : A second Points2D object.
         @return     : An array of pair-wise sum of c1 and c2. (corresponding pairs from c1 and c2).
         If the sequences are not of the same size, append the

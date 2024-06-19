@@ -29,5 +29,8 @@
 
 
 
-[References: ] https://en.cppreference.com/w/cpp/language/rule_of_three, https://www.geeksforgeeks.org/rule-of-five-in-cpp/, https://learn.microsoft.com/en-us/cpp/cpp/move-constructors-and-move-assignment-operators-cpp?view=msvc-170,
-https://stackoverflow.com/questions/13554320/overloaded-operator-must-be-a-unary-or-binary-operator-error
+References:
+1. [Rule of Three](https://en.cppreference.com/w/cpp/language/rule_of_three)
+2. [Rule of Five](https://www.geeksforgeeks.org/rule-of-five-in-cpp/)
+3. [Move Constructors and Move Assignment Operators](https://learn.microsoft.com/en-us/cpp/cpp/move-constructors-and-move-assignment-operators-cpp?view=msvc-170)
+4. [Overloaded Operator Must Be a Unary or Binary Operator Error](https://stackoverflow.com/questions/13554320/overloaded-operator-must-be-a-unary-or-binary-operator-error)

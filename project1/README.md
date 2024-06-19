@@ -24,7 +24,7 @@
 
 3. operator+(): overloading the + operator. It's a friend function, that is not a member function of Points2D, therefore it doesn't have direct access to size_ and sequence_. We need to create an instance of Poitns2d to hold the pair-wise sum of 2 Points2d sequences, and return it.
 
-4. operator\[\]: overloading the array index operator. User defined. If index location is not found, abort it and throws an error to user.
+4. operator\[\](): overloading the array index operator. User defined. If index location is not found, abort it and throws an error to user.
 
 
 

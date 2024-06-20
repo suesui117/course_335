@@ -6,6 +6,8 @@ using namespace std;
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// 06-20-2024, 
+// starting with smart pointers
 class Temp
 {
     public:
@@ -26,21 +28,26 @@ class Temp
 ///////////////////////////////////////////////////////////////////////////////
 void test_unique_ptrs()
 {
-    array<string,2> test_arr;
+    array<string,2> test_arr; // create an array of string of size 2 called test_arr // lives on the stack
     test_arr[0]= "test1";
     test_arr[1]= "test2";
 
     //test_arr_ptr creates a copy on the heap
-    unique_ptr<array<string,2>> test_arr_ptr = make_unique<array<string,2>>(test_arr);
+    // unique_ptrs are template classes, so takes in a type
+    // make_unique is the keyword to make a unique pointer onto the heap
+    unique_ptr<array<string,2>> test_arr_ptr = make_unique<array<string,2>>(test_arr); // lives on the heap
     
     // move works
+    // can also do it this way, create a unique pointer first
+    // then move test_arr_ptr to test_arr_ptr2
     unique_ptr<array<string,2>> test_arr_ptr2;
     test_arr_ptr2=move(test_arr_ptr);
+    
     // cout<<test_arr_ptr->at(0)<<" "<<test_arr_ptr->at(1)<<endl; // seg fault
-    cout<<test_arr_ptr2->at(0)<<" "<<test_arr_ptr2->at(1)<<endl;
-    test_arr_ptr=move(test_arr_ptr2);
-    test_arr_ptr2=make_unique<array<string,2>>(array<string,2>({"t1","t2"}));
-    cout<<test_arr_ptr2->at(0)<<" "<<test_arr_ptr2->at(1)<<endl;
+    cout << test_arr_ptr2->at(0)<<" "<<test_arr_ptr2->at(1) << endl;
+    test_arr_ptr = move(test_arr_ptr2);
+    test_arr_ptr2 = make_unique<array<string,2>>(array<string,2>({"t1","t2"}));
+    cout << test_arr_ptr2->at(0)<<" "<<test_arr_ptr2->at(1) << endl;
 
 
     //cant do cause copy constructor not allowed

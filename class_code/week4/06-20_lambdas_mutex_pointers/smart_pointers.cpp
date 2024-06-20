@@ -40,19 +40,27 @@ void test_unique_ptrs()
     // move works
     // can also do it this way, create a unique pointer first
     // then move test_arr_ptr to test_arr_ptr2
+    // CAN USE MOVE, NOT COPY, think about the different scope
     unique_ptr<array<string,2>> test_arr_ptr2;
     test_arr_ptr2=move(test_arr_ptr);
-    
+
     // cout<<test_arr_ptr->at(0)<<" "<<test_arr_ptr->at(1)<<endl; // seg fault
+    // use ->at() to access the element
     cout << test_arr_ptr2->at(0)<<" "<<test_arr_ptr2->at(1) << endl;
-    test_arr_ptr = move(test_arr_ptr2);
+    test_arr_ptr = move(test_arr_ptr2); // move ptr2 back to ptr1
+
+    // reassignment ptr2 to point to a new content
+    // array is on the heap
+    // ptr is on the stack
     test_arr_ptr2 = make_unique<array<string,2>>(array<string,2>({"t1","t2"}));
-    cout << test_arr_ptr2->at(0)<<" "<<test_arr_ptr2->at(1) << endl;
+    cout << test_arr_ptr2->at(0)<<" "<< test_arr_ptr2->at(1) << endl;
 
 
     //cant do cause copy constructor not allowed
-    //unique_ptr<array<string,2>> test_arr_ptr = &test_arr;
-    //unique_ptr<array<string,2>> test_arr_ptr2 = test_arr_ptr;
+    // cannot use it because unique_ptrs cannot point to the same object, otherwise its not unique anymore.
+    // unique ptr is responsible to delete array on the heap,
+    // unique_ptr<array<string,2>> test_arr_ptr = &test_arr; // &test_arr is on the stack
+    // unique_ptr<array<string,2>> test_arr_ptr2 = test_arr_ptr;
 
     array<string,2> *p = new array<string,2>();
     p[0][0]="does it work ?";
@@ -60,19 +68,24 @@ void test_unique_ptrs()
     //unique pointers doesnt give you access via square brackets
     //test_arr_ptr[0][0]="test3";   
     (*test_arr_ptr)[0]="test3";
+    // change in this: (*test_arr_ptr), will not affect test_arr
     cout<<(*test_arr_ptr)[0]<<" not same as: "<<test_arr[0]<<endl;
 
     //use at function to avoid confusion with dereferencing unique pointers 
+    // (*test_arr_ptr)[0] same as test_arr_ptr->at(0)
     cout<<test_arr_ptr->at(0)<<" "<<test_arr_ptr->at(1)<<endl;
 
 
     //syntax for creating arrays of objects on heap 
-    //like in project 1: array<Object,2> sequence_= new array<Object,2>[size_];
+    //like in project 1: array<Object,2> *sequence_= new array<Object,2>[size_];
     unique_ptr<array<int, 3>[]> arr2 = make_unique<array<int,3>[]>(3);
+    // below is its dual from
+    // cons: inefficient, default constructor gets called twice, 
     unique_ptr<array<int, 3>[]> arr3(new array<int, 3>[3]);
-    arr2[0]={1,11,111};
+
+    arr2[0]={1,11,111}; // we can use [], instead of pointers because [] is overloaded. on line81, unique_ptr is an object of []
     arr2[1]={1,2,3};
-    arr2[2]={7,7,7};
+    arr2[2]={7,7,7}; 
 
     arr3[0]={-1,-2,-3};
     arr3[1]={-1,-1,-1};
@@ -95,12 +108,16 @@ void test_unique_ptrs()
 //Multiple shared pointers can point to the same object. Destructor is invoked
 //when object has no shared pointers(uses algorithm reference counting). 
 ///////////////////////////////////////////////////////////////////////////////
+// part2, shared pointer,
+// think of it like an extension of unique pointer,
+// shared_ptr can do 2 additional things: copy constructor and copy assignment
 void test_shared_ptrs()
 {
     unique_ptr<Temp> obj1 = make_unique<Temp>();
 
     //shared_ptr<Temp> obj2 = obj1; //not allowed
-    shared_ptr<Temp> obj2 = make_shared<Temp>(*obj1);
+    // deep copy
+    shared_ptr<Temp> obj2 = make_shared<Temp>(*obj1); // always gonna allocate new memory, not allowed to point to unique_ptr, mkaing a deep copy
     //do these point at the same ?
     obj1->temp1=74;
     obj1->print();
@@ -108,6 +125,7 @@ void test_shared_ptrs()
     cout<<endl;
 
     // copy constructor works!
+    // shallow copy
     shared_ptr<Temp> obj3 = obj2;
     //do these point at the same ?
     obj2->temp1=88;
@@ -121,6 +139,6 @@ void test_shared_ptrs()
 int main()
 {
     test_shared_ptrs();
-    //test_unique_ptrs();    
+    // test_unique_ptrs();    
     return 0;   
 }

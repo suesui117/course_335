@@ -91,9 +91,16 @@ void test_list()
     for(auto x : my_list1) cout<<x<<" ";
     cout<<endl;
 
+    // cout<<"list 1: ";
+    list<double>::iterator it=my_list1.begin();
+    // for (it=my_list1.begin(); it!=my_list1.end(); ++it)
+    //     cout<<*it<<" ";
+    // cout<<endl; 
+
     // Accessing list elements
     // cout<<my_list1[1]<<endl; //not allowed
     // in list, cannot do list.begin() + 3
+    //cout<<my_list1[3]<<endl; //not allowed
     int i = 0;
     for(auto x : my_list1)
     {
@@ -127,6 +134,7 @@ void test_list()
     for(auto x : my_list1) cout<<x<<" ";
     cout<<endl;
 
+    //merge
     list<double> my_list2({9,8,7,6.2});
     cout<<"List 2: ";
     for(auto x : my_list2) cout<<x<<" ";
@@ -140,6 +148,7 @@ void test_list()
     // https://leetcode.com/problems/merge-two-sorted-lists/description/
     for(auto x : my_list1) cout<<x<<" ";
     cout<<endl;
+    cout<<"List2: ";
     for(auto x : my_list2) cout<<x<<" "; //empty now
     cout<<endl;
 
@@ -173,7 +182,6 @@ void test_unordered_maps()
 
     for(auto x : my_map1)
         cout<<x.first<<" "<<x.second<<";";
-
     cout<<endl;
     auto search1 = my_map1.find(1); // O(constant time) O(1) leverage the hash function
     
@@ -182,12 +190,17 @@ void test_unordered_maps()
     else
         cout<<"Not found"<<endl;
 
-    auto search2 = my_map1.find(7);
+    auto search2 = my_map1.find("data7");
     if(search2 != my_map1.end())
         cout << "Found " << search2->first << " " << search2->second << endl;
     else
         cout<<"Not found"<<endl; 
 
+    my_map1.erase(search1);
+
+    for(auto x : my_map1)
+        cout<<x.first<<" "<<x.second<<";";
+    cout<<endl;   
 }
 
 int main()

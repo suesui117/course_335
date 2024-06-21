@@ -15,9 +15,29 @@ class Temp
         int temp2;
         string temp3;
         Temp():temp1(1), temp2(2), temp3("three"){}
+
+        Temp(const Temp& in)
+        {
+            temp1 = in.temp1;
+            temp2 = in.temp2;
+            temp3 = in.temp3;
+
+        }
         void print()
         {
             cout<<temp1<<" "<<temp2<<" "<<temp3<<endl;
+        }
+
+
+ 
+        // Assignment operator
+        Temp& operator=(const Temp& in) {
+            if (this != &in) { // Self-assignment check
+                temp1 = in.temp1;
+                temp2 = in.temp2;
+                temp3 = in.temp3;
+            }
+            return *this;
         }
 };
 
@@ -134,11 +154,35 @@ void test_shared_ptrs()
     cout<<endl;
 }
 
+void test_raw_pointers()
+{
+        // Create an object using raw pointer
+        Temp ok;
+        Temp* ptr = new Temp(ok);
+
+    // // Perform deep copy
+    Temp* ptr2 = new Temp(*ptr); // Using the deep copy constructor
+
+    // Print addresses to confirm they are different
+    std::cout << "ptr: " << ptr << "\n";
+    std::cout << "ptr2: " << ptr2 << "\n";
+
+    // Print the contents of each object
+    std::cout << "Contents of ptr:\n";
+    ptr->print();
+    std::cout << "Contents of ptr2 (deep copy):\n";
+    ptr2->print();
+
+    // auto ptr3 = new Temp(*ptr);
+    // std::cout << ptr3 << "\n";
+
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 int main()
 {
-    test_shared_ptrs();
+    // test_shared_ptrs();
     // test_unique_ptrs();    
+    test_raw_pointers();
     return 0;   
 }

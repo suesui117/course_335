@@ -41,6 +41,7 @@ PROGRAM_0 = test_points2d
 
 $(PROGRAM_0): $(ALL_OBJ0)
 	g++ $(C++FLAG) -o $(EXEC_DIR)/$@ $(ALL_OBJ0) $(INCLUDES) $(LIBS_ALL)
+	g++ -g -std=c++14 -Wall -o ./test_pints2d test_points2d.o -I. -L/usr/lib -L/usr/local/lib -lm
 
 # Compiling all
 # make test_points2d

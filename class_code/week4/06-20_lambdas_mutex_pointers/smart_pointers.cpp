@@ -1,6 +1,6 @@
 #include <iostream>
-#include<memory>
-#include<array>
+// #include <memory>
+#include <array>
 
 using namespace std;
 
@@ -61,13 +61,14 @@ void test_unique_ptrs()
     // can also do it this way, create a unique pointer first
     // then move test_arr_ptr to test_arr_ptr2
     // CAN USE MOVE, NOT COPY, think about the different scope
-    unique_ptr<array<string,2>> test_arr_ptr2;
-    test_arr_ptr2=move(test_arr_ptr);
+    auto test_arr_ptr2 = move(test_arr_ptr);
 
     // cout<<test_arr_ptr->at(0)<<" "<<test_arr_ptr->at(1)<<endl; // seg fault
     // use ->at() to access the element
-    cout << test_arr_ptr2->at(0)<<" "<<test_arr_ptr2->at(1) << endl;
+    cout <<"hello " <<test_arr_ptr2->at(0)<<" "<<test_arr_ptr2->at(1) << endl;
     test_arr_ptr = move(test_arr_ptr2); // move ptr2 back to ptr1
+    cout <<"hello " <<test_arr_ptr->at(0)<<" "<<test_arr_ptr->at(1) << endl;
+
 
     // reassignment ptr2 to point to a new content
     // array is on the heap
@@ -137,10 +138,13 @@ void test_shared_ptrs()
 
     //shared_ptr<Temp> obj2 = obj1; //not allowed
     // deep copy
-    shared_ptr<Temp> obj2 = make_shared<Temp>(*obj1); // always gonna allocate new memory, not allowed to point to unique_ptr, mkaing a deep copy
+    shared_ptr<Temp> obj2 = make_shared<Temp>(*obj1); // always gonna allocate new memory, not allowed to point to unique_ptr, making a deep copy
     //do these point at the same ?
+    // auto obj3 = move(obj2);
+
     obj1->temp1=74;
     obj1->print();
+    std::cout << "obj3 printing after move from obj2 \n";
     obj2->print();
     cout<<endl;
 
@@ -171,7 +175,7 @@ void test_raw_pointers()
     std::cout << "Contents of ptr:\n";
     ptr->print();
     std::cout << "Contents of ptr2 (deep copy):\n";
-    ptr2->print();
+    ptr->print();
 
     // auto ptr3 = new Temp(*ptr);
     // std::cout << ptr3 << "\n";
@@ -181,8 +185,8 @@ void test_raw_pointers()
 ///////////////////////////////////////////////////////////////////////////////
 int main()
 {
-    // test_shared_ptrs();
+    test_shared_ptrs();
     // test_unique_ptrs();    
-    test_raw_pointers();
+    // test_raw_pointers();
     return 0;   
 }

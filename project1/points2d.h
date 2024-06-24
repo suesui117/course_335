@@ -141,6 +141,11 @@ namespace teaching_project
         {
             if (this != &rhs)
             {
+                if(sequence_ != nullptr)
+                {
+                    std::cout << "hey im not empty hehe\n";
+                    delete[] sequence_;
+                }
                 size_ = rhs.size_;
                 sequence_ = std::move(rhs.sequence_);
 

@@ -177,28 +177,39 @@ void test_list()
 
     my_list1.erase(++my_list1.begin());
     for(auto x : my_list1) cout<<x<<" ";
-    cout<<endl<<endl;
+    cout<<"\n\n";
 
-    //merge
-    cout<<"\n\ntesting merging now, erasing index 1 " <<endl;
+    //insertion does NOT delete list 2
     list<int> my_list2({9,8,7,6});
-    cout<<"List 2: ";
+
+    cout<<"List 1: ";
+    for(auto x : my_list1) cout<<x<<" ";
+    cout<<endl;
+
+    cout<<"List 2 before insertion: ";
     for(auto x : my_list2) cout<<x<<" ";
     cout<<endl;
+
+    my_list1.insert(my_list1.begin(), my_list2.begin(), my_list2.end());
+    cout<<"List2 after insertion: ";
+    for(auto x : my_list2) cout<<x<<" "; //empty now
+    cout<<endl;
     
-    //merge
+    //merge DELETES list2 after merging
     my_list1.sort(); // 
     my_list2.sort(); // 
     my_list1.merge(my_list2); // merge only exist for the list container
     // merge 2 linkedlists, leetcode problem:
     // https://leetcode.com/problems/merge-two-sorted-lists/description/
+    cout<<"After merging List1 now: ";
     for(auto x : my_list1) cout<<x<<" ";
     cout<<endl;
-    cout<<"List2: ";
+
+    cout<<"After merging List2 now: ";
     for(auto x : my_list2) cout<<x<<" "; //empty now
     cout<<endl;
 
-    //splice, this is the seed
+    // //splice, this is the seed
     srand(time(0));
     // refill list2 with 5 random numbers
     for(int i = 0; i < 5; i++) my_list2.insert(my_list2.end(),rand() % 200 - 100); // rand() gives you numbers between 0 and 1, % means always gonna give us integers,
@@ -206,13 +217,28 @@ void test_list()
     for(auto x : my_list2) cout<<x<<" "; 
     cout<<endl;
     
-    my_list1.splice ( my_list1.begin(), my_list2); // splice similar to merge
-    // put list2 at the beginning of list1
-    for(auto x : my_list1) cout<<x<<" ";
-    cout<<endl;
+
+    // splicing now
+    cout<<"Added random numbers to list2, before splicing list2: ";
     for(auto x : my_list2) cout<<x<<" "; //empty now
     cout<<endl;
+
+    my_list1.splice(my_list1.begin(), my_list2); // splice similar to merge
+    // put list2 at the beginning of list1
+    cout<<"List1 now: ";
+
+    for(auto x : my_list1) cout<<x<<" ";
+    cout<<endl;
+
+    cout<<"After splciing List2 now: ";
+    for(auto x : my_list2) cout<<x<<" "; //empty now
+    cout<<endl;
+
+    cout<<"\n\nConclusion: Insert list2, does not delete it. Merge and splice list2 into list1 delete it.";
+
 }
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////////

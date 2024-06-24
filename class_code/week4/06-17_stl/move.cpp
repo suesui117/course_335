@@ -1,34 +1,54 @@
 #include <iostream>
-#include <algorithm>
 #include <list>
-#include <vector>
 
-int main()
+void partition(std::list<int> &nums, const int x)
 {
+    auto it = nums.begin();
+    auto last = prev(nums.end()); // make sure to set last to the last element, not past-the-last element
 
-    std::vector<int> vec{1, 2, 3, 4, 5};
-    auto it = vec.begin();
-    auto diff = vec.end();
+    std::cout << *last << std::endl;
 
-    // Pre-increment
-    while (it != vec.end())
+    while (it != last)
     {
-        auto ok = it -2;
-
-        std::cout << ((ok < it) ? 1 : 0) << std::endl;
-       ++it;
+        if (*it > x)
+        {
+            nums.push_back(*it);  // Move greater elements to the back
+            it = nums.erase(it);       // Erase current element
+        }
+        else
+        {
+            ++it;  // Move to the next element
+        }
 
     }
+    
+}
 
-    // // Reset iterator
-    // it = lst.begin();
 
-    // // Post-increment
-    // while (it != lst.end()) {
-    //     std::cout << *it++ << " ";  // Dereferences first, then increments
-    //     if (it == lst.end()) break;  // Check if it reached the end
-    // }
-    // std::cout << std::endl;
+int main() {
+    std::list<int> myList = {3, 5, 2, 8, 1, 7, 4};
+    int x = 4;
+
+    std::cout << "Original list: ";
+    for (auto num : myList) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    partition(myList, x);
+
+    std::cout << "Partitioned list with x = " << x << ": ";
+    for (auto num : myList) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    // Output the modified list
+    for (auto num : myList) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
 
     return 0;
+
 }

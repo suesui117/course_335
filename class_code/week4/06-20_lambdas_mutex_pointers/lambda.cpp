@@ -49,6 +49,9 @@ void tempFunc2(string value)
 
 int main()
 {
+    // History: lambda comes from lambda calculus, allen turin had teacher, named Alonzo Church,
+    // invented almbda calculus, a type of math uses only functions, from axioms you can derive functions
+    // 
     typedef void(*func)(int);
     func p = tempFunc;
     void(*tempFunc2Ptr)(string) = tempFunc2;

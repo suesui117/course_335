@@ -1,14 +1,17 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include<algorithm>
-#include<functional>
+#include <algorithm>
+#include <functional> // its a STL where includes lambda functions
 
 using namespace std;
 
 
-//void(*func)(int)
-void ForEach(const vector<int>& values, const function<void(int)>& func)
+// void(*func)(int) // this is how we pass in the func pointer as a type
+
+void ForEach(const vector<int>& values, const function<void(int)>& func) //function is the keyword, angle <> is from the library just like vector, void is the function that returns nothing with an int input
+// const function<void(int)>& func this is a lambda function,
+// void(*func)(int) is dual form of lambda function, they are the same, could use either
 {
     for(int val : values)
         func(val);
@@ -41,24 +44,46 @@ void tempFunc(int value)
 }
 
 
-void tempFunc2(string value)
+void tempFunc2(string value, int x)
 {
     cout<<"Hi: "<<value<<endl;
 }
 
+int func(string value)
+{
+    cout << "hi: " << value << endl;
+    return 8;
+}
 
 int main()
 {
     // History: lambda comes from lambda calculus, allen turin had teacher, named Alonzo Church,
     // invented almbda calculus, a type of math uses only functions, from axioms you can derive functions
-    // 
-    typedef void(*func)(int);
-    func p = tempFunc;
-    void(*tempFunc2Ptr)(string) = tempFunc2;
-    cout<<"Here: ";
-    p(3);
-    tempFunc2Ptr("sup");
+    // starts with 5 axioms, you can derive functions.
+    // lamda calculus, turin machines and real number calculus, each all start with axioms where we derive theorems.
+    // in computer theory they teach theory
+    // lambda caluclus uses function as its atomic unit of computation. 
+    // turin uses indeices of array
+    // what created the need of 
+    // pointer to a function
+    // int(*func_ptr)(string) = func; // a function has a return type 
+    // // use* to tell compiler its a pointer, storing a pointer to a function
+    // cout << func_ptr("sup") << endl; // same as a func call like: func("sup");
+
+
+    // typedef void(*func_ptr2)(int); //renaming this type into a function pointer
+    // typedef int jaime; // give alias int, jaime. jaime and int are interchangable.
+    // int x = 7;
+    // jaime y = 8;
+
+    // func_ptr2 p = tempFunc;
+    // p(3); // pointer gets dereferenced with the parenthesis, when you have a function, when we call void func2
+    // // you're actually using a pointer pointing to it. func("sup"), func() is a function pointer
+    // // no need "->"
  
+
+    // in C you need to use function pointers and use typedef to give it a name
+    // in C++, they implemented lambda
     vector<int> values({7,4,8, 10, 81, 3});
     string x = "Hello: ";
 
@@ -69,15 +94,15 @@ int main()
     ForEach(values, tempFunc);
     cout<<endl;
 
-    cout<<isPalindrome("Apple-Sauce")<<endl;
-    cout<<isPalindrome("Race-c-ar-")<<endl;
+    // cout<<isPalindrome("Apple-Sauce")<<endl;
+    // cout<<isPalindrome("Race-c-ar-")<<endl;
 
-    sort(values.begin(), values.end());
-    x="";
-    ForEach(values,lambda);
-    cout<<endl;
+    // sort(values.begin(), values.end());
+    // x="";
+    // ForEach(values,lambda);
+    // cout<<endl;
 
-    sort(values.begin(),values.end(),[](int a, int b){return a > b;});
-    ForEach(values,lambda);
+    // sort(values.begin(),values.end(),[](int a, int b){return a > b;});
+    // ForEach(values,lambda);
     return 0;
 }

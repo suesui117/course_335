@@ -9,6 +9,10 @@ using namespace std;
 
 // void(*func)(int) // this is how we pass in the func pointer as a type
 
+// this function takes in a vector of integers and a function
+// functors a class that acts as a function, a class() can be passed in as a function
+// good thing is class can have private variables, functor is an alternative to a lambda.
+// have to make a class for functor, more verbose. 
 void ForEach(const vector<int>& values, const function<void(int)>& func) //function is the keyword, angle <> is from the library just like vector, void is the function that returns nothing with an int input
 // const function<void(int)>& func this is a lambda function,
 // void(*func)(int) is dual form of lambda function, they are the same, could use either
@@ -88,7 +92,18 @@ int main()
     string x = "Hello: ";
 
     // ) mutable { modify capture variables.pass by copy =, pass by reference &
-    auto lambda = [&x](int value){cout<<x<<value<<" ";};
+    // has 3 components:
+    // [&x] = capture, global variables that you can pass in, pass by reference
+    // (int value) = parameter list
+    // {} = what the function does
+    auto lambda = [&x](int value){cout<<x<<value<<" ";}; // if we return 7, auto will know its int
+    // can also create things within the lambda function, use [], so it doesnt accept global variable
+    // auto lambda = [=](int value){cout<<x<<value<<" ";}; // if we return 7, auto will know its int
+    // [=], pass in all global varible declared about
+    // [&], pass in all global varible declared about by reference 
+
+   
+   
     ForEach(values,lambda);
     cout<<endl;
     ForEach(values, tempFunc);

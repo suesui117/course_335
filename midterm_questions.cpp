@@ -69,4 +69,6 @@ std::cout << "The average of the ints in list is: " << result << "\n";
 
 printString(compute(my_list));
 
+// declare a iterator of array with size 2
+
 }

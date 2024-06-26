@@ -25,15 +25,28 @@ void ForEach(const vector<int>& values, const function<void(int)>& func) //funct
 bool isPalindrome(string s) 
 {
     //convert s to all lowercase 
-    for_each(s.begin(), s.end(),[](char& c){c = tolower(c);});
+    // takes in a container, for each element, turn c into a lower c
+    // lambda function: [](char& c){ c = tolower(c);}
+    for_each(s.begin(), s.end(),[](char& c){ c = tolower(c);});
     
     //remove non-alphanumeric characters
     //does so by moving all nonalphanumeric character to end of string
     //then you must delete character from first invalid character located at
     //it and onwards
+
+    // remove_if() requires a lambda function to return a boolean
+    // demonstrates how remove_if() works:
+    // when it encounters nonalphanumeric, it moves it to the back
+    // race-#a
+    // race #a-
+    // race a-#
+    //      ^
+    //      |
+    //      pointer stops here
     auto it = remove_if(s.begin(), s.end(), 
                         [](char const &c){return !isalnum(c);});
     s.erase(it, s.end());
+    // then deletes nonalphanumeric characters
     
     string s_pali;
     for(auto iter = s.rbegin(); iter !=s.rend(); iter++) s_pali+=*iter;
@@ -109,15 +122,24 @@ int main()
     ForEach(values, tempFunc);
     cout<<endl;
 
-    // cout<<isPalindrome("Apple-Sauce")<<endl;
-    // cout<<isPalindrome("Race-c-ar-")<<endl;
+    cout<<isPalindrome("Apple-Sauce")<<endl;
+    cout<<isPalindrome("Race-c-ar-")<<endl;
 
-    // sort(values.begin(), values.end());
-    // x="";
-    // ForEach(values,lambda);
-    // cout<<endl;
 
-    // sort(values.begin(),values.end(),[](int a, int b){return a > b;});
-    // ForEach(values,lambda);
+    // last thing to go over today (6/25/2024)
+    sort(values.begin(), values.end()); //sort() is from algorithm library, by default ascending order small to large
+    // above, we're passing in by reference, so we's changing the order auto lambda = [&x](int value){cout<<x<<value<<" ";}; // if we return 7, auto will know its int
+
+    x = "";
+
+    ForEach(values,lambda);
+    cout << endl;
+
+    // we could use lambda to sort in decending order by comparing a > b, a has to be greater than b, preceeding elements than elements that follow
+    // a is the first value compare it to the one that follows
+    sort(values.begin(),values.end(),[](int a, int b){return a > b;});
+    
+    ForEach(values,lambda);
+
     return 0;
 }

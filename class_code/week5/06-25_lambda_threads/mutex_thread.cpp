@@ -1,14 +1,25 @@
 #include <iostream>
 #include <map>
 #include <string>
-#include <chrono>
-#include <thread>
-#include <mutex>
+#include <chrono> //* for concurrent programming, alot of algorithm
+#include <thread> //* ability to create our threads
+#include <mutex> // mutex objects
 
 using namespace std;
 
-map<string, string> g_pages;
-mutex g_pages_mutex;
+// set up 2 global variables
+map<string, string> g_pages;  // a map 
+mutex g_pages_mutex; // a mutex is a lock, when using shared memeory model, all concurrent processes, the program itself, threads1, thread2, all accessing
+// the same memory, maybe program wants to modify g_pages, threads1 maybe also modigying g_pages. 
+// to solve the problem, mutex comes in
+
+/* mutex and threads are two different things
+there are 2 types of concurrent programming:
+1. shared memory model: when you create thread on the same computer, its storing info onto the RAM
+threads share it with the parents, all have access to whatever you made global available. concurrent threads all have access to the same memory
+2. message passing: when you have computer1, computer2,  and you have ./a.out, you can send it to computer1 and some commads to computer2,
+and you can setup some communication between computer1 and computer2 like web application requesting from one to another.
+*/
  
 void save_page(const string &url, int second_param)
 {

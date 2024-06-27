@@ -33,6 +33,8 @@ void save_page(const string &url, int second_param)
     
     cout<<"Thread: "<<this_thread::get_id() << " "<<url << " " << second_param <<endl;
     
+    lock_guard<mutex> guard(g_pages_mutex);
+    cout<<"Thread "<<this_thread::get_id()<<": "<<url<<" "<<second_param<<endl;
     g_pages[url] = result;
 }
  
@@ -58,8 +60,16 @@ int main()
 
 
 
+    cout<<"Parent Process: "<<"num of cores: "<<thread::hardware_concurrency()<<endl;
+    thread t1(save_page, "http://foo", 1);
+    thread t2(save_page, "http://bar", 1);
+
+    // sequential analog to threads
+    //save_page("http://foo", 1);
+    //save_page("http://bar", 1);
 
     //write other code you need here
+    cout<<"Parent Process: "<<"Hello"<<endl; //runs concurrently  with t1 and t2
 
     cout<< "Hello \n" <<endl; //runs concurrently  with t1 and t2
 
@@ -69,6 +79,7 @@ int main()
  
     // t1 and t2 no longer exist
     // safe to access g_pages without lock now, as the threads are joined
+    cout<<"Parent Process: ";
     for (const auto &pair : g_pages) 
         cout << pair.first << " => " << pair.second << '\n';
 }

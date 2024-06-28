@@ -1,5 +1,5 @@
-#ifndef QUADRATIC_PROBING_H
-#define QUADRATIC_PROBING_H
+#ifndef DOUBLE_HASHING_H
+#define DOUBLE_HASHING_H
 
 #include <vector>
 #include <algorithm>
@@ -181,4 +181,4 @@ class HashTable {
 
 };
 
-#endif  // QUADRATIC_PROBING_H
+#endif  // DOUBLE_HASHING_H

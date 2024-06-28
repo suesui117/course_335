@@ -1,13 +1,14 @@
-#ifndef QUADRATIC_PROBING_H
-#define QUADRATIC_PROBING_H
+#ifndef LINEAR_PROBING_H
+#define LINEAR_PROBING_H
 
 #include <vector>
 #include <algorithm>
 #include <functional>
 
+
 /*
-From textbook: Data Structures and Algorithm Analysis, fourth edition
-Chapter 5. p.207
+Two basic methods of collision resolutions to hashing is separate chaining and open addressing (closed hashing).
+A subtype of open addressing is linear probing which is to find the next available cell for insertion of the new key.
 */
 
 namespace {
@@ -135,7 +136,7 @@ class HashTable {
 
 
     // private member function 2
-    // this is the quadratice_probing section
+    // this is the linear_probing section
     size_t FindPos(const HashedObj & x) const 
     {
       size_t offset = 1;
@@ -143,11 +144,10 @@ class HashTable {
         
       while ( array_[current_pos].info_ != EMPTY && array_[current_pos].element_ != x) 
       {
-        current_pos += offset;  // Compute i-th probe.
-        offset += 2;
+        ++current_pos;
 
         if (current_pos >= array_.size())
-          current_pos -= array_.size();
+            current_pos -= array_.size();
       }
 
       return current_pos;
@@ -181,4 +181,4 @@ class HashTable {
 
 };
 
-#endif  // QUADRATIC_PROBING_H
+#endif  // LINEAR_PROBING_H

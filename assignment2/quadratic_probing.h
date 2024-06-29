@@ -173,6 +173,7 @@ class HashTable {
 
 
     // private member function 3
+    // collision handles different 
     size_t InternalHash(const HashedObj & x) const 
     {
       static std::hash<HashedObj> hf;

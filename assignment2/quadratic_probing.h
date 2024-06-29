@@ -8,6 +8,13 @@
 /*
 From textbook: Data Structures and Algorithm Analysis, fourth edition
 Chapter 5. p.207
+
+hashTable is a class that stores HashedObj as the key.
+HashEntry is a struct object that has 2 member variables, the HashedObject (element_) and info_ which is just a tag
+element_ is the one being hashed, the hase value will be the index where hashedObject will be stored.
+HashEntry.elemment_ = key
+HashEntry.info_ = just a flag
+hf(HashEntry.elemment_) = hash value or index
 */
 
 namespace {
@@ -115,7 +122,7 @@ class HashTable {
       HashedObj element_;
       EntryType info_;
       
-      HashEntry(const HashedObj& e = HashedObj{}, EntryType i = EMPTY)
+      HashEntry(const HashedObj& e = HashedObj(), EntryType i = EMPTY) //
       :element_{e}, info_{i} { }
       
       HashEntry(HashedObj && e, EntryType i = EMPTY)

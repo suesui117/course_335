@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <functional>
 
+
 /*
 From textbook: Data Structures and Algorithm Analysis, fourth edition
 Chapter 5. p.207
@@ -47,7 +48,7 @@ int NextPrime(size_t n) {
 
 
 // Quadratic probing implementation.
-// create a class called Hashtable
+// create a class called Hashtable which holds HashedObj as the key
 template <typename HashedObj>
 class HashTable {
 
@@ -113,6 +114,33 @@ class HashTable {
   }
 
 
+  // current size
+  int size()
+  {
+    return current_size_;
+  }
+
+
+  // table size, should be bigger than current_size due to rehashing
+  int tableSize()
+  {
+    return array_.size();
+  }
+
+  // user-defined operator[] overloading
+    const HashedObj& operator[](size_t index) const 
+    {
+        if (index < array_.size()) {
+            return array_[index].element_;
+        } else {
+            // Handle index out of bounds error or return a default value
+            throw std::out_of_range("Index out of bounds");
+        }
+    }
+
+
+
+
 
   // below are all private data members and private member functions
   private:     
@@ -122,7 +150,7 @@ class HashTable {
       HashedObj element_;
       EntryType info_;
       
-      HashEntry(const HashedObj& e = HashedObj(), EntryType i = EMPTY) //
+      HashEntry(const HashedObj& e = HashedObj{}, EntryType i = EMPTY) //
       :element_{e}, info_{i} { }
       
       HashEntry(HashedObj && e, EntryType i = EMPTY)

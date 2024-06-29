@@ -4,10 +4,10 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-
+#include <quadratic_probing.h>
 // You can change to quadratic probing if you
 // haven't implemented double hashing.
-#include <double_hashing.h>
+// #include <double_hashing.h>
 using namespace std;
 
 // You can add more functions here.

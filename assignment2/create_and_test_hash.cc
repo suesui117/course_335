@@ -1,7 +1,7 @@
 /*
     Author: Xin (Sue) Sui
 */
-#include <fstream>
+#include <fstream> // file stream
 #include <iostream>
 #include <string>
 #include "quadratic_probing.h"
@@ -24,9 +24,43 @@ void TestFunctionForHashTable(HashTableType &hash_table,
 {
     std::cout << "hello \n";
     hash_table.MakeEmpty();
-    // making unordered_map()
+    std::cout << "Current size is: " <<hash_table.size() << "\n";
     
-    //..Insert your own code
+    ifstream words_file(query_filename); // words_file is file handler
+    string word;
+
+    while (getline(words_file, word)) // reading into word
+    {
+        hash_table.Insert(word);
+    }
+
+    std::cout << "YOOOOOO Current size is: " <<hash_table.size() << "\n";
+
+    std::cout << hash_table[0] << "\n";
+    int counter = 0;
+    for(int i = 0; i < hash_table.size(); ++i)
+    {
+        // if(hash_table[i] == "")
+        // {
+        //     // std::cout << hash_table[i] << "\n";
+        //     ++counter;
+        // }
+       
+    //    else{
+        std::cout << hash_table[i] << "\n";
+       }
+        // ++counter;
+    
+
+    std::cout << counter << "\n";
+
+    std::cout << "table size is: " << hash_table.tableSize();
+    std::cout << "\nelement size is: " << hash_table.size();
+
+
+
+    
+    
 
 }
 

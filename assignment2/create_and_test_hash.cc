@@ -18,13 +18,13 @@ using namespace std;
 // @words_filename: a filename of input words to construct the hash table
 // @query_filename: a filename of input words to test the hash table
 template <typename HashTableType>
-void TestFunctionForHashTable(HashTableType &hash_table,
-			      const string &words_filename,
-			      const string &query_filename)                  
+void TestFunctionForHashTable
+(HashTableType &hash_table, const string &words_filename, const string &query_filename)                  
 {
-    std::cout << "hello \n";
-    hash_table.MakeEmpty();
-    std::cout << "Current size is: " <<hash_table.size() << "\n";
+    hash_table.MakeEmpty(); // step 1. clear the HashTable
+    std::cout << "\nBefore insertion table size is: " <<hash_table.tableSize() << "\n";
+    std::cout << "Before insertion elements count is: " <<hash_table.size() << "\n";
+
     
     ifstream words_file(query_filename); // words_file is file handler
     string word;
@@ -34,28 +34,13 @@ void TestFunctionForHashTable(HashTableType &hash_table,
         hash_table.Insert(word);
     }
 
-    std::cout << "YOOOOOO Current size is: " <<hash_table.size() << "\n";
 
-    std::cout << hash_table[0] << "\n";
-    int counter = 0;
-    for(int i = 0; i < hash_table.size(); ++i)
-    {
-        // if(hash_table[i] == "")
-        // {
-        //     // std::cout << hash_table[i] << "\n";
-        //     ++counter;
-        // }
-       
-    //    else{
-        std::cout << hash_table[i] << "\n";
-       }
-        // ++counter;
-    
+    std::cout << "\nAfter insertion, table size is: " << hash_table.tableSize();
+    std::cout << "\nAfter insertion elements count is: " <<hash_table.size();
+    std::cout << "\nTotal collision is: " << hash_table.totalCollision();
+    std::cout << "\nLoad factor is : " << hash_table.loadFactor();
 
-    std::cout << counter << "\n";
 
-    std::cout << "table size is: " << hash_table.tableSize();
-    std::cout << "\nelement size is: " << hash_table.size();
 
 
 
@@ -90,7 +75,10 @@ int testHashingWrapper(int argument_count, char **argument_list)
 
     else if (param_flag == "quadratic") 
     {
+        // size_t size = 1000;
+
         HashTable<string> quadratic_probing_table; // create a hashtable of of string as key
+        
         TestFunctionForHashTable(quadratic_probing_table, words_filename,
                     query_filename);
     } 

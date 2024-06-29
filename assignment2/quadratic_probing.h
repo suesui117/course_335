@@ -53,6 +53,9 @@ template <typename HashedObj>
 class HashTable {
 
  public:
+  // ACTIVE = 0
+  // EMPTY = 1
+  // DELETED = 2
   enum EntryType {ACTIVE, EMPTY, DELETED};
 
   // textbook 205
@@ -113,19 +116,14 @@ class HashTable {
     return true;
   }
 
+/***************** User defined functions Begin *****************/
 
   // current size
-  int size()
-  {
-    return current_size_;
-  }
+  size_t size() { return current_size_; }
 
 
   // table size, should be bigger than current_size due to rehashing
-  int tableSize()
-  {
-    return array_.size();
-  }
+  size_t tableSize() { return array_.size(); }
 
   // user-defined operator[] overloading
     const HashedObj& operator[](size_t index) const 
@@ -138,18 +136,32 @@ class HashTable {
         }
     }
 
+  // needs work
+  size_t totalCollision()
+  {
+    return total_collision_;
+  }
 
 
+  double loadFactor()
+  {
+    return static_cast<double>(current_size_) / array_.size();
+  }
 
+
+/***************** User defined functions End *****************/
 
   // below are all private data members and private member functions
   private:     
 
-    struct HashEntry 
+    struct HashEntry // struct HashEntry parameterized constructor with default arguments
     {
+
       HashedObj element_;
       EntryType info_;
-      
+
+      // struct HashEntry variable will be created with 2 data members:
+      // they are 1. HashedObj - default to empty and 2. EntryType - default to EMPTY
       HashEntry(const HashedObj& e = HashedObj{}, EntryType i = EMPTY) //
       :element_{e}, info_{i} { }
       
@@ -160,9 +172,9 @@ class HashTable {
 
     std::vector<HashEntry> array_;
     size_t current_size_;
+    mutable size_t total_collision_ = 0;
 
 
-    // private member function 1
     bool IsActive(size_t current_pos) const
     {
       return array_[current_pos].info_ == ACTIVE; 
@@ -170,20 +182,33 @@ class HashTable {
 
 
     // private member function 2
-    // this is the quadratice_probing section
+    // this is the quadratic_probing section
     size_t FindPos(const HashedObj & x) const 
     {
       size_t offset = 1;
       size_t current_pos = InternalHash(x);
-        
+      // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
+
+      // will only enter the loop if collision occured  
+      int probe_counter = 1;
       while ( array_[current_pos].info_ != EMPTY && array_[current_pos].element_ != x) 
       {
+        std::cout << "Hi I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
+        probe_counter++;
         current_pos += offset;  // Compute i-th probe.
         offset += 2;
 
+        // std::cout << "After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
+
+
+
         if (current_pos >= array_.size())
           current_pos -= array_.size();
+        std::cout << "After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
+
       }
+      std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << " Probing is: " << probe_counter <<"\n";
+
 
       return current_pos;
     }
@@ -212,7 +237,7 @@ class HashTable {
     size_t InternalHash(const HashedObj & x) const 
     {
       static std::hash<HashedObj> hf;
-      return hf(x) % array_.size( );
+      return hf(x) % array_.size();
     }
 
 };

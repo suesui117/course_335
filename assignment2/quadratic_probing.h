@@ -64,11 +64,17 @@ class HashTable {
   explicit HashTable(size_t size = 101) : array_(NextPrime(size))
     { MakeEmpty(); }
   
-  bool Contains(const HashedObj & x) const {
-    return IsActive(FindPos(x));
-  }
+
+  // Q1 B), modify Contains to do the job of Found/Not_Found
+bool Contains(const HashedObj & x) const 
+{
+  return IsActive(FindPos(x));
+}
+
+
   
-  void MakeEmpty() {
+  void MakeEmpty() 
+  {
     current_size_ = 0;
     for (auto &entry : array_)
       entry.info_ = EMPTY;
@@ -141,9 +147,39 @@ class HashTable {
 
   double averageCollision() { return static_cast<double>(total_collision_) / size(); }
 
-
   double loadFactor() { return static_cast<double>(current_size_) / array_.size(); }
 
+
+ std::pair<bool, int> FindProbe(const HashedObj & x) const 
+{
+    size_t offset = 1;
+    size_t current_pos = InternalHash(x);
+    int probe_counter = 1;
+    // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty, this element is there: ") << array_[current_pos].element_ << " "<<InternalHash(array_[current_pos].element_)<< "\n";
+
+    // Check if x is active (i.e., found)
+    bool found = IsActive(current_pos);
+
+    // If found, increment probe_counter until we find x or hit an empty slot
+    while (IsActive(current_pos)) {
+        if (array_[current_pos].element_ == x) {
+            // Element found, return with current probe_counter
+            return {true, probe_counter};
+        }
+        
+        // Increment probe_counter and compute next position
+        ++probe_counter;
+        current_pos += offset;
+        offset += 2;
+
+        // Handle wrap around if necessary
+        if (current_pos >= array_.size())
+            current_pos -= array_.size();
+    }
+
+    // Element not found, return with probe_counter for last position checked
+    return {false, probe_counter};
+}
 
 /***************** User defined functions End *****************/
 
@@ -183,21 +219,20 @@ class HashTable {
     {
       size_t offset = 1;
       size_t current_pos = InternalHash(x);
-      // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
+      int probe_counter = 1;
+      // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty, this element is there: ") << array_[current_pos].element_ << " "<<InternalHash(array_[current_pos].element_)<< "\n";
 
       // will only enter the loop if collision occured  
-      // int probe_counter = 1;
       while ( array_[current_pos].info_ != EMPTY && array_[current_pos].element_ != x) 
       {
         ++total_collision_;
+        ++probe_counter;
         // std::cout << "Hi I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
-        // probe_counter++;
 
         current_pos += offset;  // Compute i-th probe.
         offset += 2;
 
         // std::cout << "After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
-
 
 
         if (current_pos >= array_.size()) // this is the wrap around
@@ -210,6 +245,9 @@ class HashTable {
 
       return current_pos;
     }
+
+   
+
 
 
     // private member function 3

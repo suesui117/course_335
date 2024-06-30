@@ -25,7 +25,7 @@ void TestFunctionForHashTable
     std::cout << "\nBefore insertion table size is: " <<hash_table.tableSize() << "\n";
     std::cout << "Before insertion elements count is: " <<hash_table.size() << "\n";
 
-    
+
     ifstream words_file(words_filename); // words_file is file handler
     string word;
 
@@ -37,28 +37,25 @@ void TestFunctionForHashTable
         }
     }
 
-    std::cout << "\n\n";
+    std::cout << "\nnumber_of_elements: " <<hash_table.size() <<
+    "\nsize_of_table: " << hash_table.tableSize() << 
+    "\nload_factor: " << hash_table.loadFactor() <<
+    "\ncollisions: " << hash_table.totalCollision() <<
+    "\navg_collisions: " << hash_table.averageCollision() << "\n\n";
 
     ifstream query_file(query_filename); // words_file is file handler
     string query;
     while (getline(query_file, query)) // reading into query
     {
-        // if( hash_table.Contains(query))
+        hash_table.Contains(query);
         auto [flag, probe] = hash_table.FindProbe(query);
-        if (!flag)
-            std::cout <<  " Not_found " << probe << "\n";
+        if (flag)
+            std::cout << query <<" Found " << probe << "\n";
         else
-            std::cout <<  " found " << probe << "\n";
+            std::cout << query <<" Not_Found " << probe << "\n";
    
    
     }
-
-
-    std::cout << "\nnumber_of_elements: " <<hash_table.size();
-    std::cout << "\nsize_of_table: " << hash_table.tableSize();
-    std::cout << "\nload_factor: " << hash_table.loadFactor();
-    std::cout << "\ncollisions: " << hash_table.totalCollision();
-    std::cout << "\navg_collisions: " << hash_table.averageCollision();
 }
 
 

@@ -145,9 +145,9 @@ bool Contains(const HashedObj & x) const
 
   size_t totalCollision() { return total_collision_; }
 
-  double averageCollision() { return static_cast<double>(total_collision_) / size(); }
+  float averageCollision() { return static_cast<float>(total_collision_) / size(); }
 
-  double loadFactor() { return static_cast<double>(current_size_) / array_.size(); }
+  float loadFactor() { return static_cast<float>(current_size_) / array_.size(); }
 
 
  std::pair<bool, int> FindProbe(const HashedObj & x) const 

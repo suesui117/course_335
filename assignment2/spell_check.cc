@@ -1,4 +1,4 @@
-// YOUR NAME.
+// Author: Xin (Sue) Sui
 // spell_check.cc: A simple spell checker.
 
 #include <fstream>
@@ -7,30 +7,35 @@
 #include <quadratic_probing.h>
 // You can change to quadratic probing if you
 // haven't implemented double hashing.
-// #include <double_hashing.h>
+#include <linear_probing.h>
+#include <double_hashing.h>
+
 using namespace std;
 
 // You can add more functions here.
 
 // Creates and fills double hashing hash table with all words from
 // dictionary_file
-HashTableDouble<string> MakeDictionary(const string &dictionary_file) {
-  HashTableDouble<string> dictionary_hash;
-  // Fill dictionary_hash.
-  return dictionary_hash;
+HashTableDouble<string> MakeDictionary(const string &dictionary_file) 
+{
+    HashTableDouble<string> dictionary_hash;
+    // Fill dictionary_hash.
+    return dictionary_hash;
 }
 
 // For each word in the document_file, it checks the 3 cases for a word being
 // misspelled and prints out possible corrections
 void SpellChecker(const HashTableDouble<string>& dictionary,
-		  const string &document_file) {
+		  const string &document_file) 
+{
 
 }
 
 // @argument_count: same as argc in main
 // @argument_list: save as argv in main.
 // Implements
-int testSpellingWrapper(int argument_count, char** argument_list) {
+int testSpellingWrapper(int argument_count, char** argument_list) 
+{
     const string document_filename(argument_list[1]);
     const string dictionary_filename(argument_list[2]);
 

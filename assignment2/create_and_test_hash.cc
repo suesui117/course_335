@@ -5,11 +5,12 @@
 #include <iostream>
 #include <string>
 #include "quadratic_probing.h"
+// #include "linear_probing.h"
+
 using namespace std;
 
 
 // Uncomment when you implemented linear probing & double hashing
-// #include "linear_probing.h"
 // #include "double_hashing.h"
 
 // You can add more functions here
@@ -53,8 +54,6 @@ void TestFunctionForHashTable
             std::cout << query <<" Found " << probe << "\n";
         else
             std::cout << query <<" Not_Found " << probe << "\n";
-   
-   
     }
 }
 
@@ -93,6 +92,7 @@ int testHashingWrapper(int argument_count, char **argument_list)
         TestFunctionForHashTable(quadratic_probing_table, words_filename,
                     query_filename);
     } 
+
     else if (param_flag == "double") 
     {
         cout << "r_value: " << R << endl;

@@ -5,6 +5,11 @@
 #### Table Size should be:
 Double the amount of data you expect to put into the table
 A prime number. This is because if my hash table size is, say, 100, then any hash key that's a multiple of 100 will first try to go into index 100, causing a collision after the first insert. A good hash function will scatter the data evenly throughout the hash table.
+Number of probes it took to find the next available location for the keys.
+
+load factor λ: (total number of elements in the hash table)/(table size), ideally no morea than 0.5
+
+Collisions:
 
 1. Quadratic probing implementation is provided to us, we needed to implement helper functions to get the deliverables - total collisions, average collisions, number of probes it took to find the next available location for the keys.
 start offset = 1, increment current position by offset, and increment offset by 2. 

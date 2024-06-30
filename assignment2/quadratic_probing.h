@@ -53,133 +53,133 @@ template <typename HashedObj>
 class HashTable {
 
  public:
-  // ACTIVE = 0
-  // EMPTY = 1
-  // DELETED = 2
-  enum EntryType {ACTIVE, EMPTY, DELETED};
+    // ACTIVE = 0
+    // EMPTY = 1
+    // DELETED = 2
+    enum EntryType {ACTIVE, EMPTY, DELETED};
 
-  // textbook 205
-  // constructor, explicitly specifying a size:
-  // like HashTable sue(200); or HashTable sue;, cannot do HashTable sue = 200;
-  explicit HashTable(size_t size = 101) : array_(NextPrime(size))
-    { MakeEmpty(); }
-  
-
-  // Q1 B), modify Contains to do the job of Found/Not_Found
-bool Contains(const HashedObj & x) const 
-{
-  // quick note, Contains already does the check multiple times to see if a key is found or not,
-  // check with prof, if not found, do you still want the probe count?
-  return IsActive(FindPos(x));
-}
+    // textbook 205
+    // constructor, explicitly specifying a size:
+    // like HashTable sue(200); or HashTable sue;, cannot do HashTable sue = 200;
+    explicit HashTable(size_t size = 101) : array_(NextPrime(size))
+      { MakeEmpty(); }
 
 
-  
-  void MakeEmpty() 
-  {
-    current_size_ = 0;
-    for (auto &entry : array_)
-      entry.info_ = EMPTY;
-  }
-
-  bool Insert(const HashedObj & x) {
-    // Insert x as active
-    size_t current_pos = FindPos(x);
-    if (IsActive(current_pos))
-      return false;
-    
-    array_[current_pos].element_ = x;
-    array_[current_pos].info_ = ACTIVE;
-    
-    // Rehash; see Section 5.5
-    if (++current_size_ > array_.size() / 2)
-      Rehash();  
-  
-    return true;
-  }
-    
-  bool Insert(HashedObj && x) {
-    // Insert x as active
-    size_t current_pos = FindPos(x);
-    if (IsActive(current_pos))
-      return false;
-    
-    array_[current_pos] = std::move(x);
-    array_[current_pos].info_ = ACTIVE;
-
-    // Rehash; see Section 5.5
-    if (++current_size_ > array_.size() / 2)
-      Rehash();
-
-    return true;
-  }
-
-  // just marks is x is deleted (true) or not (active - false)
-  bool Remove(const HashedObj & x) {
-    size_t current_pos = FindPos(x);
-    if (!IsActive(current_pos)) // IsActive(current_pos) returns false if its empty or deleted, not false means not empty, which is active
-      return false; // if its active return false;
-
-    array_[current_pos].info_ = DELETED; // else if its empty or deleted, set it to deleted
-    return true;
-  }
-
-/***************** User defined functions Begin *****************/
-
-  // current size
-  size_t size() { return current_size_; }
-
-
-  // table size, should be bigger than current_size due to rehashing
-  size_t tableSize() { return array_.size(); }
-
-  // user-defined operator[] overloading
-    const HashedObj& operator[](size_t index) const 
+    // Q1 B), modify Contains to do the job of Found/Not_Found
+    bool Contains(const HashedObj & x) const 
     {
-        if (index < array_.size()) {
-            return array_[index].element_;
-        } else {
-            // Handle index out of bounds error or return a default value
-            throw std::out_of_range("Index out of bounds");
-        }
+    // quick note, Contains already does the check multiple times to see if a key is found or not,
+    // check with prof, if not found, do you still want the probe count?
+    return IsActive(FindPos(x));
     }
 
 
-  size_t totalCollision() { return total_collision_; }
 
-  float averageCollision() { return static_cast<float>(total_collision_) / size(); }
-
-  float loadFactor() { return static_cast<float>(current_size_) / array_.size(); }
-
-
- std::pair<bool, int> FindProbe(const HashedObj & x) const 
-{
-    size_t offset = 1;
-    size_t current_pos = InternalHash(x);
-    int probe_counter = 1;
-    // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty, this element is there: ") << array_[current_pos].element_ << " "<<InternalHash(array_[current_pos].element_)<< "\n";
-
-
-    // If found, increment probe_counter until we find x or hit an empty slot
-    while (IsActive(current_pos)) {
-        if (array_[current_pos].element_ == x) {
-            // Element found, return with current probe_counter
-            return {true, probe_counter};
-        }
-        
-        // Increment probe_counter and compute next position
-        ++probe_counter;
-        current_pos += offset;
-        offset += 2;
-
-        // Handle wrap around if necessary
-        if (current_pos >= array_.size())
-            current_pos -= array_.size();
+    void MakeEmpty() 
+    {
+      current_size_ = 0;
+      for (auto &entry : array_)
+        entry.info_ = EMPTY;
     }
 
-    // Element not found, return with probe_counter for last position checked
-    return {false, probe_counter};
-}
+    bool Insert(const HashedObj & x) {
+      // Insert x as active
+      size_t current_pos = FindPos(x);
+      if (IsActive(current_pos))
+        return false;
+      
+      array_[current_pos].element_ = x;
+      array_[current_pos].info_ = ACTIVE;
+      
+      // Rehash; see Section 5.5
+      if (++current_size_ > array_.size() / 2)
+        Rehash();  
+
+      return true;
+    }
+      
+    bool Insert(HashedObj && x) {
+      // Insert x as active
+      size_t current_pos = FindPos(x);
+      if (IsActive(current_pos))
+        return false;
+      
+      array_[current_pos] = std::move(x);
+      array_[current_pos].info_ = ACTIVE;
+
+      // Rehash; see Section 5.5
+      if (++current_size_ > array_.size() / 2)
+        Rehash();
+
+      return true;
+    }
+
+    // just marks is x is deleted (true) or not (active - false)
+    bool Remove(const HashedObj & x) {
+      size_t current_pos = FindPos(x);
+      if (!IsActive(current_pos)) // IsActive(current_pos) returns false if its empty or deleted, not false means not empty, which is active
+        return false; // if its active return false;
+
+      array_[current_pos].info_ = DELETED; // else if its empty or deleted, set it to deleted
+      return true;
+    }
+
+    /***************** User defined functions Begin *****************/
+
+    // current size
+    size_t size() { return current_size_; }
+
+
+    // table size, should be bigger than current_size due to rehashing
+    size_t tableSize() { return array_.size(); }
+
+    // user-defined operator[] overloading
+      const HashedObj& operator[](size_t index) const 
+      {
+          if (index < array_.size()) {
+              return array_[index].element_;
+          } else {
+              // Handle index out of bounds error or return a default value
+              throw std::out_of_range("Index out of bounds");
+          }
+      }
+
+
+    size_t totalCollision() { return total_collision_; }
+
+    float averageCollision() { return static_cast<float>(total_collision_) / size(); }
+
+    float loadFactor() { return static_cast<float>(current_size_) / array_.size(); }
+
+
+    std::pair<bool, int> FindProbe(const HashedObj & x) const 
+    {
+      size_t offset = 1;
+      size_t current_pos = InternalHash(x);
+      int probe_counter = 1;
+      // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty, this element is there: ") << array_[current_pos].element_ << " "<<InternalHash(array_[current_pos].element_)<< "\n";
+
+
+      // If found, increment probe_counter until we find x or hit an empty slot
+      while (IsActive(current_pos)) {
+          if (array_[current_pos].element_ == x) {
+              // Element found, return with current probe_counter
+              return {true, probe_counter};
+          }
+          
+          // Increment probe_counter and compute next position
+          ++probe_counter;
+          current_pos += offset;
+          offset += 2;
+
+          // Handle wrap around if necessary
+          if (current_pos >= array_.size())
+              current_pos -= array_.size();
+      }
+
+      // Element not found, return with probe_counter for last position checked
+      return {false, probe_counter};
+    }
 
 /***************** User defined functions End *****************/
 

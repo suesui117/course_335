@@ -5,13 +5,11 @@
 #include <iostream>
 #include <string>
 #include "quadratic_probing.h"
-// #include "linear_probing.h"
+#include "linear_probing.h"
+#include "double_hashing.h"
 
 using namespace std;
 
-
-// Uncomment when you implemented linear probing & double hashing
-// #include "double_hashing.h"
 
 // You can add more functions here
 
@@ -20,7 +18,7 @@ using namespace std;
 // @query_filename: a filename of input words to test the hash table
 template <typename HashTableType>
 void TestFunctionForHashTable
-(HashTableType &hash_table, const string &words_filename, const string &query_filename)                  
+(HashTableType &hash_table, const string &words_filename, const string &query_filename, const string &param_flag)                  
 {
     hash_table.MakeEmpty(); // step 1. clear the HashTable
     std::cout << "\nBefore insertion table size is: " <<hash_table.tableSize() << "\n";
@@ -38,7 +36,14 @@ void TestFunctionForHashTable
         }
     }
 
-    std::cout << "\nnumber_of_elements: " <<hash_table.size() <<
+    if (param_flag == "quadratic")
+        std::cout << "\nThis is quadratic_probing: \n";
+    else if(param_flag == "linear")
+        std::cout << "\nThis is linear_probing: \n";
+    else if(param_flag == "double")
+        std::cout << "\nThis is double_hashing: \n";
+
+    std::cout << "number_of_elements: " <<hash_table.size() <<
     "\nsize_of_table: " << hash_table.tableSize() << 
     "\nload_factor: " << hash_table.loadFactor() <<
     "\ncollisions: " << hash_table.totalCollision() <<
@@ -78,9 +83,9 @@ int testHashingWrapper(int argument_count, char **argument_list)
     if (param_flag == "linear") 
     {
         // Uncomment below when you have implemented linear probing.
-        // HashTableLinear<string> linear_probing_table;
-        // TestFunctionForHashTable(linear_probing_table, words_filename,
-        // query_filename);
+        HashTableLinear<string> linear_probing_table;
+        TestFunctionForHashTable(linear_probing_table, words_filename,
+        query_filename, param_flag);
     } 
 
     else if (param_flag == "quadratic") 
@@ -90,7 +95,7 @@ int testHashingWrapper(int argument_count, char **argument_list)
         HashTable<string> quadratic_probing_table; // create a hashtable of of string as key
         
         TestFunctionForHashTable(quadratic_probing_table, words_filename,
-                    query_filename);
+                    query_filename, param_flag);
     } 
 
     else if (param_flag == "double") 
@@ -99,7 +104,7 @@ int testHashingWrapper(int argument_count, char **argument_list)
             // Uncomment below when you have implemented double hashing.
         // HashTableDouble<string> double_probing_table;
         // TestFunctionForHashTable(double_probing_table, words_filename,
-        // 			 query_filename);
+        // 			 query_filename, param_flag);
     }
 
     else 

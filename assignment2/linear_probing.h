@@ -17,9 +17,25 @@ HashEntry.info_ = just a flag
 hf(HashEntry.elemment_) = hash value or index
 */
 
-namespace {
 
-// Internal method to test if a positive number is prime.
+
+// Linear probing implementation.
+// create a class called HashTableLinear which holds HashedObj as the key
+template <typename HashedObj>
+class HashTableLinear{
+
+ public:
+  // ACTIVE = 0
+  // EMPTY = 1
+  // DELETED = 2
+  enum EntryType {ACTIVE, EMPTY, DELETED};
+
+  // textbook 205
+  // constructor, explicitly specifying a size:
+  // like HashTableLinear sue(200); or HashTableLinear sue;, cannot do HashTableLinear sue = 200;
+  explicit HashTableLinear(size_t size = 101) : array_(NextPrime(size))
+    { MakeEmpty(); }
+  
 bool IsPrime(size_t n) {
   if( n == 2 || n == 3 )
     return true;
@@ -42,27 +58,6 @@ int NextPrime(size_t n) {
   while (!IsPrime(n)) n += 2;  
   return n;
 }
-
-}  // namespace
-
-
-// Linear probing implementation.
-// create a class called HashTableLinear which holds HashedObj as the key
-template <typename HashedObj>
-class HashTableLinear{
-
- public:
-  // ACTIVE = 0
-  // EMPTY = 1
-  // DELETED = 2
-  enum EntryType {ACTIVE, EMPTY, DELETED};
-
-  // textbook 205
-  // constructor, explicitly specifying a size:
-  // like HashTableLinear sue(200); or HashTableLinear sue;, cannot do HashTableLinear sue = 200;
-  explicit HashTableLinear(size_t size = 101) : array_(NextPrime(size))
-    { MakeEmpty(); }
-  
 
   // Q1 B), modify Contains to do the job of Found/Not_Found
 bool Contains(const HashedObj & x) const 

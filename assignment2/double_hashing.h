@@ -17,7 +17,26 @@ HashEntry.info_ = just a flag
 hf(HashEntry.elemment_) = hash value or index
 */
 
-namespace {
+
+
+// double hashing implementation.
+// create a class called HashTableDouble which holds HashedObj as the key
+template <typename HashedObj>
+class HashTableDouble{
+
+ public:
+  // ACTIVE = 0
+  // EMPTY = 1
+  // DELETED = 2
+  enum EntryType {ACTIVE, EMPTY, DELETED};
+
+  // textbook 205
+  // constructor, explicitly specifying a size:
+  // like HashTableDouble sue(200); or HashTableDouble sue;, cannot do HashTableDouble sue = 200;
+  explicit HashTableDouble(size_t size = 101) : array_(NextPrime(size))
+    { MakeEmpty(); }
+  
+
 
 // Internal method to test if a positive number is prime.
 bool IsPrime(size_t n) {
@@ -42,27 +61,6 @@ int NextPrime(size_t n) {
   while (!IsPrime(n)) n += 2;  
   return n;
 }
-
-}  // namespace
-
-
-// double hashing implementation.
-// create a class called HashTableDouble which holds HashedObj as the key
-template <typename HashedObj>
-class HashTableDouble{
-
- public:
-  // ACTIVE = 0
-  // EMPTY = 1
-  // DELETED = 2
-  enum EntryType {ACTIVE, EMPTY, DELETED};
-
-  // textbook 205
-  // constructor, explicitly specifying a size:
-  // like HashTableDouble sue(200); or HashTableDouble sue;, cannot do HashTableDouble sue = 200;
-  explicit HashTableDouble(size_t size = 101) : array_(NextPrime(size))
-    { MakeEmpty(); }
-  
 
   // Q1 B), modify Contains to do the job of Found/Not_Found
 bool Contains(const HashedObj & x) const 
@@ -153,7 +151,6 @@ bool Contains(const HashedObj & x) const
 
  std::pair<bool, int> FindProbe(const HashedObj & x) const 
 {
-    size_t offset = 1;
     size_t current_pos = InternalHash(x);
     int probe_counter = 1;
     // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty, this element is there: ") << array_[current_pos].element_ << " "<<InternalHash(array_[current_pos].element_)<< "\n";
@@ -166,10 +163,14 @@ bool Contains(const HashedObj & x) const
             return {true, probe_counter};
         }
         
+        // std::cout << "Hi I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? " Empty/deleted" : " NOT empty ") <<array_[current_pos].element_ << "\n";
+
         // Increment probe_counter and compute next position
         ++probe_counter;
-        current_pos += offset;
-        offset += 2;
+        ++current_pos;
+
+        // std::cout << "After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
+
 
         // Handle wrap around if necessary
         if (current_pos >= array_.size())
@@ -216,30 +217,35 @@ bool Contains(const HashedObj & x) const
     // this is the double_hashing section
     size_t FindPos(const HashedObj & x) const 
     {
-      size_t offset = 1;
+      // current_pos is already the hashed value,
+      // now just have to increment it by 1
       size_t current_pos = InternalHash(x);
-      int probe_counter = 1;
-      // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty, this element is there: ") << array_[current_pos].element_ << " "<<InternalHash(array_[current_pos].element_)<< "\n";
+      int probe_counter = 1; // count the first search as one probe
+      // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? " Empty/deleted" : " NOT empty, this element is there: ") << array_[current_pos].element_ << " "<<InternalHash(array_[current_pos].element_)<< "\n";
 
       // will only enter the loop if collision occured  
       while ( array_[current_pos].info_ != EMPTY && array_[current_pos].element_ != x) 
       {
         ++total_collision_;
         ++probe_counter;
-        // std::cout << "Hi I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
+        // std::cout << "Hi I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? " Empty/deleted" : " NOT empty ") <<array_[current_pos].element_ << "\n";
 
-        current_pos += offset;  // Compute i-th probe.
-        offset += 2;
+        ++current_pos;  // Compute i-th probe beginning from i = 1,2,3,4...size()-1;
+        // already counted i=0 as the first probe, no need to repeat
 
         // std::cout << "After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
 
 
-        if (current_pos >= array_.size()) // this is the wrap around
+        // std::cout << "I was: " << current_pos << "\n";
+         if (current_pos >= array_.size()) // this is the wrap around, just like mod
           current_pos -= array_.size();
+
+        // std::cout << "I am: " << current_pos << "\n";
+
         // std::cout << "After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
 
       }
-      // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << " Probing is: " << probe_counter <<"\n";
+      // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? " Empty/deleted" : " NOT empty ") <<array_[current_pos].element_ << " Probing is: " << probe_counter <<"\n";
 
 
       return current_pos;

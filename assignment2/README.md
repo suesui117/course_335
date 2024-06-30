@@ -1,5 +1,5 @@
 # Project2 Hashing:
-## Purpose of the project is to hashing. This project involves implementing and testing 3 hash table using different collision resolution methods: Quadratic Probing, Linear Probing, and Double Hashing.
+## Purpose of the project is hashing. This project involves implementing and testing 3 hash table using different collision resolution methods: Quadratic Probing, Linear Probing, and Double Hashing.
 
 ### Part1 - Hashing Implementations and Testings
 1. Quadratic probing implementation is provided to us, we needed to implement helper functions to get the deliverables - total collisions, average collisions, number of probes it took to find the next available location for the keys.

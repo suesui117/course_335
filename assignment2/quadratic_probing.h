@@ -136,17 +136,13 @@ class HashTable {
         }
     }
 
-  // needs work
-  size_t totalCollision()
-  {
-    return total_collision_;
-  }
+
+  size_t totalCollision() { return total_collision_; }
+
+  double averageCollision() { return static_cast<double>(total_collision_) / size(); }
 
 
-  double loadFactor()
-  {
-    return static_cast<double>(current_size_) / array_.size();
-  }
+  double loadFactor() { return static_cast<double>(current_size_) / array_.size(); }
 
 
 /***************** User defined functions End *****************/
@@ -190,11 +186,13 @@ class HashTable {
       // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
 
       // will only enter the loop if collision occured  
-      int probe_counter = 1;
+      // int probe_counter = 1;
       while ( array_[current_pos].info_ != EMPTY && array_[current_pos].element_ != x) 
       {
-        std::cout << "Hi I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
-        probe_counter++;
+        ++total_collision_;
+        // std::cout << "Hi I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
+        // probe_counter++;
+
         current_pos += offset;  // Compute i-th probe.
         offset += 2;
 
@@ -202,12 +200,12 @@ class HashTable {
 
 
 
-        if (current_pos >= array_.size())
+        if (current_pos >= array_.size()) // this is the wrap around
           current_pos -= array_.size();
-        std::cout << "After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
+        // std::cout << "After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << "\n";
 
       }
-      std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << " Probing is: " << probe_counter <<"\n";
+      // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") <<array_[current_pos].element_ << " Probing is: " << probe_counter <<"\n";
 
 
       return current_pos;

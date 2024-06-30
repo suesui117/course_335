@@ -26,19 +26,23 @@ void TestFunctionForHashTable
     std::cout << "Before insertion elements count is: " <<hash_table.size() << "\n";
 
     
-    ifstream words_file(query_filename); // words_file is file handler
+    ifstream words_file(words_filename); // words_file is file handler
     string word;
 
     while (getline(words_file, word)) // reading into word
     {
-        hash_table.Insert(word);
+        if (!hash_table.Insert(word))
+        {
+            std::cout << "could not be inserted\n";
+        }
     }
 
+    std::cout << "\nnumber_of_elements: " <<hash_table.size();
+    std::cout << "\nsize_of_table: " << hash_table.tableSize();
+    std::cout << "\nload_factor: " << hash_table.loadFactor();
+    std::cout << "\ncollisions: " << hash_table.totalCollision();
+    std::cout << "\navg_collisions: " << hash_table.averageCollision();
 
-    std::cout << "\nAfter insertion, table size is: " << hash_table.tableSize();
-    std::cout << "\nAfter insertion elements count is: " <<hash_table.size();
-    std::cout << "\nTotal collision is: " << hash_table.totalCollision();
-    std::cout << "\nLoad factor is : " << hash_table.loadFactor();
 
 
 

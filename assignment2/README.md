@@ -20,3 +20,4 @@ make clean && make && ./create_and_test_hash words.txt query_words.txt [quadrati
 
 References:
 1. [Data Structures & Algorithm Analysis in C++ 4th Chapter 5, page. 205](https://www.uoitc.edu.iq/images/documents/informatics-institute/Competitive_exam/DataStructures.pdf)
+2. [Linear and Quadratic Probing Readings](https://www.andrew.cmu.edu/course/15-310/applications/ln/hashing-review.html#:~:text=Quadratic%20Probing%20is%20just%20like,it%20looks%20ahead%201%20position)

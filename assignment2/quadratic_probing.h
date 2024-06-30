@@ -159,8 +159,6 @@ bool Contains(const HashedObj & x) const
     int probe_counter = 1;
     // std::cout << "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty, this element is there: ") << array_[current_pos].element_ << " "<<InternalHash(array_[current_pos].element_)<< "\n";
 
-    // Check if x is active (i.e., found)
-    bool found = IsActive(current_pos);
 
     // If found, increment probe_counter until we find x or hit an empty slot
     while (IsActive(current_pos)) {

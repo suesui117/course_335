@@ -68,6 +68,8 @@ class HashTable {
   // Q1 B), modify Contains to do the job of Found/Not_Found
 bool Contains(const HashedObj & x) const 
 {
+  // quick note, Contains already does the check multiple times to see if a key is found or not,
+  // check with prof, if not found, do you still want the probe count?
   return IsActive(FindPos(x));
 }
 

@@ -18,14 +18,14 @@ using namespace std;
 // @query_filename: a filename of input words to test the hash table
 template <typename HashTableType>
 void TestFunctionForHashTable
-(HashTableType &hash_table, const string &words_filename, const string &query_filename, const string &param_flag)                  
+(HashTableType &hash_table, const string &words_filename, const string &query_filename, const string &param_flag, const int& R = 89)                  
 {
     hash_table.MakeEmpty(); // step 1. clear the HashTable
     std::cout << "\nBefore insertion table size is: " <<hash_table.tableSize() << "\n";
     std::cout << "Before insertion elements count is: " <<hash_table.size() << "\n";
 
 
-    ifstream words_file(words_filename); // words_file is file handler
+    ifstream words_file(query_filename); // words_file is file handler
     string word;
 
     while (getline(words_file, word)) // reading into word
@@ -49,17 +49,17 @@ void TestFunctionForHashTable
     "\ncollisions: " << hash_table.totalCollision() <<
     "\navg_collisions: " << hash_table.averageCollision() << "\n\n";
 
-    ifstream query_file(query_filename); // words_file is file handler
-    string query;
-    while (getline(query_file, query)) // reading into query
-    {
-        hash_table.Contains(query);
-        auto [flag, probe] = hash_table.FindProbe(query);
-        if (flag)
-            std::cout << query <<" Found " << probe << "\n";
-        else
-            std::cout << query <<" Not_Found " << probe << "\n";
-    }
+    // ifstream query_file(query_filename); // words_file is file handler
+    // string query;
+    // while (getline(query_file, query)) // reading into query
+    // {
+    //     hash_table.Contains(query);
+    //     auto [flag, probe] = hash_table.FindProbe(query);
+    //     if (flag)
+    //         std::cout << query <<" Found " << probe << "\n";
+    //     else
+    //         std::cout << query <<" Not_Found " << probe << "\n";
+    // }
 }
 
 
@@ -95,16 +95,15 @@ int testHashingWrapper(int argument_count, char **argument_list)
         HashTable<string> quadratic_probing_table; // create a hashtable of of string as key
         
         TestFunctionForHashTable(quadratic_probing_table, words_filename,
-                    query_filename, param_flag);
+                    query_filename, param_flag, R);
     } 
 
     else if (param_flag == "double") 
     {
         cout << "r_value: " << R << endl;
-            // Uncomment below when you have implemented double hashing.
-        // HashTableDouble<string> double_probing_table;
-        // TestFunctionForHashTable(double_probing_table, words_filename,
-        // 			 query_filename, param_flag);
+        HashTableDouble<string> double_probing_table(101, R);
+        TestFunctionForHashTable(double_probing_table, words_filename,
+        			 query_filename, param_flag, R);
     }
 
     else 

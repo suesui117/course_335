@@ -33,8 +33,12 @@ class HashTableDouble{
   // textbook 205
   // constructor, explicitly specifying a size:
   // like HashTableDouble sue(200); or HashTableDouble sue;, cannot do HashTableDouble sue = 200;
-  explicit HashTableDouble(size_t size = 101) : array_(NextPrime(size))
-    { MakeEmpty(); }
+  explicit HashTableDouble(size_t size = 101, int R = 89) : array_(NextPrime(size)), R_(R)
+    { 
+      std::cout << "size of table is" << size;
+      std::cout << "size of arraytable is" << array_.size();
+
+      MakeEmpty(); }
   
 
 
@@ -71,7 +75,6 @@ bool Contains(const HashedObj & x) const
 }
 
 
-  
   void MakeEmpty() 
   {
     current_size_ = 0;
@@ -88,7 +91,7 @@ bool Contains(const HashedObj & x) const
     array_[current_pos].element_ = x;
     array_[current_pos].info_ = ACTIVE;
     
-    // Rehash; see Section 5.5
+    // Rehash; see Section 5.5 when current size is more than 50% of the entire table size
     if (++current_size_ > array_.size() / 2)
       Rehash();  
   
@@ -204,6 +207,7 @@ bool Contains(const HashedObj & x) const
 
     std::vector<HashEntry> array_;
     size_t current_size_;
+    int R_;
     mutable size_t total_collision_ = 0;
 
 
@@ -226,7 +230,11 @@ bool Contains(const HashedObj & x) const
       // will only enter the loop if collision occured  
       while ( array_[current_pos].info_ != EMPTY && array_[current_pos].element_ != x) 
       {
+
         ++total_collision_;
+
+        // double hashing happens here:
+        std::cout << "HELLLLOOO " << R_ << std::endl;
         ++probe_counter;
         // std::cout << "Hi I entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? " Empty/deleted" : " NOT empty ") <<array_[current_pos].element_ << "\n";
 
@@ -278,7 +286,7 @@ bool Contains(const HashedObj & x) const
     size_t InternalHash(const HashedObj & x) const 
     {
       static std::hash<HashedObj> hf;
-      return hf(x) % array_.size();
+      return hf(x) % array_.size(); // same as h(x) = x mod m or h(x) x % m 
     }
 
 };

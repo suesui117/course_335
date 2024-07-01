@@ -1,12 +1,11 @@
-// Author: Xin (Sue) Sui
-// spell_check.cc: A simple spell checker.
+/* Author: Xin (Sue) Sui
+spell_check.cc: A simple spell checker.
+*/
 
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <quadratic_probing.h>
-// You can change to quadratic probing if you
-// haven't implemented double hashing.
 #include <linear_probing.h>
 #include <double_hashing.h>
 
@@ -19,7 +18,30 @@ using namespace std;
 HashTableDouble<string> MakeDictionary(const string &dictionary_file) 
 {
     HashTableDouble<string> dictionary_hash;
-    // Fill dictionary_hash.
+    dictionary_hash.MakeEmpty(); // step 1. clear the HashTable
+    std::cout << "\nBefore insertion table size is: " << dictionary_hash.tableSize() << "\n";
+    std::cout << "Before insertion elements count is: " << dictionary_hash.size() << "\n";
+
+
+    ifstream words_file(dictionary_file); // words_file is file handler
+    string word;
+
+    while (getline(words_file, word)) // reading into word
+    {
+        // Fill dictionary_hash.
+        if (!dictionary_hash.Insert(word))
+        {
+            std::cout << "could not be inserted\n";
+        }
+    }
+
+    std::cout << "number_of_elements: " << dictionary_hash.size() <<
+    "\nsize_of_table: " << dictionary_hash.tableSize() << 
+    "\nload_factor: " << dictionary_hash.loadFactor() <<
+    "\ncollisions: " << dictionary_hash.totalCollision() <<
+    "\navg_collisions: " << dictionary_hash.averageCollision() << "\n\n";
+
+
     return dictionary_hash;
 }
 

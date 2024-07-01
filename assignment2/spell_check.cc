@@ -5,6 +5,8 @@ spell_check.cc: A simple spell checker.
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <regex>
 #include <quadratic_probing.h>
 #include <linear_probing.h>
 #include <double_hashing.h>
@@ -50,6 +52,28 @@ HashTableDouble<string> MakeDictionary(const string &dictionary_file)
 void SpellChecker(const HashTableDouble<string>& dictionary,
 		  const string &document_file) 
 {
+  // open the file, parse each word,
+  // find it in the dictionary, if exists, and if correct
+    ifstream words_file(document_file); // words_file is file handler
+    string line;
+
+    size_t start = line.find_first_not_of(" \t\r\n");
+    size_t end = line.find_last_not_of(" \t\r\n");
+    // Read each line from the file
+    std::regex pattern("\\s+");
+
+
+    while (getline(words_file, line)) {
+        stringstream ss(line);
+        string word;
+
+        
+        while (ss >> word)
+        {
+          if(dictionary.Contains(word))
+            std::cout << "Word is: ->>> " << word << " " << dictionary.Contains(word) << " \n";
+        }
+    }
 
 }
 

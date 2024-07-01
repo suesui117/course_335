@@ -25,7 +25,7 @@ void TestFunctionForHashTable
     std::cout << "Before insertion elements count is: " <<hash_table.size() << "\n";
 
 
-    ifstream words_file(query_filename); // words_file is file handler
+    ifstream words_file(words_filename); // words_file is file handler
     string word;
 
     while (getline(words_file, word)) // reading into word
@@ -49,17 +49,17 @@ void TestFunctionForHashTable
     "\ncollisions: " << hash_table.totalCollision() <<
     "\navg_collisions: " << hash_table.averageCollision() << "\n\n";
 
-    // ifstream query_file(query_filename); // words_file is file handler
-    // string query;
-    // while (getline(query_file, query)) // reading into query
-    // {
-    //     hash_table.Contains(query);
-    //     auto [flag, probe] = hash_table.FindProbe(query);
-    //     if (flag)
-    //         std::cout << query <<" Found " << probe << "\n";
-    //     else
-    //         std::cout << query <<" Not_Found " << probe << "\n";
-    // }
+    ifstream query_file(query_filename); // words_file is file handler
+    string query;
+    while (getline(query_file, query)) // reading into query
+    {
+        hash_table.Contains(query);
+        auto [flag, probe] = hash_table.FindProbe(query);
+        if (flag)
+            std::cout << query <<" Found " << probe << "\n";
+        else
+            std::cout << query <<" Not_Found " << probe << "\n";
+    }
 }
 
 

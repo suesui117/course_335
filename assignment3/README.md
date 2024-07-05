@@ -1,4 +1,4 @@
-# Project3 Heap:
+# Project3 Priority Queue and Heap:
 ## Purpose of the project is to build a maxHeap
 
 ### Heap consists of 2 main parts, insert and delete. 
@@ -16,4 +16,4 @@ Command to run:
 
 
 References:
-1.[Priority Queue and Heap](https://www.cs.hunter.cuny.edu/~sweiss/course_materials/csci335/lecture_notes/chapter06.pdf)
+1. [Priority Queue and Heap](https://www.cs.hunter.cuny.edu/~sweiss/course_materials/csci335/lecture_notes/chapter06.pdf)

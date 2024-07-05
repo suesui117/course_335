@@ -7,6 +7,10 @@
 #### Delete: To delete, the root or first element in the vector is removed, then the last element is placed at the root/first position. Now we need to precolate down. Compare the root to both of its children, whichever is larger, moves up. It keeps moving down till it's larger than both of the children or reaches the end (a leaf node).
 
 
+#### notes:
+A full tree has a total of \(2^{h+1} - 1\) nodes.
+A complete tree of height h consists of a full tree of height h-1. So it has at least: \(2^{h-1+1} - 1 + 1\) nodes and at most  \(2^{h+1} - 1\) nodes. A full tree is also a complete tree. 
+
 Command to run:
 
 

@@ -17,6 +17,13 @@ A full tree has a total nodes of $$(2^ {h + 1} - 1)$$
 A complete tree of height h consists of a full tree of height h-1. So it has at least: $$(2^ {(h - 1) + 1} - 1 + 1)$$ nodes and at most: $$(2^ {h + 1} - 1)$$ nodes.  
 A full tree is also a complete tree. 
 
+In a complete binary tree with n nodes, the highest index non-leaf node is the node
+with index: &lfloor;n/2&rfloor; The remaining are leaf nodes: n - &lfloor;n/2&rfloor;  
+In buildHeap(), we're calling percolateDown n//2 times instead of n. It's more efficient because we want to focus on the non-leaf nodes. 
+
+
+
+
 Command to run:  
 make rebuild && ./main
 

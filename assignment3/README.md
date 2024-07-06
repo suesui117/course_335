@@ -19,7 +19,7 @@ A full tree is also a complete tree.
 
 In a complete binary tree with n nodes, the highest index non-leaf node is the node
 with index: &lfloor;n/2&rfloor; The remaining are leaf nodes: (n - &lfloor;n/2&rfloor;)  
-In buildHeap(), we're calling percolateDown &lfloor;n/2&rfloor; times instead of n. It's more efficient because leaf nodes (nodes without children) do not need to be percolated down because they have no children to compare with.
+In buildHeap(), we're calling percolateDown &lfloor;n/2&rfloor; times instead of n. It's more efficient because leaf nodes (nodes without children) do not need to be percolated down, they have no children to compare with.  
 By focusing percolateDown() on the non-leaf nodes only, we avoid unnecessary comparisons and operations on nodes that are already in heap order (leaf nodes). This optimization reduces the number of operations and improves the overall efficiency of building the heap.
 
 

@@ -9,9 +9,23 @@
 int main()
 {
 
-    std::vector<int> vec{1,2,3,4,5,6,7,8};
-    MaxHeap<int> ok(vec);
-    std::cout << ok.size() << "\n";
+    Customer sue("sue");
+    Customer joe("joe");
+    Customer andy("andy");
+    Customer tony("tony");
+    Customer cathy("cathy");
+    
+    // std::vector<Customer> vec{sue, joe, andy, tony, cathy};
+    // MaxHeap<Customer> ok(vec);
+    // std::cout << ok.size() << "\n";
+
+    std::cout << sue.GetPriorityLevel() << std::endl;
+    std::cout << joe.GetPriorityLevel() << std::endl;
+
+
+    std::cout << (sue < sue) << std::endl;
+
+
 
     // Customer sue;
     // // sue.SetPriorityLevel();

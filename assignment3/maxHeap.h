@@ -43,7 +43,7 @@ class MaxHeap
             for(int i = currentSize_ / 2; i > 0; --i ) // begin from right to left. <-----, the last non-leaf parent to the root
             // scan vector from right to left 
             {
-                std::cout << i << " " << heapVec_[i] << "\n";
+                std::cout << i << " " << heapVec_[i].GetName() << " has a priority of: " << heapVec_[i].GetPriorityLevel() << "\n";
                 // percolateDown(i); // every i is a parent
                 // the highest index non-leaf node is the node with index (n/2)
                 // we have n nodes, n//2 floor division gives the count of all parent nodes
@@ -53,6 +53,7 @@ class MaxHeap
         }
 
         void insert(const T& an_item){};
+
         T DeleteMax()
         {
             if (IsEmpty())
@@ -70,8 +71,9 @@ class MaxHeap
             return max_item;
         } // should return the Customer being deleted
 
-        void percolateDown(){};
-        void percolateUp(int sub_root)
+        void percolateUp(){};
+
+        void percolateDown(int sub_root)
         {
             std::cout << "This is the index of the root" << sub_root << "\n";
             int left = 2*sub_root;
@@ -93,7 +95,7 @@ class MaxHeap
                     right = 2*sub_root+1;
                 }
 
-                else{ break; }
+                else { break; }
             }
 
 

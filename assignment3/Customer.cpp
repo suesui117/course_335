@@ -14,42 +14,52 @@ class Customer
         Customer()
         {
             name_ = "";
-            service_time_ = 0;
             SetPriorityLevel();
         }// default constructor
         
-        Customer(const std::string name, const int service_time, const int priority_level )
+        Customer(const std::string name) // calling SetPriorityLevel
         {
             name_ = name;
-            service_time_ = service_time;
             SetPriorityLevel();
-        }
+        }// parameterized constructor
+ 
+        // setters
+        void SetName(const std::string& in_name) { name_ = in_name; }
 
-        void SetPriorityLevel()
-        {
-            priority_level_ = rand() % 101; // Generates a pseudo-random integer between 0 and RAND_MAX.
+        void SetPriorityLevel() { priority_level_ = rand() % 101; }// Generates a pseudo-random integer between 0 and RAND_MAX.
             // mod 101 because we need 0 to 100, if 101/101, that loops back to 0. 
             // std::cout << priority_level_ << "\n";
-        };
+        void SetServiceTime() { service_time_ = rand() % 61; } // random int between 0 and 60
 
-        void SetServiceTime()
-        {
-            service_time_ = rand() % 61; // 0 to 60
-        };
 
-        int GetPriorityLevel()
+
+        // getters
+        std::string GetName() { return name_; }
+
+        int GetPriorityLevel() { return priority_level_; }
+
+        int GetServiceTime() { return service_time_; }
+
+
+        // comparison operators overload:
+        bool operator>(const Customer& other) const 
+        { return priority_level_ > other.priority_level_; }
+
+        bool operator<(const Customer& other) const 
         {
-            return priority_level_;
+            return priority_level_ < other.priority_level_;
         }
 
-        int GetServiceTime()
+        bool operator==(const Customer& other) const 
         {
-            return service_time_;
+            return priority_level_ == other.priority_level_;
         }
+        
+
 
     private:
         std::string name_;
-        int service_time_;
+        int service_time_ = 0;
         int priority_level_;
 
 };

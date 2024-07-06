@@ -34,8 +34,6 @@ class MaxHeap
             // whoever is larger, gets swapped to the top.
             // this goal is to restructure the vector to maintain the max heap property.
             buildHeap();
-
-            
         }
 
         void buildHeap() 
@@ -44,12 +42,45 @@ class MaxHeap
             // scan vector from right to left 
             {
                 std::cout << i << " " << heapVec_[i].GetName() << " has a priority of: " << heapVec_[i].GetPriorityLevel() << "\n";
-                // percolateDown(i); // every i is a parent
+                percolateDown(i); // every i is a parent
                 // the highest index non-leaf node is the node with index (n/2)
                 // we have n nodes, n//2 floor division gives the count of all parent nodes
                 // and n - (n//2) = leaf nodes, which are nodes without children. e.g. 
             }
 
+        }
+
+        void percolateDown(int sub_root)
+        {
+            int left = 2*sub_root;
+            int right = 2*sub_root + 1;
+            int larger_child = left;
+            std::cout << "This is the index of the root: " << sub_root << " it has left child at index " << left << " and right child at index " << right << "\n";
+     
+            while( left <= currentSize_)
+            {
+                if ( right <= currentSize_ && heapVec_[right] > heapVec_[left]) // if right is within range
+                {
+                    larger_child = right;
+                }
+
+                if (heapVec_[sub_root] < heapVec_[larger_child])
+                {
+                    std::swap(heapVec_[sub_root], heapVec_[larger_child]);
+                    sub_root = larger_child; // now the sub_root index has moved down to largest child
+                    left = 2*sub_root;
+                    right = 2*sub_root+1;
+                }
+
+                else { break; }
+            }
+        }
+
+        void printHeap()
+        {
+            for (int i = 0; i <= currentSize_; ++i) {
+                std::cout << heapVec_[i].GetName() << " with priority " << heapVec_[i].GetPriorityLevel() << "\n";
+            }
         }
 
         void insert(const T& an_item){};
@@ -72,34 +103,6 @@ class MaxHeap
         } // should return the Customer being deleted
 
         void percolateUp(){};
-
-        void percolateDown(int sub_root)
-        {
-            std::cout << "This is the index of the root" << sub_root << "\n";
-            int left = 2*sub_root;
-            int right = 2*sub_root + 1;
-            int larger_child = left;
-        
-            while( left < currentSize_ && right < currentSize_)
-            {
-                if (heapVec_[right] > heapVec_[left])
-                {
-                    larger_child = right;
-                }
-
-                if (heapVec_[sub_root] < heapVec_[larger_child])
-                {
-                    std::swap(heapVec_[sub_root], heapVec_[larger_child]);
-                    sub_root = larger_child; // now the sub_root index has moved down to largest child
-                    left = 2*sub_root;
-                    right = 2*sub_root+1;
-                }
-
-                else { break; }
-            }
-
-
-        }
         int size() { return currentSize_; }
         bool IsEmpty() { return (heapVec_.size() == 1); } // returns 1 if empty, else 0. 
 

@@ -15,24 +15,19 @@ int main()
     Customer tony("tony");
     Customer cathy("cathy");
     
-    // std::vector<Customer> vec{sue, joe, andy, tony, cathy};
-    // MaxHeap<Customer> ok(vec);
-    // std::cout << ok.size() << "\n";
+    std::vector<Customer> vec{sue, joe, andy, tony, cathy};
+    MaxHeap<Customer> ok(vec);
 
-    std::cout << sue.GetPriorityLevel() << std::endl;
-    std::cout << joe.GetPriorityLevel() << std::endl;
+    ok.printHeap();
 
-
-    std::cout << (sue < sue) << std::endl;
-
-
-
-    // Customer sue;
-    // // sue.SetPriorityLevel();
-    // // sue.SetServiceTime();
-
+    // ok.buildHeap();
     // std::cout << sue.GetPriorityLevel() << std::endl;
-    // std::cout << sue.GetServiceTime() << std::endl;
+    // std::cout << joe.GetPriorityLevel() << std::endl;
+
+
+    // std::cout << (sue < sue) << std::endl;
+
+
 
 
 

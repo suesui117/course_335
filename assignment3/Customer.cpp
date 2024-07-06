@@ -29,7 +29,7 @@ class Customer
         {
             priority_level_ = rand() % 101; // Generates a pseudo-random integer between 0 and RAND_MAX.
             // mod 101 because we need 0 to 100, if 101/101, that loops back to 0. 
-            std::cout << priority_level_ << "\n";
+            // std::cout << priority_level_ << "\n";
         };
 
         void SetServiceTime()
@@ -37,6 +37,15 @@ class Customer
             service_time_ = rand() % 61; // 0 to 60
         };
 
+        int GetPriorityLevel()
+        {
+            return priority_level_;
+        }
+
+        int GetServiceTime()
+        {
+            return service_time_;
+        }
 
     private:
         std::string name_;
@@ -47,12 +56,3 @@ class Customer
 
 
 #endif // end of customer class
-
-
-
-int main()
-{
-
-    Customer sue("sue", 5, 5);
-    sue.SetPriorityLevel();
-}

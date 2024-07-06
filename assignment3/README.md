@@ -17,7 +17,7 @@ A full tree has a total nodes of $$(2^ {h + 1} - 1)$$
 A complete tree of height h consists of a full tree of height h-1. So it has at least: $$(2^ {(h - 1) + 1} - 1 + 1)$$ nodes and at most: $$(2^ {h + 1} - 1)$$ nodes.  
 A full tree is also a complete tree. 
 
-Command to run:
+Command to run:  
 make rebuild && ./main
 
 References:

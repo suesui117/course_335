@@ -64,29 +64,37 @@ class MaxHeap
 
             T max_item = heapVec_[1]; // root of the max heap is at index 1, we're returning this, so storing it
             heapVec_[1] = std::move(heapVec_[currentSize_]); // move the last element to the root
-            heapVec_.pop_back(); // remove the last element
+            heapVec_.pop_back(); // remove the last element, these 2 operations, "replaces/deletes the max" with the last element
             currentSize_--;
 
             percolateDown(1); // restore heap property
-            
-            max_item.SetServiceTime();
 
-            history_.push_back(max_item);
+            max_item.SetServiceTime(); // set the service time
+            history_.push_back(max_item); // and add it to the history_
+
             return max_item;
         } // should return the Customer being deleted
 
+
         void GetHistory()
         {
+            if (history_.size() == 0)
+            {
+                std::cout << "There are no deleted items\n";
+                return;
+            }
 
-            auto lambda = [](const T& a, const T& b) 
+            auto lambda_func = [](const T& a, const T& b)
             {
                 return a.GetServiceTime() < b.GetServiceTime();
             };
-            std::sort(history_.begin(), history_.end(), lambda);
+
+            std::sort(history_.begin(), history_.end(), lambda_func);
+            std::cout << "Current deleted history is size: " << history_.size() << "\n";
             
             for(T x : history_)
             {
-                std::cout << history_.size() << " customer name is " << x.GetName() << " his/her service time is " << x.GetServiceTime() <<"\n";
+                std::cout << "Deleted customer name is " << x.GetName() << " his/her service time is " << x.GetServiceTime() <<"\n";
             }
         }
 

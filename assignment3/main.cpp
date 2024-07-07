@@ -15,10 +15,13 @@ int main()
     Customer tony("tony");
     Customer cathy("cathy");
     
-    std::vector<Customer> vec{sue, joe, andy, tony, cathy};
+    std::vector<Customer> vec{sue, andy, tony, cathy};
     MaxHeap<Customer> ok(vec);
 
     ok.printHeap();
+    ok.insert(joe);
+    ok.printHeap();
+
 
     // ok.buildHeap();
     // std::cout << sue.GetPriorityLevel() << std::endl;

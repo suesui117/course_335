@@ -35,15 +35,9 @@ class MaxHeap
             // this goal is to restructure the vector to maintain the max heap property.
             buildHeap();
         }
-
-        void printHeap()
-        {
-            for (int i = 1; i <= currentSize_; ++i) { // begin at index 1, index 0 is dummy
-                std::cout << i <<heapVec_[i].GetName() << " with priority " << heapVec_[i].GetPriorityLevel() << "\n";
-            }
-        }
         
         int size() { return currentSize_; }
+        std::vector<T> getHeapVec() { return heapVec_; }
         
         const bool IsEmpty() const { return (heapVec_.size() == 1); } // returns 1 if empty, else 0. 
 
@@ -76,26 +70,16 @@ class MaxHeap
         } // should return the Customer being deleted
 
 
-        void GetHistory()
+        std::vector<T> getHistoryVec()
         {
-            if (history_.size() == 0)
-            {
-                std::cout << "There are no deleted items\n";
-                return;
-            }
-
             auto lambda_func = [](const T& a, const T& b)
             {
                 return a.GetServiceTime() < b.GetServiceTime();
             };
 
             std::sort(history_.begin(), history_.end(), lambda_func);
-            std::cout << "Current deleted history is size: " << history_.size() << "\n";
-            
-            for(T x : history_)
-            {
-                std::cout << "Deleted customer name is " << x.GetName() << " his/her service time is " << x.GetServiceTime() <<"\n";
-            }
+
+            return history_;
         }
 
         void makeEmpty()
@@ -148,7 +132,6 @@ class MaxHeap
             for(int i = currentSize_ / 2; i > 0; --i ) // begin from right to left. <-----, the last non-leaf parent to the root
             // scan vector from right to left 
             {
-                std::cout << i << " " << heapVec_[i].GetName() << " has a priority of: " << heapVec_[i].GetPriorityLevel() << "\n";
                 percolateDown(i); // every i is a non-leaf node parent
                 // the highest index non-leaf node is the node with index (n/2)
                 // we have n nodes, n//2 floor division gives the count of all parent nodes

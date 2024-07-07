@@ -40,15 +40,25 @@ int main()
     heap.insert(Customer("Sue"));
     heap.insert(Customer("Cathy"));
     heap.insert(Customer("Andy"));
-    heap.printHeap();
 
     // Delete max items and collect history
-    heap.DeleteMax(); // Deletes the max and adds to history
+    // heap.DeleteMax(); // Deletes the max and adds to history
     // heap.DeleteMax(); // Deletes the max and adds to history
 
     // Print and sort the history
-    heap.GetHistory();
-    heap.printHeap();
+    std::vector<Customer> history = heap.getHistoryVec();
+    std::cout << history.size() << "\n";
+    for(Customer x : history)
+    {
+        std::cout << "Deleted customer name is " << x.GetName() << " his/her service time is " << x.GetServiceTime() <<"\n";
+    }
+
+    std::vector<Customer> heapVec = heap.getHeapVec();
+
+    for (Customer x: heapVec) 
+    { // begin at index 1, index 0 is dummy
+            std::cout << x.GetName() << " with priority " << x.GetPriorityLevel() << "\n";
+    }
 
 
 

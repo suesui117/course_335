@@ -24,6 +24,8 @@ In buildHeap(), we're calling percolateDown &lfloor;n/2&rfloor; times instead of
 
 By focusing percolateDown() on the non-leaf nodes only, we avoid unnecessary comparisons and operations on nodes that are already in heap order (leaf nodes). This optimization reduces the number of operations and improves the overall efficiency. We're calling percolateDown() &lfloor;n/2&rfloor; times instead of n.
 
+Binary heap does not have a strict order. The only guarantee of binary heap is the parent is greater than the children, there are no guarantees between sibling nodes.
+
 
 
 
@@ -34,3 +36,4 @@ References:
 1. [Data Structures & Algorithm Analysis in C++ 4th Chapter 5, page. 248](https://www.uoitc.edu.iq/images/documents/informatics-institute/Competitive_exam/DataStructures.pdf)
 2. [Priority Queue and Heap](https://www.cs.hunter.cuny.edu/~sweiss/course_materials/csci335/lecture_notes/chapter06.pdf)
 3. [Heap](https://www.youtube.com/watch?v=HqPJF2L5h9U&t=2759s)
+4. [Heap Ordering](https://btholt.github.io/four-semesters-of-cs-part-two/heap-sort)

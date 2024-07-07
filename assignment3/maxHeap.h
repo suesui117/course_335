@@ -36,6 +36,105 @@ class MaxHeap
             buildHeap();
         }
 
+        void printHeap()
+        {
+            for (int i = 1; i <= currentSize_; ++i) { // begin at index 1, index 0 is dummy
+                std::cout << i <<heapVec_[i].GetName() << " with priority " << heapVec_[i].GetPriorityLevel() << "\n";
+            }
+        }
+        
+        int size() { return currentSize_; }
+        
+        const bool IsEmpty() const { return (heapVec_.size() == 1); } // returns 1 if empty, else 0. 
+
+        void insert(const T& an_item)
+        {
+            heapVec_.push_back(an_item);
+            currentSize_++; // last_index
+
+            percolateUp(currentSize_);
+        };
+
+        T DeleteMax()
+        {
+            if (IsEmpty())
+            {
+                throw std::logic_error("Heap is empty. Cannot delete max.");
+            }
+
+            T max_item = heapVec_[1]; // root of the max heap is at index 1, we're returning this, so storing it
+            heapVec_[1] = std::move(heapVec_[currentSize_]); // move the last element to the root
+            heapVec_.pop_back(); // remove the last element
+            currentSize_--;
+
+            percolateDown(1); // restore heap property
+            
+            max_item.SetServiceTime();
+
+            history_.push_back(max_item);
+            return max_item;
+        } // should return the Customer being deleted
+
+        void GetHistory()
+        {
+
+            auto lambda = [](const T& a, const T& b) 
+            {
+                return a.GetServiceTime() < b.GetServiceTime();
+            };
+            std::sort(history_.begin(), history_.end(), lambda);
+            
+            for(T x : history_)
+            {
+                std::cout << history_.size() << " customer name is " << x.GetName() << " his/her service time is " << x.GetServiceTime() <<"\n";
+            }
+        }
+
+        void makeEmpty()
+        {
+            currentSize_ = 0;
+            heapVec_.clear();
+            history_.clear();
+        }
+
+        const T& findMax( ) const
+        {
+            if (IsEmpty())
+            {
+                throw std::logic_error("Heap is empty. There's no max.");
+            }
+
+            return heapVec_[1];
+        }
+
+    private:
+        std::vector<T> heapVec_;
+        std::vector<T> history_; // deleted customers, sorted from smallest to largest. 
+        // when an element is deleted from a max heap, its always the largest being removed. Thus if we
+        // append this removed root, we'll get a vector from largest to smallest.
+        int currentSize_ = 0; // 1-indexed, number of elements in heap
+
+        void percolateUp(int last_index)
+        {
+            std::cout << "last_index is " << last_index << "\n";
+
+            while ( last_index > 1 ) // bubbling up, stop when it becomes 1, else will swap with heapVec_[index0] if greater than heapVec_[index0]
+            {
+                int parent_index = (last_index ) / 2; // get its parent
+                
+                if (heapVec_[last_index] > heapVec_[parent_index]) // if inserted element is strictly greater, swap
+                {
+                    std::swap(heapVec_[last_index], heapVec_[parent_index]);
+                    last_index = parent_index; // update the last index, move it up to equal to its parent
+                }
+                else
+                {
+                    break; // else if smaller or equal, do nothing
+                } 
+            }
+
+        }; // for insert
+
         void buildHeap() 
         {
             for(int i = currentSize_ / 2; i > 0; --i ) // begin from right to left. <-----, the last non-leaf parent to the root
@@ -76,72 +175,6 @@ class MaxHeap
             }
         }
 
-        void printHeap()
-        {
-            for (int i = 1; i <= currentSize_; ++i) { // begin at index 1, index 0 is dummy
-                std::cout << i <<heapVec_[i].GetName() << " with priority " << heapVec_[i].GetPriorityLevel() << "\n";
-            }
-        }
-        
-        int size() { return currentSize_; }
-        
-        bool IsEmpty() { return (heapVec_.size() == 1); } // returns 1 if empty, else 0. 
-
-        void insert(const T& an_item)
-        {
-            heapVec_.push_back(an_item);
-            currentSize_++; // last_index
-
-            percolateUp(currentSize_);
-        };
-
-        void percolateUp(int last_index)
-        {
-            std::cout << "last_index is " << last_index << "\n";
-
-            while ( last_index > 1 ) // bubbling up, stop when it becomes 1, else will swap with heapVec_[index0] if greater than heapVec_[index0]
-            {
-                int parent_index = (last_index ) / 2; // get its parent
-                
-                if (heapVec_[last_index] > heapVec_[parent_index]) // if inserted element is strictly greater, swap
-                {
-                    std::swap(heapVec_[last_index], heapVec_[parent_index]);
-                    last_index = parent_index; // update the last index, move it up to equal to its parent
-                }
-                else
-                {
-                    break; // else if smaller or equal, do nothing
-                } 
-            }
-
-        }; // for insert
-
-        T DeleteMax()
-        {
-            if (IsEmpty())
-            {
-                throw std::logic_error("Heap is empty. Cannot delete max.");
-            }
-
-            T max_item = heapVec_[1]; // root of the max heap is at index 1
-            heapVec_[1] = heapVec_[currentSize_]; // move the last element to the root
-            heapVec_.pop_back(); // remove the last element
-            currentSize_--;
-
-            percolateDown(1); // restore heap property
-
-            return max_item;
-        } // should return the Customer being deleted
-
- 
-
-
-    private:
-        std::vector<T> heapVec_;
-        // std::vector<T> historyVec_; // deleted customers, sorted from smallest to largest. 
-        // when an element is deleted from a max heap, its always the largest being removed. Thus if we
-        // append this removed root, we'll get a vector from largest to smallest.
-        int currentSize_ = 0; // 1-indexed, number of elements in heap
 };
 
 

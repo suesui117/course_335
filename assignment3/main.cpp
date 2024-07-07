@@ -2,13 +2,14 @@
 #include <algorithm>
 #include <vector>
 #include "maxHeap.h"
-#include "Customer.cpp"
+#include "Customer.h"
 
 
 
 int main()
 {
 
+    srand(time(0));
     Customer sue("sue");
     Customer joe("joe");
     Customer andy("andy");
@@ -20,19 +21,20 @@ int main()
 
     ok.printHeap();
     ok.insert(joe);
+    // ok.printHeap();
+    // ok.DeleteMax();
+    // ok.DeleteMax();
+    // ok.DeleteMax();
+    // ok.DeleteMax();
+    // ok.DeleteMax();
+
+
+    std::cout << ok.findMax().GetName() << "\n";
     ok.printHeap();
-
-
-    // ok.buildHeap();
-    // std::cout << sue.GetPriorityLevel() << std::endl;
-    // std::cout << joe.GetPriorityLevel() << std::endl;
-
-
-    // std::cout << (sue < sue) << std::endl;
-
-
-
-
+    ok.makeEmpty();
+    ok.printHeap();
+    ok.IsEmpty();
+    std::cout << ok.size();
 
     return 0;
 }

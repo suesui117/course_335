@@ -7,7 +7,8 @@
 #include <cstdlib> // defines a core set of functions used for data type conversion, 
 // pseudo-random number generation, memory allocation, searching, sorting, mathematics, 
 // and dealing with wide or multibyte characters.
-
+#include <ctime>
+// srand(117);
 class Customer
 {
     public:
@@ -34,11 +35,11 @@ class Customer
 
 
         // getters
-        std::string GetName() { return name_; }
+        std::string GetName() const { return name_; } 
 
-        int GetPriorityLevel() { return priority_level_; }
+        int GetPriorityLevel() const { return priority_level_; }
 
-        int GetServiceTime() { return service_time_; }
+        int GetServiceTime() const { return service_time_; }
 
 
         // comparison operators overload:

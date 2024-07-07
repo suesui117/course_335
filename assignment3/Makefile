@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++14 -g -Wall -O2
 
 PROG ?= main
-OBJS = main.o Customer.o
+OBJS = main.o
 
 all: $(PROG)
 

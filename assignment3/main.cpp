@@ -16,10 +16,16 @@ int main()
     Customer tony("tony");
     Customer cathy("cathy");
     
-    std::vector<Customer> vec{sue, andy, tony, cathy};
+    std::vector<Customer> vec{sue, andy, tony, cathy, joe};
     MaxHeap<Customer> ok(vec);
 
     ok.insert(joe);
+
+    std::cout << "size of heap is now: " << ok.getHeapVec().size() << "\n";
+    for(auto x : ok.getHeapVec())
+    {
+        std::cout << x.GetName() << " -> " << x.GetPriorityLevel() << "\n";
+    }
 
 
     // MaxHeap<Customer> heap;

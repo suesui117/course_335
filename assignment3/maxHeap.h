@@ -20,6 +20,7 @@ class MaxHeap
             heapVec_.push_back(T()); // heap[0] is a dummy
         }
 
+
         MaxHeap(const std::vector<T>& input_vec )
         {
             heapVec_.push_back(T()); // heap[0] is a dummy
@@ -35,11 +36,7 @@ class MaxHeap
             // this goal is to restructure the vector to maintain the max heap property.
             heapify();
         }
-        
-        int size() { return currentSize_; }
-        std::vector<T> getHeapVec() { return heapVec_; }
-        
-        const bool IsEmpty() const { return (heapVec_.size() == 1); } // returns 1 if empty, else 0. 
+
 
         void insert(const T& an_item)
         {
@@ -48,6 +45,7 @@ class MaxHeap
 
             percolateUp(currentSize_);
         };
+
 
         T DeleteMax()
         {
@@ -62,25 +60,11 @@ class MaxHeap
             currentSize_--;
 
             percolateDown(1); // restore heap property
-
-            max_item.SetServiceTime(); // set the service time
-            history_.push_back(max_item); // and add it to the history_
+            history_.push_back(max_item);
 
             return max_item;
         } // should return the Customer being deleted
 
-
-        std::vector<T> getHistoryVec()
-        {
-            auto lambda_func = [](const T& a, const T& b)
-            {
-                return a.GetServiceTime() < b.GetServiceTime();
-            };
-
-            std::sort(history_.begin(), history_.end(), lambda_func);
-
-            return history_;
-        }
 
         void makeEmpty()
         {
@@ -99,9 +83,22 @@ class MaxHeap
             return heapVec_[1];
         }
 
+
+        int size() { return currentSize_; }
+        const bool IsEmpty() const { return (heapVec_.size() == 1); } // returns 1 if empty, else 0. 
+
+
+        std::vector<T> getHeapVec() 
+        { 
+            std::vector<T> result(heapVec_.begin() + 1, heapVec_.end()); // heapVec[0] = dummy, excluding it
+
+            return result;
+        }
+        
+
     private:
         std::vector<T> heapVec_;
-        std::vector<T> history_; // deleted customers, sorted from smallest to largest. 
+        std::vector<T> history_; // deleted items, sorted from smallest to largest. 
         // when an element is deleted from a max heap, its always the largest being removed. Thus if we
         // append this removed root, we'll get a vector from largest to smallest.
         int currentSize_ = 0; // 1-indexed, number of elements in heap
@@ -145,7 +142,7 @@ class MaxHeap
             int left = 2*sub_root;
             int right = 2*sub_root + 1;
             int larger_child = left;
-            std::cout << "This is the index of the root: " << sub_root << " it has left child at index " << left << " and right child at index " << right << "\n";
+            // std::cout << "This is the index of the root: " << sub_root << " it has left child at index " << left << " and right child at index " << right << "\n";
      
             while( left <= currentSize_ )
             {
@@ -162,10 +159,12 @@ class MaxHeap
                     right = 2*sub_root+1;
                 }
 
-                else { break; }
+                else 
+                { 
+                    break; 
+                }
             }
         }
-
 };
 
 

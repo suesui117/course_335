@@ -33,7 +33,7 @@ class MaxHeap
             // we need to call percolate_down to compare the root with its children,
             // whoever is larger, gets swapped to the top.
             // this goal is to restructure the vector to maintain the max heap property.
-            buildHeap();
+            heapify();
         }
         
         int size() { return currentSize_; }
@@ -127,7 +127,7 @@ class MaxHeap
 
         }; // for insert
 
-        void buildHeap() 
+        void heapify() 
         {
             for(int i = currentSize_ / 2; i > 0; --i ) // begin from right to left. <-----, the last non-leaf parent to the root
             // scan vector from right to left 
@@ -140,7 +140,7 @@ class MaxHeap
 
         }
 
-        void percolateDown(int sub_root) // for buildHeap and delete
+        void percolateDown(int sub_root) // for heapify and delete
         {
             int left = 2*sub_root;
             int right = 2*sub_root + 1;

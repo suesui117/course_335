@@ -39,7 +39,8 @@ int main()
 
     std::cout << "Before sorting \n";
 
-    for (int i = 0; i < heapVec.size(); ++i)
+
+    while(!ok.IsEmpty()) // keep deleting till its empty
     {        
         auto deleted = ok.DeleteMax();
         deleted.SetServiceTime();
@@ -52,13 +53,19 @@ int main()
     {
         return a.GetServiceTime() < b.GetServiceTime();
     };
-    std::cout << "After sorting \n";
+    std::cout << "\nAfter sorting \n";
 
     std::sort(history.begin(), history.end(), lambda_func);
     for(auto x : history)
     {
         std::cout << x.GetName() << " has a time stamp of " << x.GetServiceTime() << "\n";
     }
+
+
+    std::cout << "size of heap is now: " << ok.getHeapVec().size() << "\n";
+
+
+
 
 
 

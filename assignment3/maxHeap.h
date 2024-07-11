@@ -103,7 +103,7 @@ class MaxHeap
         // append this removed root, we'll get a vector from largest to smallest.
         int currentSize_ = 0; // 1-indexed, number of elements in heap
 
-        void percolateUp(int last_index)
+        void percolateUp(int last_index) // for insert
         {
             std::cout << "last_index is " << last_index << "\n";
 
@@ -122,9 +122,9 @@ class MaxHeap
                 } 
             }
 
-        }; // for insert
+        }; 
 
-        void heapify() 
+        void heapify() // heapify is O(n), although starting at O(n/2) and decrement, it converges to O(n)
         {
             for(int i = currentSize_ / 2; i > 0; --i ) // begin from right to left. <-----, the last non-leaf parent to the root
             // scan vector from right to left 

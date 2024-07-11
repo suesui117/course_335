@@ -66,6 +66,8 @@ int main()
     {
         std::cout << x.GetName() << " has a time stamp of " << x.GetServiceTime() << "\n";
     }
+    
+    
 
 
     std::cout << "size of heap is now: " << ok.getHeapVec().size() << "\n";

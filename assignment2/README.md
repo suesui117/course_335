@@ -9,7 +9,7 @@ Double the amount of data you expect to put into the table
 A prime number. This is because if my hash table size is, say, 100, then any hash key that's a multiple of 100 will first try to go into index 100, causing a collision after the first insert. A good hash function will scatter the data evenly throughout the hash table.
 Number of probes it took to find the next available location for the keys.
 
-load factor λ: (total number of elements in the hash table)/(table size), ideally no morea than 0.5
+load factor λ: (total number of elements in the hash table)/(table size), ideally no more than 0.5
 
 Collisions:
 
@@ -25,6 +25,12 @@ start offset = 1, increment current position by offset, and increment offset by 
 ### Part2 - Spelling Checking
 1. 
 
+
+
+Notes:
+1. hash functions are the calculation to get the index for initial insertion. There are 3 different types we went over, division based, bit-shifting and multiplicative (here M is NOT necessary to be a power of 2.) - and they are all for integers as the input.
+2. String encoding is a hash function only for string as the input.
+3. The goal of the above 2 hash functions is to get the index, and if there're collisions, then we're using separate chaining(linkedlist) and open address(linear, quadratic, double hashing) to resolve to a new index for insertion.
 
 
 Command to run:

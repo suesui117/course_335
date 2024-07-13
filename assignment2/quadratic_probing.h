@@ -109,8 +109,8 @@ class HashTable {
       return true;
     }
     
-    /*
-      Overload the Insert function to accept an rvalue reference input.
+    /**
+      @brief: Overload the Insert function to accept an rvalue reference input.
     */
     bool Insert(HashedObj && x) {
       // Insert x as active
@@ -129,7 +129,12 @@ class HashTable {
     }
 
 
-    // just marks is x is deleted (true) or not (active - false)
+    
+    /**
+    @param x  : The key to be removed from the hash table.
+    @return   : Returns true if the key `x` was found and successfully marked as deleted; otherwise, returns false.
+                just marks if x is deleted (true) or not (active - false)
+    */
     bool Remove(const HashedObj & x) {
       size_t current_pos = FindPos(x);
       if (!IsActive(current_pos)) // IsActive(current_pos) returns false if its empty or deleted, not false means not empty, which is active
@@ -138,6 +143,7 @@ class HashTable {
       array_[current_pos].info_ = DELETED; // else if its empty or deleted, set it to deleted
       return true;
     }
+
 
     /***************** User defined functions Begin *****************/
 
@@ -167,6 +173,12 @@ class HashTable {
     float loadFactor() { return static_cast<float>(current_size_) / array_.size(); }
 
 
+    /**
+      @param x  : The key to search for in the hash table.
+      @return   : Returns a pair where:
+              - The first element is true if the key `x` was found in the hash table; false otherwise.
+              - The second element is the number of probes performed before either finding `x` or determining it is not present.
+    */
     std::pair<bool, int> FindProbe(const HashedObj & x) const 
     {
       size_t offset = 1;
@@ -235,6 +247,11 @@ class HashTable {
 
     // private member function 2
     // this is the quadratic_probing section
+    /**
+    @param x  : The key to find or insert into the hash table.
+    @return   : Returns the index position where the key `x` should be inserted or is currently located.
+          If a collision occurs, it probes for an empty slot starting from the computed position.
+    */
     size_t FindPos(const HashedObj & x) const 
     {
       size_t offset = 1;
@@ -267,10 +284,11 @@ class HashTable {
     }
 
    
-
-
-
     // private member function 3
+    /**
+      @post Rehashes the hash table by doubling its size and reinserting all active elements from the old table.
+      Leverages move semantics with Insert(std::move(entry.element_)) for efficient element transfer.
+    */
     void Rehash() 
     {
       std::vector<HashEntry> old_array = array_;
@@ -290,6 +308,10 @@ class HashTable {
 
     // private member function 3
     // collision handles different 
+    /**
+    @param x The object to be hashed using std::hash<HashedObj>.
+    @return The hashed value of x modulo the current size of the hash table (array_).
+    */
     size_t InternalHash(const HashedObj & x) const 
     {
       static std::hash<HashedObj> hf; // this is a hash function that hashes 

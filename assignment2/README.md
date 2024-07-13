@@ -4,7 +4,7 @@
 
 ### Part1 - Hashing Implementations and Testings
 
-1. When a hash table is created, the `array_` vector size is default to 101. And initializes each HashEntry object's `element_` to empty (e.g. if `element_` is a string, it will be an empty string) and `info_` to enum EMPTY.
+1. When a hash table is created, the `array_` vector size is default to 101. And initializes each HashEntry object's `element_` to empty (e.g. if `element_` is a string, it will be an empty string) and `info_` to enum EMPTY. Note: when we call `hash_table.MakeEmpty()`, it does not change the size of `array_` vector. It only resets the `info_` field of each HashEntry to `EMPTY` and sets `current_size_` to `0`, it does not change the vector's capacity.
 
 2. Each `HashEntry` struct object has two attributes:
    - `element_`: `element_` is of type `ItemType` (in this project, it's a `std::string`) and holds the object that is being hashed. The `hash_value % table_size` gives the index position where the `HashEntry` will be stored.
@@ -12,7 +12,9 @@
 
 3. Using `std::hash<HashedObj>`  hf() to get the hash value of the object, in this project HashObj will be a string - e.g. hf(x). Then use `hf(x) % table_size` to get the index position. This operation: `h0(x)` is the first attempt, so probe count is 1. If there's no collision, then we insert the key (e.g. `HashEntry`). If there's a collision, we then try `0 <= i < table_size` and since `h1(x) = (h0(x) + 0^2) % table_size`. `h0(x) = hx(1)` the probe count is just 1. We continue to increment `i` and probe count.
 
-4. load factor `λ`: (total number of elements in the hash table)/(table size), ideally no more than 0.5
+4. load factor `λ`: (total number of elements in the hash table)/(table size), ideally no more than 0.5.
+
+5. 
 
 Collisions:
 

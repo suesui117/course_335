@@ -9,12 +9,14 @@
 /*
 From textbook: Data Structures and Algorithm Analysis, fourth edition
 Chapter 5. p.207
-
 */
 
 namespace {
 
-// Internal method to test if a positive number is prime.
+/**
+  @param n  : The number to be checked for primality.
+  @return   : Returns true if the number is prime; otherwise, returns false.
+*/
 bool IsPrime(size_t n) {
   if( n == 2 || n == 3 )
     return true;
@@ -30,7 +32,10 @@ bool IsPrime(size_t n) {
 }
 
 
-// Internal method to return a prime number at least as large as n.
+/**
+  @param n  : n is the starting number to find the next prime.
+  @return   : Returns the smallest prime number that is greater than or equal to n.
+*/
 int NextPrime(size_t n) {
   if (n % 2 == 0)
     ++n;  
@@ -68,7 +73,10 @@ class HashTable {
     }
 
 
-
+    /**
+      @brief Clears the hash table by marking all entries as empty.  
+      @post Resets the current size of the hash table to zero and sets the `info_` field of each `HashEntry` in the table to EMPTY.
+    */
     void MakeEmpty() 
     {
       current_size_ = 0;

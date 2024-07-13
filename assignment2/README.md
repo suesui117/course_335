@@ -10,9 +10,9 @@
    - `element_`: `element_` is of type `ItemType` (in this project, it's a `std::string`) and holds the object that is being hashed. The `hash_value % table_size` gives the index position where the `HashEntry` will be stored.
    - `info_`: `info_` is of type enum and acts as a flag for `HashEntry`.
 
-3. Using `std::hash<HashedObj>`  hf() to get the hash value of the object, in this project will be string - e.g. hf(x). Then use `hf(x) % table_size` to get the index position. This operation: `h0(x)` is the first attempt, so probe count is 1. If there's no collision, then we insert the key (e.g. `HashEntry`). If there's a collision, we then try 0 <= i < table_size. and since h1(x) = (h0(x) + 0^2) % table_size. h0(x) = hx(1)the probe count is just 1. We continue to increment i and probe count.
+3. Using `std::hash<HashedObj>`  hf() to get the hash value of the object, in this project HashObj will be a string - e.g. hf(x). Then use `hf(x) % table_size` to get the index position. This operation: `h0(x)` is the first attempt, so probe count is 1. If there's no collision, then we insert the key (e.g. `HashEntry`). If there's a collision, we then try `0 <= i < table_size` and since `h1(x) = (h0(x) + 0^2) % table_size`. `h0(x) = hx(1)` the probe count is just 1. We continue to increment `i` and probe count.
 
-4. load factor λ: (total number of elements in the hash table)/(table size), ideally no more than 0.5
+4. load factor `λ`: (total number of elements in the hash table)/(table size), ideally no more than 0.5
 
 Collisions:
 

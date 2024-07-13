@@ -10,12 +10,6 @@
 From textbook: Data Structures and Algorithm Analysis, fourth edition
 Chapter 5. p.207
 
-hashTable is a class that stores HashedObj as the key.
-HashEntry is a struct object that has 2 member variables, the HashedObject (element_) and info_ which is just a tag
-element_ is the one being hashed, the hase value will be the index where hashedObject will be stored.
-HashEntry.elemment_ = key
-HashEntry.info_ = just a flag
-hf(HashEntry.elemment_) = hash value or index
 */
 
 namespace {
@@ -79,16 +73,25 @@ class HashTable {
     {
       current_size_ = 0;
       for (auto &entry : array_)
+      {
+        // std::cout << entry.element_ << " hey\n";
         entry.info_ = EMPTY;
+      }
     }
 
+
+    /**
+    @param HashedObj  : a type T object, in our case is a string - word
+    @post             : successfully inserted the key into the hash table and return true
+    @return           : returns true if inserted successfully else false if already existed in the table
+    */
     bool Insert(const HashedObj & x) {
-      // Insert x as active
-      size_t current_pos = FindPos(x);
+    
+      size_t current_pos = FindPos(x); // find a position for this word first
       if (IsActive(current_pos))
         return false;
       
-      array_[current_pos].element_ = x;
+      array_[current_pos].element_ = x; // then assemble the HashEntry
       array_[current_pos].info_ = ACTIVE;
       
       // Rehash; see Section 5.5
@@ -97,7 +100,10 @@ class HashTable {
 
       return true;
     }
-      
+    
+    /*
+      Overload the Insert function to accept an rvalue reference input.
+    */
     bool Insert(HashedObj && x) {
       // Insert x as active
       size_t current_pos = FindPos(x);
@@ -113,6 +119,7 @@ class HashTable {
 
       return true;
     }
+
 
     // just marks is x is deleted (true) or not (active - false)
     bool Remove(const HashedObj & x) {
@@ -207,6 +214,11 @@ class HashTable {
     mutable size_t total_collision_ = 0;
 
 
+    /**
+    @param current_pos  : size_t an integer
+    @post               : if the key is already in the hash table return true
+    @return             : returns true if the info_ tag is active else false
+    */
     bool IsActive(size_t current_pos) const
     {
       return array_[current_pos].info_ == ACTIVE; 
@@ -272,7 +284,7 @@ class HashTable {
     // collision handles different 
     size_t InternalHash(const HashedObj & x) const 
     {
-      static std::hash<HashedObj> hf;
+      static std::hash<HashedObj> hf; // this is a hash function that hashes 
       return hf(x) % array_.size();
     }
 

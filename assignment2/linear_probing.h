@@ -9,14 +9,15 @@
 From textbook: Data Structures and Algorithm Analysis, fourth edition
 Chapter 5. p.207
 
-HashTableLinear is a class that stores HashedObj as the key.
+hashTable is a class that stores HashedObj as the key.
 HashEntry is a struct object that has 2 member variables, the HashedObject (element_) and info_ which is just a tag
-element_ is the one being hashed, the hase value will be the index where hashedObject will be stored.
-HashEntry.elemment_ = key
-HashEntry.info_ = just a flag
-hf(HashEntry.elemment_) = hash value or index
-*/
+element_ is the one being hashed, the hash value will be the index where hashedObject will be stored.
 
+HashEntry.element_ = key
+HashEntry.info_ = just a flag
+
+hf(HashEntry.element_) = hash value or index
+*/
 
 
 // Linear probing implementation.

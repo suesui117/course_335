@@ -3,18 +3,20 @@
 
 #include <vector>
 #include <algorithm>
-#include <functional>
+#include <functional> // its a STL where includes lambda functions
 
 /*
 From textbook: Data Structures and Algorithm Analysis, fourth edition
 Chapter 5. p.207
 
-HashTableDouble is a class that stores HashedObj as the key.
+hashTable is a class that stores HashedObj as the key.
 HashEntry is a struct object that has 2 member variables, the HashedObject (element_) and info_ which is just a tag
-element_ is the one being hashed, the hase value will be the index where hashedObject will be stored.
-HashEntry.elemment_ = key
+element_ is the one being hashed, the hash value will be the index where hashedObject will be stored.
+
+HashEntry.element_ = key
 HashEntry.info_ = just a flag
-hf(HashEntry.elemment_) = hash value or index
+
+hf(HashEntry.element_) = hash value or index
 */
 
 // double hashing implementation.
@@ -151,7 +153,8 @@ bool Contains(const HashedObj & x) const
   float loadFactor() { return static_cast<float>(current_size_) / array_.size(); }
 
 
-std::pair<bool, int> FindProbe(const HashedObj & x) const {
+std::pair<bool, int> FindProbe(const HashedObj & x) const 
+{
     size_t current_pos = InternalHash(x); // Initial hash position
     std::hash<HashedObj> hf;
     int h2x = R_ - (hf(x) % R_); // Secondary hash value

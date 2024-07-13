@@ -4,13 +4,23 @@
 
 ### Part1 - Hashing Implementations and Testings
 
-#### Table Size should be
+1. when a hash table is created, the `array_` vector size is default to 101. And initializes each HashEntry object's `element_` to empty (e.g. if `element_` is a string, it will be an empty string) and `info_` to enum EMPTY.
 
-##### One edge case is that it could not be inserted, so probe is not available
+2. each `HashEntry` struct object has two attributes:
+
+- `element_`: `element_ i` is type `ItemType` (in this project, it's a `std::string`), holds the object that is being hashed. The hash_value % table_size gives the index position of where HashEntry will be stored.
+
+- `info_`: `info_` is type enum, its a flagger for HashEntry.
+
+3. 
+
+Initially We're using std::hash<HashedObj> hf() to get the hash value of the object. Next we use this hash value % table size to get the index - this is hx_0() (first probe). If this index position is available, we insert the key. If there's
 
 Double the amount of data you expect to put into the table
 A prime number. This is because if my hash table size is, say, 100, then any hash key that's a multiple of 100 will first try to go into index 100, causing a collision after the first insert. A good hash function will scatter the data evenly throughout the hash table.
 Number of probes it took to find the next available location for the keys.
+
+probe count: h0(x) is the first attempt, so probe count is 1. If there's a collision, we then try 0 <= i < table_size. and since h1(x) = (h0(x) + 0^2) % table_size. h0(x) = hx(1)the probe count is just 1. We continue to increment i and probe count.
 
 load factor λ: (total number of elements in the hash table)/(table size), ideally no more than 0.5
 
@@ -34,7 +44,6 @@ Notes:
 1. hash functions are the calculation to get the index for initial insertion. There are 3 different types we went over, division based, bit-shifting and multiplicative (here M is NOT necessary to be a power of 2.) - and they are all for integers as the input.
 2. String encoding is a hash function only for string as the input.
 3. The goal of the above 2 hash functions is to get the index, and if there're collisions, then we're using separate chaining(linkedlist) and open address(linear, quadratic, double hashing) to resolve to a new index for insertion.
-
 
 Command to run:
 make clean && make && ./create_and_test_hash words.txt query_words.txt [quadratic, linear, double, rvalue]

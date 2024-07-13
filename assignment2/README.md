@@ -1,10 +1,13 @@
-# Project2 Hashing:
-## Purpose of the project is hashing. This project involves implementing and testing 3 hash table using different collision resolution methods: Quadratic Probing, Linear Probing, and Double Hashing.
+# Project2 Hashing
+
+## Purpose of the project is hashing. This project involves implementing and testing 3 hash table using different collision resolution methods: Quadratic Probing, Linear Probing, and Double Hashing
 
 ### Part1 - Hashing Implementations and Testings
-#### Table Size should be:
+
+#### Table Size should be
 
 ##### One edge case is that it could not be inserted, so probe is not available
+
 Double the amount of data you expect to put into the table
 A prime number. This is because if my hash table size is, say, 100, then any hash key that's a multiple of 100 will first try to go into index 100, causing a collision after the first insert. A good hash function will scatter the data evenly throughout the hash table.
 Number of probes it took to find the next available location for the keys.

@@ -224,7 +224,7 @@ size_t FindPos(const HashedObj & x) const
     int probe_counter = 1; // count the first search as one probe
     size_t temp = current_pos; // Start with initial hash value
 
-    std::cout << "\n\n\n\nKey to be inserted is: " << x <<" and its h2(x) is: " << h2x << " its h(x) is " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? " Empty/deleted" : " NOT-EMPTY --> ") << array_[current_pos].element_ << " <-- "<< InternalHash(array_[current_pos].element_)<< "\n";
+    // std::cout << "\n\n\n\nKey to be inserted is: " << x <<" and its h2(x) is: " << h2x << " its h(x) is " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? " Empty/deleted" : " NOT-EMPTY --> ") << array_[current_pos].element_ << " <-- "<< InternalHash(array_[current_pos].element_)<< "\n";
 
     // will only enter the loop if collision occurred
     while (array_[temp].info_ != EMPTY && array_[temp].element_ != x) 
@@ -232,23 +232,23 @@ size_t FindPos(const HashedObj & x) const
         ++total_collision_;
         ++probe_counter; // as soon as we enter the while loop, need to increment the probe
 
-        std::cout << "While loop entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << temp << ((array_[temp].info_ == 1 || array_[temp].info_ == 2 ) ? " Empty/deleted" : " NOT-EMPTY --> ") << array_[temp].element_ << " <--\n";
+        // std::cout << "While loop entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << temp << ((array_[temp].info_ == 1 || array_[temp].info_ == 2 ) ? " Empty/deleted" : " NOT-EMPTY --> ") << array_[temp].element_ << " <--\n";
 
         temp = (current_pos + i * h2x) % array_.size(); // Compute i-th probe, current_pos is the result of h(x)
         ++i;
 
 
-        std::cout << "NEW double hashed value After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its double hashed value is: ---------> " << temp << " <-------- and at this index is " << ((array_[temp].info_ == 1 || array_[temp].info_ == 2 ) ? "Empty/deleted" : "NOT_EMPTY ") << array_[temp].element_ << "\n";
+        // std::cout << "NEW double hashed value After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its double hashed value is: ---------> " << temp << " <-------- and at this index is " << ((array_[temp].info_ == 1 || array_[temp].info_ == 2 ) ? "Empty/deleted" : "NOT_EMPTY ") << array_[temp].element_ << "\n";
 
         if (array_[temp].info_ == EMPTY || array_[temp].element_ == x)
         {
-            std::cout << "We're good to exit now, NEW double hashed value After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its double hashed value is: ---------> " << temp << " <-------- and at this index is " << ((array_[temp].info_ == 1 || array_[temp].info_ == 2 ) ? "Empty/deleted" : "NOT_EMPTY ") << array_[temp].element_ << " TOTAL PROBE is " << probe_counter << "\n";
+            // std::cout << "We're good to exit now, NEW double hashed value After offsetting I entered: " <<  "Key to be inserted is: " << x <<" and its double hashed value is: ---------> " << temp << " <-------- and at this index is " << ((array_[temp].info_ == 1 || array_[temp].info_ == 2 ) ? "Empty/deleted" : "NOT_EMPTY ") << array_[temp].element_ << " TOTAL PROBE is " << probe_counter << "\n";
             return temp;
         }
 
     }
 
-    std::cout << "NO COLLISION Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") << array_[current_pos].element_ << " TOTAL PROBE is " << probe_counter <<"\n";
+    // std::cout << "NO COLLISION Key to be inserted is: " << x <<" and its hashed value is: " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? "Empty/deleted" : "NOT empty ") << array_[current_pos].element_ << " TOTAL PROBE is " << probe_counter <<"\n";
 
     return current_pos;
 }

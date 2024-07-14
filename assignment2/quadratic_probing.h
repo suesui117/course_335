@@ -11,43 +11,43 @@ From textbook: Data Structures and Algorithm Analysis, fourth edition
 Chapter 5. p.207
 */
 
-namespace {
-
-/**
-  @param n  : The number to be checked for primality.
-  @return   : Returns true if the number is prime; otherwise, returns false.
-*/
-bool IsPrime(size_t n) {
-  if( n == 2 || n == 3 )
-    return true;
-  
-  if( n == 1 || n % 2 == 0 )
-    return false;
-  
-  for( int i = 3; i * i <= n; i += 2 )
-    if( n % i == 0 )
+namespace 
+{
+  /**
+   * @param n  : The number to be checked for primality.
+   * @return   : Returns true if the number is prime; otherwise, returns false.
+  */
+  bool IsPrime(size_t n) {
+    if( n == 2 || n == 3 )
+      return true;
+    
+    if( n == 1 || n % 2 == 0 )
       return false;
-  
-  return true;
-}
+    
+    for( int i = 3; i * i <= n; i += 2 )
+      if( n % i == 0 )
+        return false;
+    
+    return true;
+  }
 
 
-/**
-  @param n  : n is the starting number to find the next prime.
-  @return   : Returns the smallest prime number that is greater than or equal to n.
-*/
-int NextPrime(size_t n) {
-  if (n % 2 == 0)
-    ++n;  
-  while (!IsPrime(n)) n += 2;  
-  return n;
-}
+  /**
+   * @param n  : n is the starting number to find the next prime.
+   * @return   : Returns the smallest prime number that is greater than or equal to n.
+  */
+  int NextPrime(size_t n) {
+    if (n % 2 == 0)
+      ++n;  
+    while (!IsPrime(n)) n += 2;  
+    return n;
+  }
 
-}  // namespace
+}  // namespace ends
 
 
 // Quadratic probing implementation.
-// create a class called Hashtable which holds HashedObj as the key
+// create a class called Hashtable which holds hashEntry as the key
 template <typename HashedObj>
 class HashTable {
 
@@ -67,9 +67,9 @@ class HashTable {
     // Q1 B), modify Contains to do the job of Found/Not_Found
     bool Contains(const HashedObj & x) const 
     {
-    // quick note, Contains already does the check multiple times to see if a key is found or not,
-    // check with prof, if not found, do you still want the probe count?
-    return IsActive(FindPos(x));
+      // quick note, Contains already does the check multiple times to see if a key is found or not,
+      // check with prof, if not found, do you still want the probe count?
+      return IsActive(FindPos(x));
     }
 
 
@@ -286,7 +286,7 @@ class HashTable {
    
     // private member function 3
     /**
-      @post Rehashes the hash table by doubling its size and reinserting all active elements from the old table.
+      @post : Rehashes the hash table by doubling its size and reinserting all active elements from the old table.
       Leverages move semantics with Insert(std::move(entry.element_)) for efficient element transfer.
     */
     void Rehash() 
@@ -309,8 +309,8 @@ class HashTable {
     // private member function 3
     // collision handles different 
     /**
-    @param x The object to be hashed using std::hash<HashedObj>.
-    @return The hashed value of x modulo the current size of the hash table (array_).
+    @param x  : The object to be hashed using std::hash<HashedObj>.
+    @return   : The hashed value of x modulo the current size of the hash table (array_).
     */
     size_t InternalHash(const HashedObj & x) const 
     {

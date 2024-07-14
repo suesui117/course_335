@@ -25,43 +25,45 @@ void TestFunctionForHashTable
     std::cout << "Before insertion elements count is: " << hash_table.size() << "\n";
 
 
-    // ifstream words_file(words_filename); // words_file is file handler
-    // string word;
+    ifstream words_file(words_filename); // words_file is file handler
+    string word;
 
-    // while (getline(words_file, word)) // reading into word
-    // {
-    //     if (!hash_table.Insert(word))
-    //     {
-    //         std::cout << "could not be inserted\n";
-    //     }
+    while (getline(words_file, word)) // reading into word
+    {
+        if (!hash_table.Insert(word))
+        {
+            std::cout << "could not be inserted\n";
+        }
 
-    // }
+    }
 
 
-    // if (param_flag == "quadratic")
-    //     std::cout << "\nThis is quadratic_probing: \n";
-    // else if(param_flag == "linear")
-    //     std::cout << "\nThis is linear_probing: \n";
-    // else if(param_flag == "double")
-    //     std::cout << "\nThis is double_hashing: \n";
+    if (param_flag == "quadratic")
+        std::cout << "\nThis is quadratic_probing:\n\n";
+    else if(param_flag == "linear")
+        std::cout << "\nThis is linear_probing:\n\n";
+    else if(param_flag == "double")
+        std::cout << "\nThis is double_hashing:\n\n" << "r_value: " << R << "\n";
 
-    // std::cout << "number_of_elements: " <<hash_table.size() <<
-    // "\nsize_of_table: " << hash_table.tableSize() << 
-    // "\nload_factor: " << hash_table.loadFactor() <<
-    // "\ncollisions: " << hash_table.totalCollision() <<
-    // "\navg_collisions: " << hash_table.averageCollision() << "\n\n";
 
-    // ifstream query_file(query_filename); // words_file is file handler
-    // string query;
-    // while (getline(query_file, query)) // reading into query
-    // {
-    //     hash_table.Contains(query);
-    //     auto [flag, probe] = hash_table.FindProbe(query);
-    //     if (flag)
-    //         std::cout << query <<" Found " << probe << "\n";
-    //     else
-    //         std::cout << query <<" Not_Found " << probe << "\n";
-    // }
+    std::cout << "number_of_elements: " <<hash_table.size() <<
+    "\nsize_of_table: " << hash_table.tableSize() << 
+    "\nload_factor: " << hash_table.loadFactor() <<
+    "\ncollisions: " << hash_table.totalCollision() <<
+    "\navg_collisions: " << hash_table.averageCollision() << "\n\n";
+
+
+    ifstream query_file(query_filename); // words_file is file handler
+    string query;
+    while (getline(query_file, query)) // reading into query
+    {
+        hash_table.Contains(query);
+        auto [flag, probe] = hash_table.FindProbe(query);
+        if (flag)
+            std::cout << query <<" Found " << probe << "\n";
+        else
+            std::cout << query <<" Not_Found " << probe << "\n";
+    }
 }
 
 
@@ -102,7 +104,6 @@ int testHashingWrapper(int argument_count, char **argument_list)
 
     else if (param_flag == "double") 
     {
-        cout << "r_value: " << R << endl;
         HashTableDouble<string> double_probing_table(101, R);
         TestFunctionForHashTable(double_probing_table, words_filename,
         			 query_filename, param_flag, R);

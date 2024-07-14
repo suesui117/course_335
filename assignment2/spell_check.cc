@@ -92,6 +92,8 @@ int testSpellingWrapper(int argument_count, char** argument_list)
     return 0;
 }
 
+
+
 // Sample main for program spell_check.
 // WE WILL NOT USE YOUR MAIN IN TESTING. DO NOT CODE FUNCTIONALITY INTO THE
 // MAIN. WE WILL DIRECTLY CALL testSpellingWrapper. ALL FUNCTIONALITY SHOULD BE

@@ -48,7 +48,7 @@ int main()
     std::vector<Customer> heapVec = my_heap.getHeapVec();
     std::vector<Customer> history;
 
-    std::cout << "\nBefore sorting by service time: from smallest to largest\n";
+    std::cout << "\nBefore sorting by service time from smallest to largest\n";
     while(!my_heap.IsEmpty()) // keep deleting till its empty
     {        
         auto deleted = my_heap.DeleteMax();

@@ -23,10 +23,10 @@ start offset = 1, increment current position by offset, and increment offset by 
 
 3. Implement Double Hashing:
 
-   - m = array\_.tableSize()
-   - Hash value: x = hf(x)
-   - Initial hash function: h(x) = x \% m
-   - Secondary hash function: hash2(x) = R - \(x \% R\) (from textbook p.207)
+   - `m = array.tableSize()`
+   - Hash value: `x = hf(x)`
+   - Initial hash function: `h(x) = x \% m`
+   - Secondary hash function: `hash2(x) = R - (x % R)` (from textbook p.207)
 
    Double Hashing Process:
    - Hash Value: `x = hf(x)`
@@ -44,10 +44,10 @@ start offset = 1, increment current position by offset, and increment offset by 
 2. Read in an article `document1.txt`, pre-process each word: such as converting to lowercase, removing punctuation, split by `-`, removing trailings.
 3. After words are cleaned up, pass them into the dictionary; if found, print e.g. `early is CORRECT`.
 4. If not found, fix the misspelled word by one of the three methods:
-   - Adding one character** in any possible position
-   - Removing one character** from the word
-   - Swapping adjacent characters** from the word
-Finally, print out the misspelled word along with its corrected form and method used.
+   - Adding one character in any possible position
+   - Removing one character from the word
+   - Swapping adjacent characters from the word
+   - Finally, print out the misspelled word along with its corrected form and method used.
 
 ### Notes
 

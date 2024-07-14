@@ -24,22 +24,20 @@ start offset = 1, increment current position by offset, and increment offset by 
 2. Implement Linear Probing: increment current_position by 1. A probe is an effort made to find an available location. Downside is primary clustering, tend to form clusters.
 
 3. Implement Double Hashing:
+   - \( m = \text{array\_.tableSize()} \)
+   - Hash value: \( x = \text{hf(x)} \)
+   - Initial hash function: \( h(x) = x \% m \)
+   - Secondary hash function: \( \text{hash2}(x) = R - (x \mod R) \) (from textbook p.207)
 
-\[ m = \text{array\_.tableSize()} \]
-Hash value: \( \text{int } x = \text{hf(x)} \)
-Initial hash function: \( h(x) = x \% m \)
-Secondary hash function: \( \text{hash2}(x) = R - (x \mod R) \) (from textbook p.207)
+   Double Hashing Process:
 
-Double Hashing Process:
+   - Hash Value: \( x = \text{hf(x)} \)
+   - 1st Attempt (Probe 1): \( h(x) = x \% m \)
+   - 2nd Attempt (Probe 1): \( (h(x) + 0 \times \text{hash2}(x)) \% m \)
+   - 3rd Attempt (Probe 2): \( (h(x) + 1 \times \text{hash2}(x)) \% m \)
+   - 4th Attempt (Probe 3): \( (h(x) + 3 \times \text{hash2}(x)) \% m \)
 
-Hash Value: \( x = \text{hf(x)} \)
-1st Attempt (Probe 1): \( h(x) = x \% m \)
-2nd Attempt (Probe 1): \( (h(x) + \text{hash2}(x) \times 0) \% m \)
-3rd Attempt (Probe 2): \( (h(x) + \text{hash2}(x) \times 1) \% m \)
-4th Attempt (Probe 3): \( (h(x) + \text{hash2}(x) \times 3) \% m \)
-
-For each attempt \( i \) from 1 to \( m \), the hash function adjusts the probe sequence to handle collisions effectively. This method combines a primary hash function \( h(x) = x \% m \) with a secondary hash function \( \text{hash2}(x) \).
-
+   For each attempt \( i \) from 1 to \( m \), the hash function adjusts the probe sequence to handle collisions effectively. This method combines a primary hash function \( h(x) = x \% m \) with a secondary hash function \( \text{hash2}(x) \).
 
 ### Part2 - Spelling Checking
 

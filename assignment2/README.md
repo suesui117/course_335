@@ -60,10 +60,19 @@ It's then passed-by-reference to the 3 function calls. If any function sets it t
 A prime number. This is because if my hash table size is, say, 100, then any hash key that's a multiple of 100 will first try to go into index 100, causing a collision after the first insert. A good hash function will scatter the data evenly throughout the hash table.
 Number of probes it took to find the next available location for the keys.
 
-Command to run:  
-`make clean && make all && ./create_and_test_hash words.txt query_words.txt [quadratic, linear, double, rvalue]`
+## Command to run
 
-`make clean && make all && ./spell_check document1_short.txt wordsEn.txt`
+### Populate a hash table
+
+```bash
+make clean && make all && ./create_and_test_hash words.txt query_words.txt [quadratic, linear, double, rvalue]
+```
+
+### Spell Checker
+
+```bash
+make clean && make all && ./spell_check document1_short.txt wordsEn.txt
+```
 
 References:
 

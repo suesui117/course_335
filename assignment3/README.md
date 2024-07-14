@@ -1,6 +1,6 @@
 # Project3 Priority Queue and Heap
 
-## Purpose of the project is to build a max heap. We'll be implementing a simple Customer class with 2 attributes - priority_level and service_time. Priority_level will be the comparables in building the max heap. Heap is the best choice to implement priority queue, here customer prioritylevel is the priority, ranking from largest to smallest
+## Purpose of the project is to build a max heap. We'll be implementing a simple Customer class with 2 attributes - `priority_level_` and `service_time_`. `priority_level_` will be the comparables in building the max heap. Heap is the best choice to implement priority queue, here customer prioritylevel is the priority, ranking from largest to smallest
 
 ### Customer class: has 3 member variables, `name_`, `priority_level_` and `service_time_`. Priority_level will be randomly generated between integer 0 to 100. `service_time_` will be randomly generated between integer 0 and 60
 

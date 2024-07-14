@@ -1,6 +1,6 @@
 # Project3 Priority Queue and Heap
 
-## Purpose of the project is to build a max heap. We'll be implementing a simple Customer class with 2 attributes - `priority_level_` and `service_time_`. `priority_level_` will be the comparables in building the max heap. Heap is the best choice to implement priority queue, here customer `priority_level_` is the priority, ranking from largest to smallest. Then we will delete the customers one by one from the max heap and push to a history vector which will then be sorted based on `service_time_` from smallest to largest
+## Purpose of the project is to build a max heap. We'll be implementing a simple Customer class with 2 attributes - `priority_level_` and `service_time_`. `priority_level_` will be the comparables in building the max heap. Heap is the best choice to implement priority queue, here customer `priority_level_` is the priority, ranking from largest to smallest. Then we will delete the customers one by one from the max heap and push them to a history vector which will then be sorted based on `service_time_` from smallest to largest
 
 ### Customer class: has 3 member variables, `name_`, `priority_level_` and `service_time_`. Priority_level will be randomly generated between integer 0 to 100. `service_time_` will be randomly generated between integer 0 and 60. The class includes overloaded comparison operators to compare Customer objects based on their priority_level_, enabling them to be used effectively in heap structures
 
@@ -12,7 +12,7 @@
 
 #### The Heap class uses a vector with 1-based indexing to simplify calculations for root and children (where index 0 serves as a dummy). currentSize_ represents the number of elements stored in the heap
 
-#### Next step is to delete from max heap one by one, and push it to a history vector, which will then be sorted based on `service_time_` from smallest to largest
+#### Next step is to delete from max heap one by one, and push it to a history vector, which will then be sorted based on `service_time_` from smallest to largest. Note: after deleting the maximum element, the order of remaining elements in the heap may not match the original. This is because the heap restructures itself to maintain the max heap property, where the largest element is always at the root, ensuring efficient retrieval of max values
 
 #### notes
 

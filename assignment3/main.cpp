@@ -31,7 +31,7 @@ int main()
     /************* Create a few customers **************/
 
 
-    
+
     /************* Test to for max heap property **************/
 
     std::cout << "size of heap is now: " << my_heap.getHeapVec().size() << "\n";

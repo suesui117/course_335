@@ -35,8 +35,8 @@ class HashTableDouble{
   // like HashTableDouble sue(200); or HashTableDouble sue;, cannot do HashTableDouble sue = 200;
   explicit HashTableDouble(size_t size = 101, int R = 89) : array_(NextPrime(size)), R_(R)
     { 
-      std::cout << "size of table is" << size;
-      std::cout << "size of arraytable is" << array_.size();
+      std::cout << "size of table is" << size << "\n";
+      std::cout << "size of array table size is" << array_.size() << "\n";
 
       MakeEmpty(); 
     }
@@ -155,9 +155,9 @@ bool Contains(const HashedObj & x) const
 
 std::pair<bool, int> FindProbe(const HashedObj & x) const 
 {
-    size_t current_pos = InternalHash(x); // Initial hash position
+    size_t current_pos = InternalHash(x); // Initial hash function
     std::hash<HashedObj> hf;
-    int h2x = R_ - (hf(x) % R_); // Secondary hash value
+    int h2x = R_ - (hf(x) % R_); // Secondary hash function
     int probe_counter = 1; // Count the first search as one probe
     int temp = current_pos; // using temp, as we're not changing h(x), it remains unchanged
     int i = 1;
@@ -217,14 +217,15 @@ std::pair<bool, int> FindProbe(const HashedObj & x) const
     // this is the double_hashing section
 size_t FindPos(const HashedObj & x) const 
 {
-    size_t current_pos = InternalHash(x); // h(x) = hf(x) % array_.size()
+    size_t current_pos = InternalHash(x); // Initial hash position: h(x) = hf(x) % array_.size()
     std::hash<HashedObj> hf;
-    int h2x = R_ - (hf(x) % R_); // h2(x) = hash2(x) = R - (x mod R).  we're using hf(x) = hash value, NOT h(x). hf(x) not the same as h(x) 
+    int h2x = R_ - (hf(x) % R_); // Secondary hash value: h2(x) = hash2(x) = R - (x mod R).  we're using hf(x) = hash value, NOT h(x). hf(x) not the same as h(x) 
     int i = 1; // Start with 1 and increment in the loop
     int probe_counter = 1; // count the first search as one probe
     size_t temp = current_pos; // Start with initial hash value
 
-    // std::cout << "\n\n\n\nKey to be inserted is: " << x <<" and its h2(x) is: " << h2x << " its h(x) is " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? " Empty/deleted" : " NOT-EMPTY --> ") << array_[current_pos].element_ << " <-- "<< InternalHash(array_[current_pos].element_)<< "\n";
+    std::cout << "\n\n\n\nKey to be inserted is: " << x <<" and its h2(x) is: " << h2x << " its h(x) is " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? " Empty/deleted" : " NOT-EMPTY --> ") << array_[current_pos].element_ << " <-- "<< InternalHash(array_[current_pos].element_)<< "\n";
+    std::cout << "This is the current_pos of double hashing: " << current_pos << "\n";
 
     // will only enter the loop if collision occurred
     while (array_[temp].info_ != EMPTY && array_[temp].element_ != x) 
@@ -234,6 +235,7 @@ size_t FindPos(const HashedObj & x) const
 
         // std::cout << "While loop entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << temp << ((array_[temp].info_ == 1 || array_[temp].info_ == 2 ) ? " Empty/deleted" : " NOT-EMPTY --> ") << array_[temp].element_ << " <--\n";
 
+        std::cout << "This is the current_pos of double hashing: " << current_pos << "\n";
         temp = (current_pos + i * h2x) % array_.size(); // Compute i-th probe, current_pos is the result of h(x)
         ++i;
 

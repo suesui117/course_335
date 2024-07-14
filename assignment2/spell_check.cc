@@ -48,8 +48,8 @@ HashTableDouble<string> MakeDictionary(const string &dictionary_file)
 
 
 
-// case 1: adding one character in any possible position
-void addChar(const std::string& token, const HashTableDouble<std::string>& dictionary) 
+// case a: adding one character in any possible position
+bool addChar(const std::string& token, const HashTableDouble<std::string>& dictionary, bool& found ) 
 {
     std::string new_word;
 
@@ -58,42 +58,57 @@ void addChar(const std::string& token, const HashTableDouble<std::string>& dicti
             new_word = token.substr(0, i) + c + token.substr(i);
 
             // Check if the modified word exists in the dictionary
-            if ( dictionary.Contains(new_word) ) {
+            if ( dictionary.Contains(new_word) ) 
+            {
+                found = true;
                 std::cout << "** " << token << " -> " << new_word << "\t** case a\n";
                 // return; // we want all possible combinations
             }
         }
     }
 
-    // If no corrections found, print that the word was not found
-    // std::cout << "not found ->>> " << token << "\n";
+    return found;
 }
 
 
-
-void removeChar(const std::string& token, const HashTableDouble<std::string>& dictionary)
+// case b: removing one character from the word
+bool removeChar(const std::string& token, const HashTableDouble<std::string>& dictionary, bool& found)
 {
   std::string new_word;
   for (size_t i = 0; i < token.size(); ++i) 
   {
     // subtr(0,0) is [start, end), thus returns empty string
-    std::string new_word = token.substr(0, i) + token.substr(i + 1);
+    new_word = token.substr(0, i) + token.substr(i + 1);
 
     if (dictionary.Contains(new_word)) 
     {
+      found = true;
       std::cout << "** " << token << " -> " << new_word << "\t** case b\n";
     } 
   }
-      
-      // std::cout << "** " << token << " -> " << " case b\n";
 
+  return found;
 }
 
-void swapChar(const std::string& token, const HashTableDouble<std::string>& dictionary)
+bool swapChar(const std::string& token, const HashTableDouble<std::string>& dictionary, bool& found)
 {
-    // std::cout << "** " << token << " -> " << " case c\n";
+    std::string new_word;
 
+    for (size_t i = 0; i < token.length() - 1; ++i) 
+    {
+        new_word = token; // copy constant token to a new string
+        std::swap(new_word[i], new_word[i + 1]); // Swaps the character at index i with the next character. Each swap generates a new permutation of the string. Swaps involving the first or last character are unique, while swaps involving non-boundary characters may produce duplicate permutations.
+  
+        if (dictionary.Contains(new_word)) 
+        {
+          found = true;
+          std::cout << "** " << token << " -> " << new_word << "\t** case c\n";
+        }
+    }
+
+    return found;
 }
+
 
 
 
@@ -134,12 +149,24 @@ void SpellChecker(const HashTableDouble<std::string>& dictionary, const std::str
                   }
                   else
                   {
+                    /**
+                     * bool found is initially false
+                     * then it's passed by reference to the 3 function calls; if any function sets it to true, it remains true throughout.
+                     * If none of the functions set it to true, it will remain false, means cannot fix the word, thus remains INCORRECT.
+                     */
+                    bool found = false;
+
                     // else should try 3 different methods:
                     std::cout << token << " is INCORRECT\n";
 
-                    addChar(token, dictionary);
-                    removeChar(token, dictionary);
-                    swapChar(token, dictionary);
+                    addChar(token, dictionary, found);
+                    removeChar(token, dictionary, found);
+                    swapChar(token, dictionary, found);
+
+                    if (!found)
+                    {
+                      std::cout << token << " is not in the dictionary, or cannot be fixed\n";
+                    }
 
                   }
                 }

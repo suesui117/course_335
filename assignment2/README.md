@@ -48,6 +48,8 @@ start offset = 1, increment current position by offset, and increment offset by 
    - Removing one character from the word
    - Swapping adjacent characters from the word  
 Finally, print out the misspelled word along with its corrected form and method used.
+5. I used a bool found flag initially set to false `bool found = false`.  
+It's passed-by-reference to the 3 function calls. If any function sets it to true, it remains true throughout. If none of the functions set it to true, it will remain false, means cannot fix the word, thus remains INCORRECT.  
 
 ### Notes
 

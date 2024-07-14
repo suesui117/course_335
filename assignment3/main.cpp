@@ -54,6 +54,8 @@ int main()
         auto deleted = my_heap.DeleteMax();
         deleted.SetServiceTime();
         history.push_back(deleted);
+        // here the deleted customer's priority might not match the exact order from original heap
+        // because when a max element is removed, the heap re-structures itself, but max heap property remains unchanged.
         std::cout << deleted.GetName() << "\t has a priority of -> " << deleted.GetPriorityLevel() <<" and has a time stamp of " << deleted.GetServiceTime() << "\n";
     }
     /************* Test returned deleted max customer and store in history  **************/

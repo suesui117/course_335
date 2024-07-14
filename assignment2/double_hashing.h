@@ -34,10 +34,7 @@ class HashTableDouble{
   // constructor, explicitly specifying a size:
   // like HashTableDouble sue(200); or HashTableDouble sue;, cannot do HashTableDouble sue = 200;
   explicit HashTableDouble(size_t size = 101, int R = 89) : array_(NextPrime(size)), R_(R)
-    { 
-      std::cout << "size of table is" << size << "\n";
-      std::cout << "size of array table size is" << array_.size() << "\n";
-
+    {
       MakeEmpty(); 
     }
   
@@ -224,8 +221,8 @@ size_t FindPos(const HashedObj & x) const
     int probe_counter = 1; // count the first search as one probe
     size_t temp = current_pos; // Start with initial hash value
 
-    std::cout << "\n\n\n\nKey to be inserted is: " << x <<" and its h2(x) is: " << h2x << " its h(x) is " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? " Empty/deleted" : " NOT-EMPTY --> ") << array_[current_pos].element_ << " <-- "<< InternalHash(array_[current_pos].element_)<< "\n";
-    std::cout << "This is the current_pos of double hashing: " << current_pos << "\n";
+    // std::cout << "\n\n\n\nKey to be inserted is: " << x <<" and its h2(x) is: " << h2x << " its h(x) is " << current_pos << " and at this index is " << ((array_[current_pos].info_ == 1 || array_[current_pos].info_ == 2 ) ? " Empty/deleted" : " NOT-EMPTY --> ") << array_[current_pos].element_ << " <-- "<< InternalHash(array_[current_pos].element_)<< "\n";
+    // std::cout << "This is the current_pos of double hashing: " << current_pos << "\n";
 
     // will only enter the loop if collision occurred
     while (array_[temp].info_ != EMPTY && array_[temp].element_ != x) 
@@ -235,7 +232,7 @@ size_t FindPos(const HashedObj & x) const
 
         // std::cout << "While loop entered: " <<  "Key to be inserted is: " << x <<" and its hashed value is: " << temp << ((array_[temp].info_ == 1 || array_[temp].info_ == 2 ) ? " Empty/deleted" : " NOT-EMPTY --> ") << array_[temp].element_ << " <--\n";
 
-        std::cout << "This is the current_pos of double hashing: " << current_pos << "\n";
+        // std::cout << "This is the current_pos of double hashing: " << current_pos << "\n";
         temp = (current_pos + i * h2x) % array_.size(); // Compute i-th probe, current_pos is the result of h(x)
         ++i;
 

@@ -7,9 +7,9 @@ spell_check.cc: A simple spell checker.
 #include <string>
 #include <sstream>
 #include <regex>
-#include <quadratic_probing.h>
-#include <linear_probing.h>
-#include <double_hashing.h>
+#include "quadratic_probing.h"
+#include "linear_probing.h"
+#include "double_hashing.h"
 
 using namespace std;
 
@@ -44,6 +44,8 @@ HashTableDouble<string> MakeDictionary(const string &dictionary_file)
     "\navg_collisions: " << dictionary_hash.averageCollision() << "\n\n";
 
 
+    std::cout << "\nAfter insertion table size is: " << dictionary_hash.tableSize() << "\n";
+    std::cout << "After insertion elements count is: " << dictionary_hash.size() << "\n\n";
     return dictionary_hash;
 }
 
@@ -59,8 +61,7 @@ void SpellChecker(const HashTableDouble<string>& dictionary,
 
     size_t start = line.find_first_not_of(" \t\r\n");
     size_t end = line.find_last_not_of(" \t\r\n");
-    // Read each line from the file
-    std::regex pattern("\\s+");
+
 
 
     while (getline(words_file, line)) {
@@ -70,8 +71,12 @@ void SpellChecker(const HashTableDouble<string>& dictionary,
         
         while (ss >> word)
         {
-          if(dictionary.Contains(word))
-            std::cout << "Word is: ->>> " << word << " " << dictionary.Contains(word) << " \n";
+          // short lambda function to conver to all lower case
+          std::transform(word.begin(), word.end(), word.begin(),
+                   [](unsigned char c){ return std::tolower(c); });
+          std::cout << word << "\n";
+          // if(dictionary.Contains(word))
+          //   std::cout << "Word is: ->>> " << word << " " << dictionary.Contains(word) << " \n";
         }
     }
 

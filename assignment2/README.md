@@ -14,9 +14,7 @@
 
 4. load factor `λ`: $\frac{\text{total number of elements in the hash table}}{\text{table size}}$, ideally no more than 0.5. If the table is even one more than half full, the insertion could fail (although this is extremely unlikely). Therefore, it is important to keep this in mind. It is also crucial that the table size be prime. If the table size is not prime, the number of alternative locations can be severely reduced.
 
-5. ok
-
-Collisions:
+Collisions Resolution:
 
 1. Quadratic probing implementation is provided to us, we needed to implement helper functions to get the deliverables - total collisions, average collisions, number of probes it took to find the next available location for the keys.
 start offset = 1, increment current position by offset, and increment offset by 2.
@@ -42,7 +40,8 @@ start offset = 1, increment current position by offset, and increment offset by 
 
 ### Part2 - Spelling Checking
 
-1.
+1. Read in from `wordsEn.txt` to make a dictionary, size of `109,582`
+2. Read in an article `document1.txt` and converts all words/strings to lower case
 
 ### Notes
 
@@ -54,7 +53,9 @@ A prime number. This is because if my hash table size is, say, 100, then any has
 Number of probes it took to find the next available location for the keys.
 
 Command to run:
-`make clean && make && ./create_and_test_hash words.txt query_words.txt [quadratic, linear, double, rvalue]`
+`make clean && make all && ./create_and_test_hash words.txt query_words.txt [quadratic, linear, double, rvalue]`
+
+`make clean && make all && ./spell_check document1_short.txt wordsEn.txt`
 
 References:
 

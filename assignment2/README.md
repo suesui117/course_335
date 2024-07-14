@@ -25,20 +25,20 @@ start offset = 1, increment current position by offset, and increment offset by 
 
 3. Implement Double Hashing:
 
-   - \( m = array\_.tableSize() \)
-   - Hash value: \( x = hf(x) \)
-   - Initial hash function: \( h(x) = x \% m \)
-   - Secondary hash function: \( \text{hash2}(x) = R - (x \mod R) \) (from textbook p.207)
+   - m = array\_.tableSize()
+   - Hash value: x = hf(x)
+   - Initial hash function: h(x) = x \% m
+   - Secondary hash function: hash2(x) = R - \(x \% R\) (from textbook p.207)
 
    Double Hashing Process:
+   - Hash Value: `x = hf(x)`
+   - 1st Attempt (Probe 1): `h(x) % m`
+   - 2nd Attempt (Probe 1): `(h(x) + 0 * hash2(x)) % m`
+   - 3rd Attempt (Probe 2): `(h(x) + 1 * hash2(x)) % m`
+   - 4th Attempt (Probe 3): `(h(x) + 2 * hash2(x)) % m`
+   - subsequent (Probe i+1 )`(h(x) + i * hash2(x)) % m`
 
-   - Hash Value: \( x = hf(x) \)
-   - 1st Attempt (Probe 1): \( h(x) \% m \)
-   - 2nd Attempt (Probe 1): \( (h(x) + 0 \times \text{hash2}(x)) \% m \)
-   - 3rd Attempt (Probe 2): \( (h(x) + 1 \times \text{hash2}(x)) \% m \)
-   - 4th Attempt (Probe 3): \( (h(x) + 3 \times \text{hash2}(x)) \% m \)
-
-   For each attempt \( i \) from 1 to \( m \), the hash function adjusts the probe sequence to handle collisions effectively. This method combines a primary hash function \( h(x) = x \% m \) with a secondary hash function \( \text{hash2}(x) \).
+   For each attempt `i` from `0 to m-1`, the hash function adjusts the probe sequence to handle collisions effectively. This method combines a primary hash function `h(x) = x % m` with a secondary hash function `hash2(x) = R - (x % R)`
 
 ### Part2 - Spelling Checking
 

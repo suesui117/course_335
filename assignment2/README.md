@@ -25,6 +25,8 @@ start offset = 1, increment current position by offset, and increment offset by 
 
 3. Implement Double Hashing:
    - \( m = \text{array\_.tableSize()} \)
+   \[ m = \text{array\_.tableSize()} \]
+
    - Hash value: \( x = \text{hf(x)} \)
    - Initial hash function: \( h(x) = x \% m \)
    - Secondary hash function: \( \text{hash2}(x) = R - (x \mod R) \) (from textbook p.207)

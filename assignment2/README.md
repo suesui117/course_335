@@ -25,7 +25,7 @@ start offset = 1, increment current position by offset, and increment offset by 
 
    - `m = array.tableSize()`
    - Hash value: `x = hf(x)`
-   - Initial hash function: `h(x) = x \% m`
+   - Initial hash function: `h(x) = x % m`
    - Secondary hash function: `hash2(x) = R - (x % R)` (from textbook p.207)
 
    Double Hashing Process:

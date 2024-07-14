@@ -1,0 +1,36 @@
+size of heap is now: 10
+chloe	 -> 78
+amy	 -> 72
+joe	 -> 65
+sue	 -> 41
+daisy	 -> 69
+jaime	 -> 15
+tony	 -> 41
+bea	 -> 11
+cathy	 -> 19
+andy	 -> 31
+
+Before sorting by service time: from smallest to largest
+chloe	 has a priority of -> 78 and has a time stamp of 34
+amy	 has a priority of -> 72 and has a time stamp of 8
+daisy	 has a priority of -> 69 and has a time stamp of 3
+joe	 has a priority of -> 65 and has a time stamp of 9
+tony	 has a priority of -> 41 and has a time stamp of 54
+cathy	 has a priority of -> 19 and has a time stamp of 8
+andy	 has a priority of -> 31 and has a time stamp of 58
+sue	 has a priority of -> 41 and has a time stamp of 47
+jaime	 has a priority of -> 15 and has a time stamp of 35
+bea	 has a priority of -> 11 and has a time stamp of 36
+
+After sorting by service time from smallest to largest
+daisy	has a time stamp of 3
+cathy	has a time stamp of 8
+amy	has a time stamp of 8
+joe	has a time stamp of 9
+chloe	has a time stamp of 34
+jaime	has a time stamp of 35
+bea	has a time stamp of 36
+sue	has a time stamp of 47
+tony	has a time stamp of 54
+andy	has a time stamp of 58
+size of heap is now: 0

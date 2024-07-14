@@ -175,8 +175,6 @@ class MaxHeap
          */
         void percolateUp(int last_index) // this is the same as heapify up time complexity is O(log n), called by insert(), which inserts at the end
         {
-            std::cout << "last_index is " << last_index << "\n";
-
             while ( last_index > 1 ) // bubbling up, stop when it becomes 1, else will swap with heapVec_[index0] if greater than heapVec_[index0]
             {
                 int parent_index = (last_index ) / 2; // get its parent

@@ -1,6 +1,6 @@
 # Project3 Priority Queue and Heap
 
-## Purpose of the project is to build a max heap. We'll be implementing a simple Customer class with 2 attributes - `priority_level_` and `service_time_`. `priority_level_` will be the comparables in building the max heap. Heap is the best choice to implement priority queue, here customer prioritylevel is the priority, ranking from largest to smallest
+## Purpose of the project is to build a max heap. We'll be implementing a simple Customer class with 2 attributes - `priority_level_` and `service_time_`. `priority_level_` will be the comparables in building the max heap. Heap is the best choice to implement priority queue, here customer `priority_level_` is the priority, ranking from largest to smallest. Then we will delete the customers one by one from the max heap and push to a history vector which will then be sorted based on `service_time_` from smallest to largest, this is a special form of min heap
 
 ### Customer class: has 3 member variables, `name_`, `priority_level_` and `service_time_`. Priority_level will be randomly generated between integer 0 to 100. `service_time_` will be randomly generated between integer 0 and 60
 
@@ -11,6 +11,8 @@
 #### Delete: To delete, the root or first element in the vector is removed, then the last element is placed at the root/first position. Now we need to precolate down. Compare the root to both of its children, whichever is larger, moves up. It keeps moving down till it's larger than both of the children or reaches the end (a leaf node)
 
 #### The Heap class uses a vector with 1-based indexing to simplify calculations for root and children (where index 0 serves as a dummy). currentSize_ represents the number of elements stored in the heap
+
+#### Next step is to delete from max heap one by one, and push it to a history vector, which will then be sorted based on `service_time_` from smallest to largest. This ascending order is a special form of min heap
 
 #### notes
 

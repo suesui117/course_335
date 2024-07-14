@@ -38,7 +38,7 @@ start offset = 1, increment current position by offset, and increment offset by 
 
    For each attempt `i` from `0 to m-1`, the hash function adjusts the probe sequence to handle collisions effectively. This method combines a primary hash function `h(x) = x % m` with a secondary hash function `hash2(x) = R - (x % R)`
 
-### Part2 - Spelling Checking using Double Hashing technique (most efficient)
+### Part2 - Spell Check Using Double Hashing Technique (most efficient)
 
 1. Read in from `wordsEn.txt` to make a dictionary, size of `109,582`.
 2. Read in an article `document1.txt`, pre-process each word: such as converting to lowercase, removing punctuation, split by `-`, removing trailings.

@@ -7,9 +7,7 @@ spell_check.cc: A simple spell checker.
 #include <string>
 #include <sstream>
 #include <regex>
-#include "quadratic_probing.h"
-#include "linear_probing.h"
-#include "double_hashing.h"
+#include "double_hashing.h" // using double hashing, most efficient
 
 using namespace std;
 
@@ -51,39 +49,49 @@ HashTableDouble<string> MakeDictionary(const string &dictionary_file)
 
 
 // case 1: adding one character in any possible position
-void addChar(const std::string& token, const HashTableDouble<std::string>& dictionary) {
-    std::cout << "** " << token << " -> " << " case a\n";
-
+void addChar(const std::string& token, const HashTableDouble<std::string>& dictionary) 
+{
     std::string new_word;
 
     for (size_t i = 0; i <= token.length(); ++i) {
         for (char c = 'a'; c <= 'z'; ++c) {
             new_word = token.substr(0, i) + c + token.substr(i);
-            // std::cout << new_word << " hi im the new word\n";
 
-            // // Check if the modified word exists in the dictionary
-            // if ( dictionary.Contains(new_word) ) {
-            //     std::cout << "Misspelled word: " << token << ", Corrected to: " << new_word << "\n";
-            //     return; // Stop after finding the first correction
-            // }
+            // Check if the modified word exists in the dictionary
+            if ( dictionary.Contains(new_word) ) {
+                std::cout << "** " << token << " -> " << new_word << "\t** case a\n";
+                // return; // we want all possible combinations
+            }
         }
     }
 
     // If no corrections found, print that the word was not found
-    std::cout << "not found ->>> " << token << "\n";
+    // std::cout << "not found ->>> " << token << "\n";
 }
 
 
 
 void removeChar(const std::string& token, const HashTableDouble<std::string>& dictionary)
 {
-      std::cout << "** " << token << " -> " << " case b\n";
+  std::string new_word;
+  for (size_t i = 0; i < token.size(); ++i) 
+  {
+    // subtr(0,0) is [start, end), thus returns empty string
+    std::string new_word = token.substr(0, i) + token.substr(i + 1);
+
+    if (dictionary.Contains(new_word)) 
+    {
+      std::cout << "** " << token << " -> " << new_word << "\t** case b\n";
+    } 
+  }
+      
+      // std::cout << "** " << token << " -> " << " case b\n";
 
 }
 
 void swapChar(const std::string& token, const HashTableDouble<std::string>& dictionary)
 {
-    std::cout << "** " << token << " -> " << " case c\n";
+    // std::cout << "** " << token << " -> " << " case c\n";
 
 }
 
@@ -106,7 +114,7 @@ void SpellChecker(const HashTableDouble<std::string>& dictionary, const std::str
                            [](unsigned char c){ return std::tolower(c); });
 
             // Remove punctuations
-            std::vector<char> punctuations = { '\'', '.', ',', '!', '"', ':', ';' };
+            std::vector<char> punctuations = { '\'', '.', ',', '!', '"', ':', ';', '[', ']' };
             for (char punctuation : punctuations)
             {
                 word.erase(std::remove(word.begin(), word.end(), punctuation), word.end());
@@ -127,7 +135,7 @@ void SpellChecker(const HashTableDouble<std::string>& dictionary, const std::str
                   else
                   {
                     // else should try 3 different methods:
-                    std::cout << token << " is CORRECT\n";
+                    std::cout << token << " is INCORRECT\n";
 
                     addChar(token, dictionary);
                     removeChar(token, dictionary);
@@ -139,6 +147,15 @@ void SpellChecker(const HashTableDouble<std::string>& dictionary, const std::str
         }
     }
 } // end spell checker
+
+
+
+
+
+
+
+
+
 
 
 
@@ -157,6 +174,7 @@ int testSpellingWrapper(int argument_count, char** argument_list)
 
     return 0;
 }
+
 
 
 

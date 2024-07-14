@@ -12,7 +12,7 @@
 
 3. Using `std::hash<HashedObj>`  hf() to get the hash value of the object, in this project HashObj will be a string - e.g. hf(x). Then use `hf(x) % table_size` to get the index position. This operation: `h0(x)` is the first attempt, so probe count is 1. If there's no collision, then we insert the key (e.g. `HashEntry`). If there's a collision, we then try `0 <= i < table_size` and since `h1(x) = (h0(x) + 0^2) % table_size`. `h0(x) = hx(1)` the probe count is just 1. We continue to increment `i` and probe count.
 
-4. load factor `λ`: (total number of elements in the hash table)/(table size), ideally no more than 0.5. If the table is even one more than half full, the insertion could fail (although this is extremely unlikely). Therefore, it is important to keep this in mind. It is also crucial that the table size be prime. If the table size is not prime, the number of alternative locations can be severely reduced.
+4. load factor `λ`: $\frac{\text{total number of elements in the hash table}}{\text{table size}}$, ideally no more than 0.5. If the table is even one more than half full, the insertion could fail (although this is extremely unlikely). Therefore, it is important to keep this in mind. It is also crucial that the table size be prime. If the table size is not prime, the number of alternative locations can be severely reduced.
 
 5. ok
 

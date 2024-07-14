@@ -46,8 +46,8 @@ start offset = 1, increment current position by offset, and increment offset by 
 4. If not found, fix the misspelled word by one of the three methods:
    - Adding one character in any possible position
    - Removing one character from the word
-   - Swapping adjacent characters from the word
-   - Finally, print out the misspelled word along with its corrected form and method used.
+   - Swapping adjacent characters from the word  
+Finally, print out the misspelled word along with its corrected form and method used.
 
 ### Notes
 

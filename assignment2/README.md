@@ -38,10 +38,16 @@ start offset = 1, increment current position by offset, and increment offset by 
 
    For each attempt `i` from `0 to m-1`, the hash function adjusts the probe sequence to handle collisions effectively. This method combines a primary hash function `h(x) = x % m` with a secondary hash function `hash2(x) = R - (x % R)`
 
-### Part2 - Spelling Checking
+### Part2 - Spelling Checking using Double Hashing technique (most efficient)
 
-1. Read in from `wordsEn.txt` to make a dictionary, size of `109,582`
-2. Read in an article `document1.txt` and converts all words/strings to lower case
+1. Read in from `wordsEn.txt` to make a dictionary, size of `109,582`.
+2. Read in an article `document1.txt`, pre-process each word: such as converting to lowercase, removing punctuation, split by `-`, removing trailings.
+3. After words are cleaned up, pass them into the dictionary; if found, print e.g. `early is CORRECT`.
+4. If not found, fix the misspelled word by one of the three methods:
+   - Adding one character** in any possible position
+   - Removing one character** from the word
+   - Swapping adjacent characters** from the word
+Finally, print out the misspelled word along with its corrected form and method used.
 
 ### Notes
 

@@ -13,7 +13,6 @@ spell_check.cc: A simple spell checker.
 
 using namespace std;
 
-// You can add more functions here.
 
 // Creates and fills double hashing hash table with all words from
 // dictionary_file
@@ -49,38 +48,100 @@ HashTableDouble<string> MakeDictionary(const string &dictionary_file)
     return dictionary_hash;
 }
 
-// For each word in the document_file, it checks the 3 cases for a word being
-// misspelled and prints out possible corrections
-void SpellChecker(const HashTableDouble<string>& dictionary,
-		  const string &document_file) 
-{
-  // open the file, parse each word,
-  // find it in the dictionary, if exists, and if correct
-    ifstream words_file(document_file); // words_file is file handler
-    string line;
-
-    size_t start = line.find_first_not_of(" \t\r\n");
-    size_t end = line.find_last_not_of(" \t\r\n");
 
 
+// case 1: adding one character in any possible position
+void addChar(const std::string& token, const HashTableDouble<std::string>& dictionary) {
+    std::cout << "** " << token << " -> " << " case a\n";
 
-    while (getline(words_file, line)) {
-        stringstream ss(line);
-        string word;
+    std::string new_word;
 
-        
-        while (ss >> word)
-        {
-          // short lambda function to conver to all lower case
-          std::transform(word.begin(), word.end(), word.begin(),
-                   [](unsigned char c){ return std::tolower(c); });
-          std::cout << word << "\n";
-          // if(dictionary.Contains(word))
-          //   std::cout << "Word is: ->>> " << word << " " << dictionary.Contains(word) << " \n";
+    for (size_t i = 0; i <= token.length(); ++i) {
+        for (char c = 'a'; c <= 'z'; ++c) {
+            new_word = token.substr(0, i) + c + token.substr(i);
+            // std::cout << new_word << " hi im the new word\n";
+
+            // // Check if the modified word exists in the dictionary
+            // if ( dictionary.Contains(new_word) ) {
+            //     std::cout << "Misspelled word: " << token << ", Corrected to: " << new_word << "\n";
+            //     return; // Stop after finding the first correction
+            // }
         }
     }
 
+    // If no corrections found, print that the word was not found
+    std::cout << "not found ->>> " << token << "\n";
 }
+
+
+
+void removeChar(const std::string& token, const HashTableDouble<std::string>& dictionary)
+{
+      std::cout << "** " << token << " -> " << " case b\n";
+
+}
+
+void swapChar(const std::string& token, const HashTableDouble<std::string>& dictionary)
+{
+    std::cout << "** " << token << " -> " << " case c\n";
+
+}
+
+
+
+// For each word in the document_file, it checks the 3 cases for a word being
+// misspelled and prints out possible corrections
+void SpellChecker(const HashTableDouble<std::string>& dictionary, const std::string& document_file)
+{
+    std::ifstream words_file(document_file);
+    std::string line;
+
+    while (std::getline(words_file, line)) {
+        std::stringstream ss(line);
+        std::string word;
+
+        while (ss >> word) {
+            // Convert to lowercase using lambda func
+            std::transform(word.begin(), word.end(), word.begin(),
+                           [](unsigned char c){ return std::tolower(c); });
+
+            // Remove punctuations
+            std::vector<char> punctuations = { '\'', '.', ',', '!', '"', ':', ';' };
+            for (char punctuation : punctuations)
+            {
+                word.erase(std::remove(word.begin(), word.end(), punctuation), word.end());
+            }
+
+            // Split by '--' and process tokens
+            std::istringstream iss(word);
+            std::string token;
+            while (std::getline(iss, token, '-')) 
+            {
+                if (!token.empty()) 
+                {
+                  // Check if token is in the dictionary
+                  if (dictionary.Contains(token)) 
+                  {
+                      // std::cout << token << " is CORRECT\n";
+                  }
+                  else
+                  {
+                    // else should try 3 different methods:
+                    std::cout << token << " is CORRECT\n";
+
+                    addChar(token, dictionary);
+                    removeChar(token, dictionary);
+                    swapChar(token, dictionary);
+
+                  }
+                }
+            }
+        }
+    }
+} // end spell checker
+
+
+
 
 // @argument_count: same as argc in main
 // @argument_list: save as argv in main.

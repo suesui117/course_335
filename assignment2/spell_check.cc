@@ -47,7 +47,6 @@ HashTableDouble<string> MakeDictionary(const string &dictionary_file)
 }
 
 
-
 // case a: adding one character in any possible position
 bool addChar(const std::string& token, const HashTableDouble<std::string>& dictionary, bool& found ) 
 {
@@ -90,6 +89,8 @@ bool removeChar(const std::string& token, const HashTableDouble<std::string>& di
   return found;
 }
 
+
+// case c: swapping adjacent characters in the word
 bool swapChar(const std::string& token, const HashTableDouble<std::string>& dictionary, bool& found)
 {
     std::string new_word;

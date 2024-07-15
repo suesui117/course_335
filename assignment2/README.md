@@ -18,7 +18,7 @@ Collisions Resolution:
 
 1. Quadratic probing involves incrementing the current_pos by an increasing quadratic offset to find the next available slot. Initially, offset is 1. With each iteration, offset is incremented by 2 (offset += 2), resulting in quadratic increments (1, 3, 5, 7, etc.).
 This quadratic increment ensures that the sequence of probed positions (current_pos) forms a quadratic pattern rather than a linear one, which can reduce clustering of hashed keys.
-First, instead of doing $$ i^2 $$ and getting the sequence 0,1,4,9,16, etc
+First, instead of doing  $i^2$ and getting the sequence 0,1,4,9,16, etc
 The code is instead starting from the number 1, and adding consecutive odd numbers to get the squares instead of running multiplication. Notice that: (0+1=1), (1+3=4), (4+5=9), (9+7=16), etc
 
 2. Implement Linear Probing: increment current_position by 1. A probe is an effort made to find an available location. Downside is primary clustering, tend to form clusters.

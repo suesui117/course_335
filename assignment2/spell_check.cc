@@ -145,7 +145,7 @@ void SpellChecker(const HashTableDouble<std::string>& dictionary, const std::str
                   // Check if token is in the dictionary
                   if (dictionary.Contains(token)) 
                   {
-                      // std::cout << token << " is CORRECT\n";
+                      std::cout << token << " is CORRECT\n";
                   }
                   else
                   {
@@ -176,17 +176,6 @@ void SpellChecker(const HashTableDouble<std::string>& dictionary, const std::str
 } // end spell checker
 
 
-
-
-
-
-
-
-
-
-
-
-
 // @argument_count: same as argc in main
 // @argument_list: save as argv in main.
 // Implements
@@ -201,8 +190,6 @@ int testSpellingWrapper(int argument_count, char** argument_list)
 
     return 0;
 }
-
-
 
 
 // Sample main for program spell_check.

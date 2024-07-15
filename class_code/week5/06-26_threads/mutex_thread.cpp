@@ -10,7 +10,7 @@ using namespace std;
 // set up 2 global variables
 map<string, string> g_pages;  // a map 
 mutex g_pages_mutex; // a mutex is a lock, when using shared memeory model, all concurrent processes, the program itself, threads1, thread2, all accessing
-// the same memory, maybe program wants to modify g_pages, threads1 maybe also modigying g_pages. 
+// the same memory, maybe program wants to modify g_pages, threads1 maybe also modifying g_pages. 
 // to solve the problem, thread1 puts a lock on g_pages once its done, it unlocks.
 // should always use mutex with threads together if have global variables. 
 
@@ -27,20 +27,18 @@ void save_page(const string &url, int second_param)
     // simulate a long page fetch
     this_thread::sleep_for(chrono::seconds(second_param)); // sleep the function for 1 second
     string result = "fake content";
- 
+    
+    
     lock_guard<mutex> guard(g_pages_mutex); // where we grab mutex, its global variable, so threads all have access to global variable.
-    // mutex itself is a lock, it locks the shared memory globals
-    
-    cout<<"Thread: "<<this_thread::get_id() << " "<<url << " " << second_param <<endl;
-    
-    lock_guard<mutex> guard(g_pages_mutex);
-    cout<<"Thread "<<this_thread::get_id()<<": "<<url<<" "<<second_param<<endl;
+    // mutex itself is a lock, it locks the shared memory globals    cout<<"Thread "<<this_thread::get_id()<<": "<<url<<" "<<second_param<<endl;
+    cout<<"Thread: " << this_thread::get_id() << " " << url << " " << second_param <<endl;
+
     g_pages[url] = result;
 }
  
 int main()
 {
-    cout<< "num of cores: " << thread::hardware_concurrency() <<endl;
+    cout<< "Parent Process: num of cores: " << thread::hardware_concurrency() << endl;
     // 8 cores = 8 cpu
     // parent takes one cpu, so a parent and 7 threads = 8 total.
     // openNP can assign what core to run your cpus on
@@ -50,36 +48,20 @@ int main()
 
     thread t1(save_page, "http://foo", 1); // thread is a class
     thread t2(save_page, "http://bar", 1); // save_page is the code you wanna it to run
-    // thread takes in fucntion pointers, and parameters of functions you wanna pass
-    // thread t3(save_page, "http://bar", 1); // save_page is the code you wanna it to run
-    // thread t4(save_page, "http://bar", 1); // save_page is the code you wanna it to run
-    // thread t5(save_page, "http://bar", 1); // save_page is the code you wanna it to run
-    // thread t6(save_page, "http://bar", 1); // save_page is the code you wanna it to run
-    // thread t7(save_page, "http://bar", 1); // save_page is the code you wanna it to run
-    // thread t8(save_page, "http://bar", 1); // save_page is the code you wanna it to run
-
-
-
-    cout<<"Parent Process: "<<"num of cores: "<<thread::hardware_concurrency()<<endl;
-    thread t1(save_page, "http://foo", 1);
-    thread t2(save_page, "http://bar", 1);
-
-    // sequential analog to threads
-    //save_page("http://foo", 1);
-    //save_page("http://bar", 1);
+    // thread takes in function pointers, and parameters of functions you wanna pass
+    
 
     //write other code you need here
-    cout<<"Parent Process: "<<"Hello"<<endl; //runs concurrently  with t1 and t2
-
-    cout<< "Hello \n" <<endl; //runs concurrently  with t1 and t2
+    cout<<"Parent Process: "<< "Hello" <<endl; //runs concurrently  with t1 and t2
 
     // while t1 is running, t2 is running as well. 
     t1.join(); //waits for thread 1 to end and then kills it
     t2.join(); //waits for thread 2 to end and then kills it
+   
  
     // t1 and t2 no longer exist
     // safe to access g_pages without lock now, as the threads are joined
     cout<<"Parent Process: ";
-    for (const auto &pair : g_pages) 
+    for (const auto& pair : g_pages) 
         cout << pair.first << " => " << pair.second << '\n';
 }

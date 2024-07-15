@@ -126,6 +126,7 @@ namespace teaching_project
             sequence_ = std::move(rhs.sequence_);
 
             rhs.size_ = 0;
+            // delete [] rhs.sequence_;
             rhs.sequence_ = nullptr;
         }
 
@@ -146,11 +147,16 @@ namespace teaching_project
                     std::cout << "hey im not empty hehe\n";
                     delete[] sequence_;
                 }
-                size_ = rhs.size_;
-                sequence_ = std::move(rhs.sequence_);
+                // size_ = rhs.size_;
+                // sequence_ = std::move(rhs.sequence_);
 
+                // rhs.size_ = 0;
+                // rhs.sequence_ = nullptr;
+                std::swap(size_, rhs.size_);
+                std::swap(sequence_, rhs.sequence_);
                 rhs.size_ = 0;
                 rhs.sequence_ = nullptr;
+
             }
 
             return *this;

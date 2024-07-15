@@ -16,14 +16,23 @@ class graph
         bool bi_directed; 
 
     public:
+    // set total number of vertices to the input which is 7
+    // and let this graph be a bi-directed true graph
+    // visited_ is set to size 7 with each element being a boolean false
+    // adj_list is set to size 7 with each element being an empty int list
+    // adj_matrix is set to size 7 with with 7 vectors, each is size 7 of 0.
         graph(int v, bool b): vertices(v), bi_directed(b), 
                               visited(vector<bool>(v,false)), 
                               adj_list(vector<list<int>>(v,list<int>())),
                               adj_matrix(vector<vector<int>>(v,vector<int>(v,0)))  
         {
             for(int i = 0; i < v; i++)    
-                adj_matrix[i][i] = 1;
+                adj_matrix[i][i] = 1; // setting the diagonal elements to 1 [1,1], [2,2], [3,3]
         }
+
+        std::vector<bool> getVisited() { return visited;}
+        std::vector<list<int>> getList() { return adj_list;}
+        std::vector<vector<int>> getVector() { return adj_matrix;}
 
         int GetNumVertices()
         {
@@ -32,26 +41,28 @@ class graph
 
         void AddEdge(int vertex, int destination)
         {
+            // user inputs a vertix, has to be between 0>= vertix > 7, same goes for destination
             if( vertex >= vertices || destination >= vertices)
             {
                 cout<<"invalid vertex"<<endl;
                 return;
             }
-            adj_list[vertex].push_back(destination);
+            // else if its valid
+            adj_list[vertex].push_back(destination); // 0th list, first element will be the other vertex
             adj_matrix[vertex][destination] = 1;
 
             if(bi_directed)
             {
-                adj_list[destination].push_back(vertex);
+                adj_list[destination].push_back(vertex); // if both ways, then also link destination to vertex
                 adj_matrix[destination][vertex] = 1;
             }
         }
 
         void PrintEdgesAtVertex(int vertex)
         {
-            cout<<"list edges at vertex "<<vertex<<endl;
-            for(auto& b: adj_list[vertex])
-                cout<<b<<endl;
+            cout << "list edges at vertex "<< vertex << endl;
+            for(auto& b : adj_list[vertex])
+                cout << b << endl;
         }
 
         void BFS(int start_vertex)
@@ -150,29 +161,49 @@ int main()
     test.AddEdge(2,5);
     test.AddEdge(2,6);
 
-    for (int i = 0; i < test.GetNumVertices(); i++)
-    {
-        cout<<"Breadth First Search: ";
-        test.BFS(i);
-        cout<<endl;
+    std::vector<std::list<int>> adj_list = test.getList();
+
+    for (int i = 0; i < adj_list.size(); ++i) {
+        std::cout << "Vertex " << i << " -> ";
+        for (auto it = adj_list[i].begin(); it != adj_list[i].end(); ++it) {
+            std::cout << *it << " ";
+        }
+        std::cout << "\n";
     }
-    
-    /*for(int i = 0; i < test.GetNumVertices(); i++)
+
+
+    // Breadth-First-Search
+    for (int i = 0; i < test.GetNumVertices(); i++)
+        {
+            cout<<"Breadth First Search: ";
+
+            test.BFS(i);
+            
+            cout<<endl;
+        }
+
+    // Depth-First-Search
+    for(int i = 0; i < test.GetNumVertices(); i++)
     {
         test.ResetVisited();
         cout<<"Depth First Search: ";
         test.DFS(i);
         cout<<endl;
     }
+
+    // Disconnected Depth First Search
     srand (time(NULL));
-    iSecret = rand() % 10 + 1;
+
+    int iSecret = rand() % 10 + 1;
     for(int i = 0; i < test.GetNumVertices(); i++)
     {
         test.ResetVisited();
         cout<<"Disconnected Depth First Search: ";
+    
         test.DisconnectedDFS(i);
         cout<<endl;
-    }*/
+    }
+
 
     return 0;
 }

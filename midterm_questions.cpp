@@ -53,21 +53,42 @@ int compute(std::list<int> &my_list)
 
 }
 
+// void printIntegers(int a, int b, int c)
+// {
+//     std::cout << a << b << c << "\n";
+// }
+
+void printIntegers(int a=0, int b, int c) // this is NOT ok
+{
+    std::cout << a << b << c << "\n";
+}
+
+// void printIntegers(int a, int b, int c=9) // this is ok
+// {
+//     std::cout << a << b << c << "\n";
+// }
+
+
 
 int main()
 {
-std::string str = "sue";
-printString(str); // lvalue passed in 
-printString("blah"); // rvalue passed in
-printString(str+"blah"); // rvalue passed in
+    int a = 1;
+    int b = 2;
+    int c = 3;
+    printIntegers(b,c);
+
+// std::string str = "sue";
+// printString(str); // lvalue passed in 
+// printString("blah"); // rvalue passed in
+// printString(str+"blah"); // rvalue passed in
 
 
-std::list<int> my_list({1,2,3,4,5});
-int result = compute(my_list);
+// std::list<int> my_list({1,2,3,4,5});
+// int result = compute(my_list);
 
-std::cout << "The average of the ints in list is: " << result << "\n";
+// std::cout << "The average of the ints in list is: " << result << "\n";
 
-printString(compute(my_list));
+// printString(compute(my_list));
 
 // declare a iterator of array with size 2
 

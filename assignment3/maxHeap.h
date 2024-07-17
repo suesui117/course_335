@@ -201,33 +201,39 @@ class MaxHeap
          * @post The subtree rooted at sub_root satisfies the max-heap property.
          */
         void percolateDown(int sub_root) // this is same as heapify down time complexity is O(log n), called by buildHeap() and deleteMax() which deletes from the root and moves last element up to the node and trickle down
-        {
-            int left = 2*sub_root;
-            int right = 2*sub_root + 1;
-            int larger_child = left;
-     
-            while( left <= currentSize_ )
+        { 
+            while (2 * sub_root <= currentSize_) // checking for at least one child is enough
             {
-                if ( right <= currentSize_ && heapVec_[right] > heapVec_[left]) // if right is within range
-                {
-                    larger_child = right;
-                }
+            int left = 2 * sub_root;
+            int right = 2 * sub_root + 1;
+            int largest = sub_root;
 
-                if (heapVec_[sub_root] < heapVec_[larger_child])
-                {
-                    std::swap(heapVec_[sub_root], heapVec_[larger_child]);
-                    
-                    sub_root = larger_child; // subroot becomes the child
-                    left = 2*sub_root; // and its children
-                    right = 2*sub_root+1;
-                }
-
-                else 
-                { 
-                    break; 
-                }
+            // Check if left child exists and is greater than the current node
+            if (left <= currentSize_ && heapVec_[left] > heapVec_[largest]) 
+            {
+                largest = left;
             }
-        } // end percolateDown
+
+            // Check if right child exists and is greater than the current largest node
+            if (right <= currentSize_ && heapVec_[right] > heapVec_[largest]) 
+            {
+                largest = right;
+            }
+
+            // If the largest node is not the current node, swap and continue
+            if (largest != sub_root) 
+            {
+                std::swap(heapVec_[sub_root], heapVec_[largest]);
+                sub_root = largest; // Move down to the largest child
+            } 
+            else 
+            {
+                break; // The subtree is now a valid max-heap
+            }
+        }
+
+
+    } // end percolateDown
 
 }; // end MaxHeap class
 

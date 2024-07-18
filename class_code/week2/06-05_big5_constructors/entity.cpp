@@ -85,11 +85,15 @@ int main()
     Entity b("1", vector<int>({1, 2})); //object created using a constructor
     Entity x("27", vector<int>({27, 37}));
     Entity c(std::move(b)); // move constructor called
-    Entity d(a);            // copy constructor called
-
-    Entity y("333", vector<int>({203, 314}));
-    b = x;       //copy assignment
-    a = move(y); //move assignment
     a.PrintInfo();
-    //cout<<"HELLOOOOOOO"<<endl;
+    b.PrintInfo();
+    x.PrintInfo();
+    c.PrintInfo();
+    // Entity d(a);            // copy constructor called
+
+    // Entity y("333", vector<int>({203, 314}));
+    // b = x;       //copy assignment
+    // a = move(y); //move assignment
+    // a.PrintInfo();
+    // //cout<<"HELLOOOOOOO"<<endl;
 }
